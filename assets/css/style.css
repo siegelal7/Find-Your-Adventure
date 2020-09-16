@@ -1,7 +1,12 @@
-.displayNone{
-    display: none;
+.displayNone {
+  display: none;
 }
 
-.display{
-    display: block;
+.display {
+  display: block;
+}
+
+.navbar {
+  justify-content: center;
+  background: cyan !important;
 }

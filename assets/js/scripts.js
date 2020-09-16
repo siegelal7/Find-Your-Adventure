@@ -2,7 +2,6 @@ $(document).ready(function () {
   /**
    * GLOBAL VARIABLES
    */
-    var topicsArray = [""];
 
   /**
    * DOM ELEMENTS
@@ -28,13 +27,14 @@ $(document).ready(function () {
   /**
    * FUNCTION   CALLS
    */
-  console.log("test3");
+
+
   /**
    * EVENT HANDLERS
    */
   activityBtn.on("click", function () {
     clearScreen();
-    activityDiv.attr("class", "display:block");
+    activityDiv.attr("class", "display");
     var header = $("<h2>");
     header.text("Which of the following activities most interests you?");
     activityDiv.append(header);
@@ -59,15 +59,17 @@ $(document).ready(function () {
   assessmentBtn.on("click", function () {
     clearScreen();
 
+    var topicsArray = ["Animals", "Arctic", "Caves, Caverns and Karst", "Forests and Woodlands", "Glaciers", "Lakes", "Monuments and Memorials", "Mountains", "Oceans", "Volcanoes", "Wilderness"];
+
     var questionHeader = $("<h1>");
     questionHeader.text("Which topic would you like to explore?");
-
-    var option1 = $("<button type='button' class='btn btn-primary'>Option1</button>");
-    var option2 = $("<button type='button' class='btn btn-primary'>Option2</button>");
-    var option3 = $("<button type='button' class='btn btn-primary'>Option3</button>");
-    var option4 = $("<button type='button' class='btn btn-primary'>Option4</button>");
-    assessmentDiv.append(questionHeader, option1, option2, option3, option4);
+    assessmentDiv.append(questionHeader);
     assessmentDiv.attr("class", ".display");
+
+    for (i = 0; i < topicsArray.length; i++) {
+    var option = $("<button type='button' class='btn btn-primary'>" + topicsArray[i] + "</button>");
+    assessmentDiv.append(option);
+    }
   });
 
   // Function to add event listener to distance button
