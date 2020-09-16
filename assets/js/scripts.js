@@ -35,4 +35,8 @@ $(document).ready(function () {
   activityBtn.on("click", function () {
     clearScreen();
   });
+
+  assessmentBtn.on("click", function(){
+
+  });
 });
