@@ -71,8 +71,10 @@ $(document).ready(function () {
       method: "GET",
     }).then(function (response) {
       // console.log(response);
-      if (response..parks.states == "GA") {
-        console.log(response);
+      for (i = 0; i < response.data[0].parks.length; i++) {
+        if (response.data[0].parks[i].states == "GA") {
+          console.log(response.data[0].parks[i]);
+        }
       }
     });
   }
