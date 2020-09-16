@@ -2,7 +2,7 @@ $(document).ready(function () {
   /**
    * GLOBAL VARIABLES
    */
-    var topicsArray = [""];
+  var topicsArray = [""];
 
   /**
    * DOM ELEMENTS
@@ -34,7 +34,7 @@ $(document).ready(function () {
    */
   activityBtn.on("click", function () {
     clearScreen();
-    activityDiv.attr("class", "display:block");
+    activityDiv.attr("class", "display");
     var header = $("<h2>");
     header.text("Which of the following activities most interests you?");
     activityDiv.append(header);
@@ -62,12 +62,20 @@ $(document).ready(function () {
     var questionHeader = $("<h1>");
     questionHeader.text("Which topic would you like to explore?");
 
-    var option1 = $("<button type='button' class='btn btn-primary'>Option1</button>");
-    var option2 = $("<button type='button' class='btn btn-primary'>Option2</button>");
-    var option3 = $("<button type='button' class='btn btn-primary'>Option3</button>");
-    var option4 = $("<button type='button' class='btn btn-primary'>Option4</button>");
+    var option1 = $(
+      "<button type='button' class='btn btn-primary'>Option1</button>"
+    );
+    var option2 = $(
+      "<button type='button' class='btn btn-primary'>Option2</button>"
+    );
+    var option3 = $(
+      "<button type='button' class='btn btn-primary'>Option3</button>"
+    );
+    var option4 = $(
+      "<button type='button' class='btn btn-primary'>Option4</button>"
+    );
     assessmentDiv.append(questionHeader, option1, option2, option3, option4);
-    assessmentDiv.attr("class", ".display");
+    assessmentDiv.attr("class", "display");
   });
 
   // Function to add event listener to distance button
