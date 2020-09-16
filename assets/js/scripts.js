@@ -28,7 +28,7 @@ $(document).ready(function () {
   /**
    * FUNCTION   CALLS
    */
-
+  console.log("test3");
   /**
    * EVENT HANDLERS
    */
@@ -36,9 +36,7 @@ $(document).ready(function () {
     clearScreen();
   });
 
-  assessmentBtn.on("click", function () {
-    
-  });
+  assessmentBtn.on("click", function () {});
 
   // Function to add event listener to distance button
   distanceBtn.on("click", function (event) {
