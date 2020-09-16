@@ -73,5 +73,8 @@ $(document).ready(function () {
   // Function to add event listener to distance button
   distanceBtn.on("click", function (event) {
     console.log("Distance button event handler");
+    clearScreen();
+    distanceDiv.attr("style","display:block");
+
   });
 });
