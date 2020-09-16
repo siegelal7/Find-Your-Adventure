@@ -1,4 +1,7 @@
-/**
+
+$(document).ready(function(){
+
+ /**
  * GLOBAL VARIABLES
  */
 
@@ -26,3 +29,7 @@ var container = $("#container");
 /**
  * EVENT HANDLERS
  */
+
+
+
+});
