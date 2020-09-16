@@ -25,7 +25,7 @@ $(document).ready(function () {
   }
 
   /**
-   * FUNCTION   CALLS
+   * FUNCTION CALLS
    */
 
 
@@ -59,7 +59,7 @@ $(document).ready(function () {
   assessmentBtn.on("click", function () {
     clearScreen();
 
-    var topicsArray = ["Animals", "Arctic", "Caves, Caverns and Karst", "Forests and Woodlands", "Glaciers", "Lakes", "Monuments and Memorials", "Mountains", "Oceans", "Volcanoes", "Wilderness"];
+    var topicsArray = ["Animals", "Caves, Caverns and Karst", "Forests and Woodlands", "Lakes", "Monuments and Memorials", "Mountains", "Oceans", "Volcanoes", "Wilderness"];
 
     var questionHeader = $("<h1>");
     questionHeader.text("Which topic would you like to explore?");
