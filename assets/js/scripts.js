@@ -1,13 +1,13 @@
 $(document).ready(function () {
-  var parkApiKey = "PtYiGrnXjG4FL7v9tOprJACeJgJV4KxlTarrmWXF";
   /**
    * GLOBAL VARIABLES
-   * 
-   * 
-   
+   **/
+  var npsURL = "https://developer.nps.gov/api/v1/";
+  var npsAPIkey = "PtYiGrnXjG4FL7v9tOprJACeJgJV4KxlTarrmWXF";
 
-   * DOM ELEMENTS
-   */
+   /** 
+    * DOM ELEMENTS
+   **/
   var landingPageHeader = $("#landingPageHeader");
   var assessmentBtn = $("#assessmentBtn");
   var distanceBtn = $("#distanceBtn");
@@ -63,9 +63,10 @@ $(document).ready(function () {
     var val = $(this).attr("button-value");
     ajaxCallActivities(val);
   });
+
   //function for api call based on button clicked
   function ajaxCallActivities(val) {
-    var activitiesParkUrl = `https://developer.nps.gov/api/v1/activities/parks/?api_key=${parkApiKey}&q=${val}`;
+    var activitiesParkUrl = `${npsURL}activities/parks/?api_key=${npsAPIkey}&q=${val}`;
     $.ajax({
       url: activitiesParkUrl,
       method: "GET",
@@ -85,15 +86,21 @@ $(document).ready(function () {
     clearScreen();
 
     var topicsArray = [
-      "Animals",
-      "Caves, Caverns and Karst",
-      "Forests and Woodlands",
-      "Lakes",
+      "African American Heritage",
+      "American Revolution",
+      "Asian American Heritage",
+      "Colonization and Settlement",
+      "Great Depression",
+      "Hispanic American Heritage",
+      "Latino American Heritage",
+      "LGBTQ American Heritage",
+      "Military",
       "Monuments and Memorials",
-      "Mountains",
-      "Oceans",
-      "Volcanoes",
-      "Wilderness",
+      "Native American Heritage",
+      "Pacific Islander Heritage",
+      "Presidents",
+      "Women's History",
+
     ];
 
     var questionHeader = $("<h1>");
@@ -108,9 +115,23 @@ $(document).ready(function () {
           "</button>"
       );
       assessmentDiv.append(option);
-      console.log("Test");
     }
   });
+
+  assessmentDiv.on("click", ".btn", function () {
+    ajaxTopics($(this).text());
+  });
+
+   //function for api call based on button clicked
+   function ajaxTopics(topic) {
+    var topicsURL = npsURL + "topics/parks/?api_key=" + npsAPIkey + "&q=" + topic;
+    $.ajax({
+      url: topicsURL,
+      method: "GET",
+    }).then(function (response) {
+
+    });
+  }
 
   // Function to add event listener to distance button
   distanceBtn.on("click", function (event) {
