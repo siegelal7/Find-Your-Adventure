@@ -4,6 +4,7 @@ $(document).ready(function(){
  /**
  * GLOBAL VARIABLES
  */
+console.log("Hello Paradise");
 
 /**
  * DOM ELEMENTS
