@@ -34,6 +34,25 @@ $(document).ready(function () {
    */
   activityBtn.on("click", function () {
     clearScreen();
+    activityDiv.attr("class", "display:block");
+    var header = $("<h2>");
+    header.text("Which of the following activities most interests you?");
+    activityDiv.append(header);
+    var selections = [
+      "Camping",
+      "Fishing",
+      "Biking",
+      "Shopping",
+      "Guided Tours",
+      "Wildlife Watching",
+      "Hiking",
+    ];
+    for (i = 0; i < selections.length; i++) {
+      var choice = $("<button>");
+      choice.attr("btn btn-sm btn-primary");
+      choice.text(selections[i]);
+      activityDiv.append(choice);
+    }
   });
 
   // Event Listener - Loading Page Assessment Button
