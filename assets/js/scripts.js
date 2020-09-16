@@ -1,9 +1,11 @@
 $(document).ready(function () {
+  var parkApiKey = "PtYiGrnXjG4FL7v9tOprJACeJgJV4KxlTarrmWXF";
   /**
    * GLOBAL VARIABLES
-   */
+   * 
+   * 
+   
 
-  /**
    * DOM ELEMENTS
    */
   var landingPageHeader = $("#landingPageHeader");
@@ -28,10 +30,10 @@ $(document).ready(function () {
    * FUNCTION CALLS
    */
 
-
   /**
    * EVENT HANDLERS
    */
+  // ACTIVITY BUTTON SECTION START!
   activityBtn.on("click", function () {
     clearScreen();
     activityDiv.attr("class", "display");
@@ -49,17 +51,50 @@ $(document).ready(function () {
     ];
     for (i = 0; i < selections.length; i++) {
       var choice = $("<button>");
-      choice.attr("btn btn-sm btn-primary");
+      choice.attr("class", "btn btn-primary");
+      choice.attr("button-value", selections[i]);
       choice.text(selections[i]);
       activityDiv.append(choice);
     }
   });
+  //event listener for the newly generated buttons
+  activityDiv.on("click", ".btn", function () {
+    // console.log($(this).attr("button-value"));
+    var val = $(this).attr("button-value");
+    ajaxCallActivities(val);
+  });
+  //function for api call based on button clicked
+  function ajaxCallActivities(val) {
+    var activitiesParkUrl = `https://developer.nps.gov/api/v1/activities/parks/?api_key=${parkApiKey}&q=${val}`;
+    $.ajax({
+      url: activitiesParkUrl,
+      method: "GET",
+    }).then(function (response) {
+      // console.log(response);
+      for (i = 0; i < response.data[0].parks.length; i++) {
+        if (response.data[0].parks[i].states == "GA") {
+          console.log(response.data[0].parks[i]);
+        }
+      }
+    });
+  }
+  // ACTIVITY BUTTON SECTION END
 
   // Event Listener - Loading Page Assessment Button
   assessmentBtn.on("click", function () {
     clearScreen();
 
-    var topicsArray = ["Animals", "Caves, Caverns and Karst", "Forests and Woodlands", "Lakes", "Monuments and Memorials", "Mountains", "Oceans", "Volcanoes", "Wilderness"];
+    var topicsArray = [
+      "Animals",
+      "Caves, Caverns and Karst",
+      "Forests and Woodlands",
+      "Lakes",
+      "Monuments and Memorials",
+      "Mountains",
+      "Oceans",
+      "Volcanoes",
+      "Wilderness",
+    ];
 
     var questionHeader = $("<h1>");
     questionHeader.text("Which topic would you like to explore?");
@@ -67,9 +102,13 @@ $(document).ready(function () {
     assessmentDiv.attr("class", ".display");
 
     for (i = 0; i < topicsArray.length; i++) {
-    var option = $("<button type='button' class='btn btn-primary'>" + topicsArray[i] + "</button>");
-    assessmentDiv.append(option);
-    console.log("Test");
+      var option = $(
+        "<button type='button' class='btn btn-primary'>" +
+          topicsArray[i] +
+          "</button>"
+      );
+      assessmentDiv.append(option);
+      console.log("Test");
     }
   });
 
@@ -77,7 +116,6 @@ $(document).ready(function () {
   distanceBtn.on("click", function (event) {
     console.log("Distance button event handler");
     clearScreen();
-    distanceDiv.attr("style","display:block");
-
+    distanceDiv.attr("style", "display:block");
   });
 });
