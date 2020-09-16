@@ -28,7 +28,7 @@ $(document).ready(function () {
   /**
    * FUNCTION   CALLS
    */
-
+  console.log("test")
   /**
    * EVENT HANDLERS
    */
@@ -42,5 +42,5 @@ $(document).ready(function () {
       // Function to add event listener to distance button
     distanceBtn.on("click", function (event) {
         console.log("Distance button event handler")
-      );
+    );
 });
