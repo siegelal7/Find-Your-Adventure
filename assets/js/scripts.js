@@ -34,7 +34,7 @@ $(document).ready(function () {
    */
   activityBtn.on("click", function () {
     clearScreen();
-    activityDiv.attr("class", "display:block");
+    activityDiv.attr("class", "display");
     var header = $("<h2>");
     header.text("Which of the following activities most interests you?");
     activityDiv.append(header);
