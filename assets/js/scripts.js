@@ -69,6 +69,7 @@ $(document).ready(function () {
     for (i = 0; i < topicsArray.length; i++) {
     var option = $("<button type='button' class='btn btn-primary'>" + topicsArray[i] + "</button>");
     assessmentDiv.append(option);
+    console.log("Test");
     }
   });
 
