@@ -120,8 +120,10 @@ $(document).ready(function () {
       var cardDeck = $("<div class='card-deck'></div>");
       var card = $("<div class='card'></div>");
       var img = $(
-        "<img src='http://duncanlock.net/images/posts/better-figures-images-plugin-for-pelican/dummy-200x200.png'class='card-img-top' alt='park-image' style='height:125px; width:125px;' />"
+        "<img class='card-img-top' alt='park-image' style='height:125px; width:125px;' />"
       );
+      img.attr("src", parksThatHaveActivity[y].images[0].url);
+      // console.log(parksThatHaveActivity);
       var div = $("<div class='card-body'></div>");
       var h5 = $("<h5 class='card-title'>Header goes here</h5>");
       var p = $(
