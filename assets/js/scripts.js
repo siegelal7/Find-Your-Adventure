@@ -8,6 +8,7 @@ $(document).ready(function () {
   var mapQuestAPIkey = "UKFuk0Xe7EAKnJmVEVb3gfUAKRVOlAzR";
   var mapsUrl = `https://www.mapquestapi.com/directions/v2/route?key=${mapQuestAPIkey}&`;
   var userAddress;
+  var userAdventure = "";
 
   /**
    * DOM ELEMENTS
@@ -51,8 +52,9 @@ $(document).ready(function () {
     });
   }
 
-  // Creates a new page with buttons
-  function createButtons(question, div, array) {
+  // Function - Creates a new page with buttons
+  function createButtons(question, div, array){
+    
     clearScreen();
 
     var questionHeader = $("<h1>");
@@ -70,7 +72,29 @@ $(document).ready(function () {
     }
   }
 
-  function createListOfParks() {}
+  // Function - Creates a List of Parks
+  function createListOfParks(userChoice){
+
+    var parks;
+    var parksArray = [];
+
+    for( var i = 0; i < allParksInState.data.length; i++){
+
+      if(userAdventure === "Activity"){
+        parks = allParksInState.data[i].activities;
+      }
+      else if (userAdventure === "Topics"){
+        parks = allParksInState.data[i].topics;
+      }
+
+      for(var j = 0; j < parks.length; j++){
+        
+        if(parks[j].name === userChoice){
+          parksArray.push(allParksInState.data[i]);
+        }
+      }
+    }
+  }
 
   /**
    * FUNCTION CALLS
@@ -91,6 +115,8 @@ $(document).ready(function () {
 
   // ACTIVITY BUTTON SECTION START!
   activityBtn.on("click", function () {
+
+    userAdventure = "Activity";
     var activitiesArray = [
       "Camping",
       "Fishing",
@@ -108,17 +134,20 @@ $(document).ready(function () {
   var parksThatHaveActivity = [];
   //event listener for the newly generated buttons
   activityDiv.on("click", ".btn", function () {
-    var val = $(this).text();
+    
+    var userChoice = $(this).text();
+    createListOfParks(userChoice); 
 
     for (i = 0; i < allParksInState.data.length; i++) {
       var parks = allParksInState.data[i].activities;
 
       for (x = 0; x < parks.length; x++) {
-        if (parks[x].name == val) {
+        if (parks[x].name == userChoice) {
           parksThatHaveActivity.push(allParksInState.data[i]);
         }
       }
     }
+    console.log(parksThatHaveActivity);
 
     clearScreen();
     for (y = 0; y < parksThatHaveActivity.length; y++) {
@@ -247,6 +276,8 @@ $(document).ready(function () {
 
   // Event Listener - Loading Page Topics Button
   topicsBtn.on("click", function () {
+
+    userAdventure = "Topics";
     var topicsArray = [
       "African American Heritage",
       "American Revolution",
@@ -273,13 +304,6 @@ $(document).ready(function () {
   topicsDiv.on("click", ".btn", function () {
     var userChoice = $(this).text();
 
-    for (var i = 0; i < allParksInState.data.length; i++) {
-      for (var j = 0; j < allParksInState.data[i].topics.length; j++) {
-        if (allParksInState.data[i].topics[j].name === userChoice) {
-          parksWithTopics.push(allParksInState.data[i]);
-        }
-      }
-    }
-    // console.log(parksWithTopics);
+    createListOfParks(userChoice); 
   });
 });
