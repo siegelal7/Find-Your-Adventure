@@ -13,10 +13,10 @@ $(document).ready(function () {
    * DOM ELEMENTS
    **/
   var landingPageHeader = $("#landingPageHeader");
-  var assessmentBtn = $("#assessmentBtn");
+  var topicsBtn = $("#topicsBtn");
   var distanceBtn = $("#distanceBtn");
   var activityBtn = $("#activityBtn");
-  var assessmentDiv = $("#assessmentDiv");
+  var topicsDiv = $("#topicsDiv");
   var distanceDiv = $("#distanceDiv");
   var activityDiv = $("#activityDiv");
   var parkListDiv = $("#parkListDiv");
@@ -68,6 +68,10 @@ $(document).ready(function () {
       );
       div.append(option);
     }
+  }
+
+  function createListOfParks(){
+    
   }
 
   /**
@@ -181,8 +185,8 @@ $(document).ready(function () {
 
   // ACTIVITY BUTTON SECTION END
 
-  // Event Listener - Loading Page Assessment Button
-  assessmentBtn.on("click", function () {
+  // Event Listener - Loading Page Topics Button
+  topicsBtn.on("click", function () {
 
     var topicsArray = [
       "African American Heritage",
@@ -202,12 +206,12 @@ $(document).ready(function () {
     ];
 
     var question = "Which topic would you like to explore?";
-    createButtons(question, assessmentDiv, topicsArray);
+    createButtons(question, topicsDiv, topicsArray);
   });
 
   var parksWithTopics = [];
 
-  assessmentDiv.on("click", ".btn", function () {
+  topicsDiv.on("click", ".btn", function () {
     var userChoice = $(this).text();
 
     for (var i = 0; i < allParksInState.data.length; i++) {
