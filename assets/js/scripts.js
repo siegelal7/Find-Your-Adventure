@@ -2,12 +2,12 @@ $(document).ready(function () {
   /**
    * GLOBAL VARIABLES
    **/
-  var npsURL = "https://developer.nps.gov/api/v1/";
   var npsAPIkey = "PtYiGrnXjG4FL7v9tOprJACeJgJV4KxlTarrmWXF";
-  var mapQuestAPIkey = "UKFuk0Xe7EAKnJmVEVb3gfUAKRVOlAzR";
+  var npsURL = `https://developer.nps.gov/api/v1/parks/?api_key=${npsAPIkey}&stateCode=`;
   var allParksInState = {};
-  mapsApiKey = "UKFuk0Xe7EAKnJmVEVb3gfUAKRVOlAzR";
-  var mapsUrl = `http://www.mapquestapi.com/directions/v2/route?key=${mapsApiKey}&`;
+  var mapQuestAPIkey = "UKFuk0Xe7EAKnJmVEVb3gfUAKRVOlAzR";
+  var mapsUrl = `http://www.mapquestapi.com/directions/v2/route?key=${mapQuestAPIkey}&`;
+  var userAddress;
   /**
    * DOM ELEMENTS
    **/
@@ -37,7 +37,7 @@ $(document).ready(function () {
 
   // Function - AJAX Call using the State Code
   function ajaxCallState(state) {
-    var stateParksURL = `${npsURL}parks/?api_key=${npsAPIkey}&stateCode=${state}`;
+    var stateParksURL = npsURL+=state;
     $.ajax({
       url: stateParksURL,
       method: "GET",
@@ -54,12 +54,11 @@ $(document).ready(function () {
    * EVENT HANDLERS
    */
 
-  var addy;
   addressSubmit.on("click", function (event) {
     event.preventDefault();
     distanceDiv.attr("class", "displayNone");
     originalPage.attr("class", "display");
-    addy = `${inputAddress.val()}, ${inputCity.val()}, ${inputState.val()} ${inputZip.val()}`;
+    userAddress = `${inputAddress.val()}, ${inputCity.val()}, ${inputState.val()} ${inputZip.val()}`;
 
     ajaxCallState(inputState.val());
   });
@@ -136,7 +135,7 @@ $(document).ready(function () {
   activityDiv.on("click", ".park-image", function () {
     clearScreen();
 
-    mapsUrl += `from=${addy}&to=${$(this).attr("data-value")}`;
+    mapsUrl += `from=${userAddress}&to=${$(this).attr("data-value")}`;
     $.ajax({
       url: mapsUrl,
       method: "GET",
