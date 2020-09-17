@@ -10,6 +10,37 @@ $(document).ready(function () {
   var mapsUrl = `https://www.mapquestapi.com/directions/v2/route?key=${mapQuestAPIkey}&`;
   var userAddress;
   var userAdventure = "";
+  
+  var object = {
+    questions: ["Which topic would you like to explore?",
+    "Which of the following activities most interests you?"
+  ],
+    activitiesArray: [
+      "Camping",
+      "Fishing",
+      "Biking",
+      "Shopping",
+      "Guided Tours",
+      "Wildlife Watching",
+      "Hiking",
+    ],
+    topics: [
+      "African American Heritage",
+      "American Revolution",
+      "Asian American Heritage",
+      "Colonization and Settlement",
+      "Great Depression",
+      "Hispanic American Heritage",
+      "Latino American Heritage",
+      "LGBTQ American Heritage",
+      "Military",
+      "Monuments and Memorials",
+      "Native American Heritage",
+      "Pacific Islander Heritage",
+      "Presidents",
+      "Women's History",
+    ]
+  }
 
   /**
    * DOM ELEMENTS
@@ -34,6 +65,7 @@ $(document).ready(function () {
   var parkDirectionsList = $("#directions-list");
   var parkDetailInfo = $("#park-detail-info");
   var parkName = $("#park-name");
+
   /**
    * FUNCTION DEFINITIONS
    */
@@ -44,7 +76,7 @@ $(document).ready(function () {
   }
 
   // Function - AJAX Call using the State Code
-  function ajaxCallState(state) {
+  function ajaxCallNPSbyState(state) {
     var stateParksURL = (npsURL += state);
     $.ajax({
       url: stateParksURL,
@@ -64,11 +96,13 @@ $(document).ready(function () {
     div.attr("class", ".display");
 
     for (i = 0; i < array.length; i++) {
-      var option = $(
-        "<button type='button' class='btn btn-primary selection-btn'>" +
-          array[i] +
-          "</button>"
-      );
+      var option = $("<button>");
+      option.attr({
+        type: "button",
+        class: "btn btn-primary selection-btn",
+        "data-value": "" + array[i]
+      });
+      option.text(array[i]);
       div.append(option);
     }
   }
@@ -160,7 +194,7 @@ $(document).ready(function () {
     originalPage.attr("class", "display");
     userAddress = `${inputAddress.val()}, ${inputCity.val()}, ${inputState.val()} ${inputZip.val()}`;
 
-    ajaxCallState(inputState.val());
+    ajaxCallNPSbyState(inputState.val());
   });
 
   // ACTIVITY BUTTON SECTION START!
@@ -304,5 +338,11 @@ $(document).ready(function () {
 
     createListOfParks(userChoice);
     createParksPage();
+  });
+
+  originalPage.on("click", ".btn", function(event){
+    event.preventDefault();
+    console.log($(this).attr("data-value"));
+    console.log("Topics" == $(this).attr("data-value"));
   });
 });
