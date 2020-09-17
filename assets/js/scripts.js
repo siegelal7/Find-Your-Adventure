@@ -63,6 +63,8 @@ $(document).ready(function () {
 
     ajaxCallState(inputState.val());
   });
+
+  
   // ACTIVITY BUTTON SECTION START!
   activityBtn.on("click", function () {
     clearScreen();
