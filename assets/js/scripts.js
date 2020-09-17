@@ -64,7 +64,7 @@ $(document).ready(function () {
     ajaxCallState(inputState.val());
   });
 
-  
+
   // ACTIVITY BUTTON SECTION START!
   activityBtn.on("click", function () {
     clearScreen();
@@ -107,31 +107,41 @@ $(document).ready(function () {
 
     clearScreen();
     for (y = 0; y < parksThatHaveActivity.length; y++) {
-      activityDiv.attr("class", "card-deck mt-5");
-      var card = $("<div class='card'></div>");
-      var img = $("<img class='card-img-top park-image' alt='park-image'/>");
-      if (parksThatHaveActivity[y].images[0] != undefined) {
-        img.attr("src", parksThatHaveActivity[y].images[0].url);
-      } else {
-        img.attr(
-          "src",
-          "https://files.tripstodiscover.com/files/2018/08/32533575_1785635178193287_5065019941074239488_o.jpg"
-        );
-      }
-      img.attr(
-        "data-value",
-        `${parksThatHaveActivity[y].addresses[0].line1},  ${parksThatHaveActivity[y].addresses[0].city}, ${parksThatHaveActivity[y].addresses[0].stateCode} ${parksThatHaveActivity[y].addresses[0].postalCode}`
-      );
+      
+      // Adds Class Card-Deck to Activity Div
+      activityDiv.attr("class", "card-deck row row-cols-3 mt-5");
+        // Creates Col Div
+        var colDiv = $("<div class='col mb-4'></div>");
+          // Creates Card Div
+          var cardDiv = $("<div class='card'></div>");
+            // Creates Image
+            var img = $("<img class='card-img-top park-image' alt='park-image'/>");
+              if (parksThatHaveActivity[y].images[0] != undefined) {
+                img.attr("src", parksThatHaveActivity[y].images[0].url);
+              } else {
+                img.attr(
+                  "src",
+                  "https://files.tripstodiscover.com/files/2018/08/32533575_1785635178193287_5065019941074239488_o.jpg"
+                );
+              }
+              img.attr(
+                "data-value",
+                `${parksThatHaveActivity[y].addresses[0].line1},  ${parksThatHaveActivity[y].addresses[0].city}, ${parksThatHaveActivity[y].addresses[0].stateCode} ${parksThatHaveActivity[y].addresses[0].postalCode}`
+              );
 
-      var div = $("<div class='card-body'></div>");
-      var h5 = $("<h5 class='card-title'>Header goes here</h5>");
-      var p = $(
-        "<p class='card-text'>Lorem Ipsum blah blah blah blha lbskjdfowiej woijfwo</p>"
-      );
+            // Creates Card-Body Div
+            var cardBodyDiv = $("<div class='card-body'></div>");
+              // Creates Card Header
+              var h5 = $("<h5 class='card-title'>Header goes here</h5>");
+              // Creates Card Paragraph
+              var p = $(
+                "<p class='card-text'>Lorem Ipsum blah blah blah blha lbskjdfowiej woijfwo</p>"
+              );
 
-      card.append(img, div);
-      div.append(h5, p);
-      activityDiv.append(card);
+      cardBodyDiv.append(h5, p);
+      cardDiv.append(img, cardBodyDiv);
+      colDiv.append(cardDiv);
+      activityDiv.append(colDiv);
     }
   });
 
