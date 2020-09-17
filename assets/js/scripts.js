@@ -23,7 +23,6 @@ $(document).ready(function () {
   var inputAddress = $("#inputAddress");
   var inputCity = $("#inputCity");
   var inputState = $("#inputState");
-  var inputParkSearchState = $("#inputSearchState");
   var inputZip = $("#inputZip");
   /**
    * FUNCTION DEFINITIONS
@@ -53,11 +52,8 @@ $(document).ready(function () {
     originalPage.attr("class", "display");
     var addy = `${inputAddress.val()}, ${inputCity.val()}, ${inputState.val()} ${inputZip.val()}`;
     // console.log(addy);
-<<<<<<< HEAD
+
     ajaxCallState(inputState.val());
-=======
-    ajaxCallActivities(inputParkSearchState.val());
->>>>>>> 15e8efd9c62aeb15cb422ca417ac8149dbedb654
   });
   // ACTIVITY BUTTON SECTION START!
   activityBtn.on("click", function () {
@@ -90,16 +86,16 @@ $(document).ready(function () {
     // ajaxCallActivities(val);
     // console.log(allParksInState);
 
-    for (i = 0; i < allParksInState.data.length; i++) {
-      var activities = allParksInState.data[i];
-      console.log(activities);
-      // for (j = 0; j < activities.length; j++) {
-      //   console.log(activities[j].name);
-      // }
-      // if (allParksInState.data[i].activites.name.includes(val)) {
-      //   console.log(allParksInState.data[i]);
-      // }
-    }
+    // for (i = 0; i < allParksInState.data.length; i++) {
+    //   var parks = allParksInState.data[i];
+    //   console.log(parks.activites.name);
+    //   // for (j = 0; j < activities.length; j++) {
+    //   //   console.log(activities[j].name);
+    //   // }
+    //   // if (allParksInState.data[i].activites.name.includes(val)) {
+    //   //   console.log(allParksInState.data[i]);
+    //   // }
+    // }
   });
 
   //function for api call based on button clicked
