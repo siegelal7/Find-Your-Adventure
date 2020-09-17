@@ -10,6 +10,36 @@ $(document).ready(function () {
   var mapsUrl = `https://www.mapquestapi.com/directions/v2/route?key=${mapQuestAPIkey}&`;
   var userAddress;
   var userAdventure = "";
+  var object = {
+    questions: ["Which topic would you like to explore?",
+    "Which of the following activities most interests you?"
+  ],
+    activitiesArray: [
+      "Camping",
+      "Fishing",
+      "Biking",
+      "Shopping",
+      "Guided Tours",
+      "Wildlife Watching",
+      "Hiking",
+    ],
+    topics: [
+      "African American Heritage",
+      "American Revolution",
+      "Asian American Heritage",
+      "Colonization and Settlement",
+      "Great Depression",
+      "Hispanic American Heritage",
+      "Latino American Heritage",
+      "LGBTQ American Heritage",
+      "Military",
+      "Monuments and Memorials",
+      "Native American Heritage",
+      "Pacific Islander Heritage",
+      "Presidents",
+      "Women's History",
+    ]
+  }
 
   /**
    * DOM ELEMENTS
@@ -34,6 +64,7 @@ $(document).ready(function () {
   var parkDirectionsList = $("#directions-list");
   var parkDetailInfo = $("#park-detail-info");
   var parkName = $("#park-name");
+
   /**
    * FUNCTION DEFINITIONS
    */
@@ -146,6 +177,39 @@ $(document).ready(function () {
     }
   }
 
+  // Function - 
+  function parseStandardHours(hoursString) {
+    var standardHrs = JSON.parse(hoursString);
+    standardHrs.Monday;
+    var list = $("<ul class='hours'>");
+    var listEl = $("<li>");
+    listEl.text("Monday: " + standardHrs.Monday);
+    list.append(listEl);
+
+    listEl = $("<li>");
+    listEl.text("Tuesday: " + standardHrs.Tuesday);
+    list.append(listEl);
+
+    listEl = $("<li>");
+    listEl.text("Wednesday: " + standardHrs.Wednesday);
+    list.append(listEl);
+
+    listEl = $("<li>");
+    listEl.text("Thursday: " + standardHrs.Thursday);
+    list.append(listEl);
+    parkDetailInfo.append(list);
+
+    listEl = $("<li>");
+    listEl.text("Friday: " + standardHrs.Friday);
+    list.append(listEl);
+    listEl = $("<li>");
+    listEl.text("Saturday: " + standardHrs.Saturday);
+    list.append(listEl);
+    listEl = $("<li>");
+    listEl.text("Sunday: " + standardHrs.Sunday);
+    list.append(listEl);
+  }
+
   /**
    * FUNCTION CALLS
    */
@@ -188,38 +252,6 @@ $(document).ready(function () {
     createParksPage();
 
   });
-
-  function parseStandardHours(hoursString) {
-    var standardHrs = JSON.parse(hoursString);
-    standardHrs.Monday;
-    var list = $("<ul class='hours'>");
-    var listEl = $("<li>");
-    listEl.text("Monday: " + standardHrs.Monday);
-    list.append(listEl);
-
-    listEl = $("<li>");
-    listEl.text("Tuesday: " + standardHrs.Tuesday);
-    list.append(listEl);
-
-    listEl = $("<li>");
-    listEl.text("Wednesday: " + standardHrs.Wednesday);
-    list.append(listEl);
-
-    listEl = $("<li>");
-    listEl.text("Thursday: " + standardHrs.Thursday);
-    list.append(listEl);
-    parkDetailInfo.append(list);
-
-    listEl = $("<li>");
-    listEl.text("Friday: " + standardHrs.Friday);
-    list.append(listEl);
-    listEl = $("<li>");
-    listEl.text("Saturday: " + standardHrs.Saturday);
-    list.append(listEl);
-    listEl = $("<li>");
-    listEl.text("Sunday: " + standardHrs.Sunday);
-    list.append(listEl);
-  }
 
   activityDiv.on("click", ".park-image", function () {
     clearScreen();
