@@ -4,7 +4,7 @@ $(document).ready(function () {
    **/
   var npsURL = "https://developer.nps.gov/api/v1/";
   var npsAPIkey = "PtYiGrnXjG4FL7v9tOprJACeJgJV4KxlTarrmWXF";
-
+  var allParksInState = {};
   /**
    * DOM ELEMENTS
    **/
@@ -52,6 +52,7 @@ $(document).ready(function () {
     originalPage.attr("class", "display");
     var addy = `${inputAddress.val()}, ${inputCity.val()}, ${inputState.val()} ${inputZip.val()}`;
     console.log(addy);
+    ajaxCallActivities();
   });
   // ACTIVITY BUTTON SECTION START!
   activityBtn.on("click", function () {
@@ -81,12 +82,22 @@ $(document).ready(function () {
   activityDiv.on("click", ".btn", function () {
     // console.log($(this).attr("button-value"));
     var val = $(this).attr("button-value");
-    ajaxCallActivities(val);
+    // ajaxCallActivities(val);
+    console.log(allParksInState);
   });
 
   //function for api call based on button clicked
-  function ajaxCallActivities(val) {
-    var activitiesParkUrl = `${npsURL}activities/parks/?api_key=${npsAPIkey}&q=${val}`;
+  function ajaxCallActivities() {
+    // var activitiesParkUrl = `${npsURL}activities/parks/?api_key=${npsAPIkey}&q=${val}`;
+    var activitiesParkUrl = `${npsURL}parks/?api_key=${npsAPIkey}&stateCode=GA`;
+    $.ajax({
+      url: activitiesParkUrl,
+      method: "GET",
+    }).then(function (response) {
+      // console.log(response);
+      allParksInState = response;
+      console.log(allParksInState);
+    });
     // $.ajax({
     //   url: activitiesParkUrl,
     //   method: "GET",
