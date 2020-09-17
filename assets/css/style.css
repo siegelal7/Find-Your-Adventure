@@ -10,10 +10,3 @@
   justify-content: center;
   background: cyan !important;
 }
-
-.card-deck {
-  display: inline-flex;
-  width: 300px;
-  margin: auto;
-  /* text-align: center; */
-}
