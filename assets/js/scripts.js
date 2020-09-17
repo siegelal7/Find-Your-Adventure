@@ -84,10 +84,16 @@ $(document).ready(function () {
     var val = $(this).attr("button-value");
     // ajaxCallActivities(val);
     // console.log(allParksInState);
+
     for (i = 0; i < allParksInState.data.length; i++) {
-      if (allParksInState.data[i].activites.name.includes(val)) {
-        console.log(allParksInState.data[i]);
-      }
+      var activities = allParksInState.data[i];
+      console.log(activities);
+      // for (j = 0; j < activities.length; j++) {
+      //   console.log(activities[j].name);
+      // }
+      // if (allParksInState.data[i].activites.name.includes(val)) {
+      //   console.log(allParksInState.data[i]);
+      // }
     }
   });
 
