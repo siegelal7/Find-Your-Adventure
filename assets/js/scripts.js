@@ -8,6 +8,7 @@ $(document).ready(function () {
   var mapQuestAPIkey = "UKFuk0Xe7EAKnJmVEVb3gfUAKRVOlAzR";
   var mapsUrl = `https://www.mapquestapi.com/directions/v2/route?key=${mapQuestAPIkey}&`;
   var userAddress;
+  var userAdventure = "";
 
   /**
    * DOM ELEMENTS
@@ -73,77 +74,40 @@ $(document).ready(function () {
   }
 
   // Function - Creates a List of Parks
-  function createListOfParks(string, userChoice){
+  function createListOfParks(userChoice){
+
+    // for (var i = 0; i < allParksInState.data.length; i++) {
+    //   for (var j = 0; j < allParksInState.data[i].topics.length; j++) {
+    //     if (allParksInState.data[i].topics[j].name === userChoice) {
+    //       parksWithTopics.push(allParksInState.data[i]);
+    //     }
+    //   }
+    // }
+    // console.log(parksWithTopics);
+
+    var parks;
+    var parksArray = [];
+    console.log(allParksInState.data);
 
     for( var i = 0; i < allParksInState.data.length; i++){
-      
-      var parks;
-      var parksArray = [];
 
-      if(string === "activities"){
+      if(userAdventure === "Activity"){
         parks = allParksInState.data[i].activities;
+        console.log(i + "If: Activity");
+        console.log(parks);
       }
-      else if (string === "topics"){
+      else if (userAdventure === "Topics"){
         parks = allParksInState.data[i].topics;
       }
 
-      for(var j = 0; j < parks.length; i++){
+      for(var j = 0; j < parks.length; j++){
         
-        if(parks[j] === userChoice){
+        if(parks[j].name === userChoice){
           parksArray.push(allParksInState.data[i]);
         }
       }
     }
-
-    for (i = 0; i < allParksInState.data.length; i++) {
-      var parks = allParksInState.data[i].activities;
-
-      for (x = 0; x < parks.length; x++) {
-        if (parks[x].name == val) {
-          parksThatHaveActivity.push(allParksInState.data[i]);
-        }
-      }
-    }
-
-    clearScreen();
-    for (y = 0; y < parksThatHaveActivity.length; y++) {
-      // Adds Class Card-Deck to Activity Div
-      activityDiv.attr("class", "card-deck row row-cols-3 mt-5");
-      // Creates Col Div
-      var colDiv = $("<div class='col mb-4'></div>");
-      // Creates Card Div
-      var cardDiv = $("<div class='card'></div>");
-      // Creates Image
-      var img = $(
-        "<img class='card-img-top park-image' alt='park-image' style='height: 210px'/>"
-      );
-      if (parksThatHaveActivity[y].images[0] != undefined) {
-        img.attr("src", parksThatHaveActivity[y].images[0].url);
-      } else {
-        img.attr(
-          "src",
-          "https://files.tripstodiscover.com/files/2018/08/32533575_1785635178193287_5065019941074239488_o.jpg"
-        );
-      }
-      img.attr(
-        "data-value",
-        `${parksThatHaveActivity[y].addresses[0].line1},  ${parksThatHaveActivity[y].addresses[0].city}, ${parksThatHaveActivity[y].addresses[0].stateCode} ${parksThatHaveActivity[y].addresses[0].postalCode}`
-      );
-
-      // Creates Card-Body Div
-      var cardBodyDiv = $("<div class='card-body'></div>");
-      // Creates Card Header
-      var h5 = $("<h5 class='card-title'>Header goes here</h5>");
-      // Creates Card Paragraph
-      var p = $(
-        "<p class='card-text'>Lorem Ipsum blah blah blah blha lbskjdfowiej woijfwo</p>"
-      );
-
-      cardBodyDiv.append(h5, p);
-      cardDiv.append(img, cardBodyDiv);
-      colDiv.append(cardDiv);
-      activityDiv.append(colDiv);
-    }
+    console.log(parksArray);
   }
 
   /**
@@ -166,6 +130,7 @@ $(document).ready(function () {
   // ACTIVITY BUTTON SECTION START!
   activityBtn.on("click", function () {
 
+    userAdventure = "Activity";
     var activitiesArray = [
       "Camping",
       "Fishing",
@@ -183,17 +148,20 @@ $(document).ready(function () {
   var parksThatHaveActivity = [];
   //event listener for the newly generated buttons
   activityDiv.on("click", ".btn", function () {
-    var val = $(this).text();
+    
+    var userChoice = $(this).text();
+    //createListOfParks(userChoice); 
 
     for (i = 0; i < allParksInState.data.length; i++) {
       var parks = allParksInState.data[i].activities;
 
       for (x = 0; x < parks.length; x++) {
-        if (parks[x].name == val) {
+        if (parks[x].name == userChoice) {
           parksThatHaveActivity.push(allParksInState.data[i]);
         }
       }
     }
+    console.log(parksThatHaveActivity);
 
     clearScreen();
     for (y = 0; y < parksThatHaveActivity.length; y++) {
@@ -322,6 +290,7 @@ $(document).ready(function () {
   // Event Listener - Loading Page Topics Button
   topicsBtn.on("click", function () {
 
+    userAdventure = "Topics";
     var topicsArray = [
       "African American Heritage",
       "American Revolution",
@@ -348,13 +317,6 @@ $(document).ready(function () {
   topicsDiv.on("click", ".btn", function () {
     var userChoice = $(this).text();
 
-    for (var i = 0; i < allParksInState.data.length; i++) {
-      for (var j = 0; j < allParksInState.data[i].topics.length; j++) {
-        if (allParksInState.data[i].topics[j].name === userChoice) {
-          parksWithTopics.push(allParksInState.data[i]);
-        }
-      }
-    }
-    console.log(parksWithTopics);
+    createListOfParks(userChoice); 
   });
 });
