@@ -8,5 +8,21 @@
 
 .navbar {
   justify-content: center;
-  background: cyan !important;
+  z-index: 10;
+  background: #53cae0 !important;
+}
+
+body {
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/%E1%83%AD%E1%83%90%E1%83%A3%E1%83%AE%E1%83%94%E1%83%91%E1%83%98_2.jpg/1200px-%E1%83%AD%E1%83%90%E1%83%A3%E1%83%AE%E1%83%94%E1%83%91%E1%83%98_2.jpg");
+  z-index: 0;
+
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.container {
+  z-index: 100;
+  color: black;
+  font-weight: bolder;
+  opacity: 1 !important;
 }
