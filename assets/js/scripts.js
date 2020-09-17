@@ -23,7 +23,6 @@ $(document).ready(function () {
   var inputAddress = $("#inputAddress");
   var inputCity = $("#inputCity");
   var inputState = $("#inputState");
-  var inputParkSearchState = $("#inputSearchState");
   var inputZip = $("#inputZip");
   /**
    * FUNCTION DEFINITIONS
@@ -53,7 +52,8 @@ $(document).ready(function () {
     originalPage.attr("class", "display");
     var addy = `${inputAddress.val()}, ${inputCity.val()}, ${inputState.val()} ${inputZip.val()}`;
     // console.log(addy);
-    ajaxCallActivities(inputParkSearchState.val());
+
+    ajaxCallState(inputState.val());
   });
   // ACTIVITY BUTTON SECTION START!
   activityBtn.on("click", function () {
@@ -84,11 +84,22 @@ $(document).ready(function () {
     // console.log($(this).attr("button-value"));
     var val = $(this).attr("button-value");
     // ajaxCallActivities(val);
-    console.log(allParksInState);
+    // console.log(allParksInState);
+
+    // for (i = 0; i < allParksInState.data.length; i++) {
+    //   var parks = allParksInState.data[i];
+    //   console.log(parks.activites.name);
+    //   // for (j = 0; j < activities.length; j++) {
+    //   //   console.log(activities[j].name);
+    //   // }
+    //   // if (allParksInState.data[i].activites.name.includes(val)) {
+    //   //   console.log(allParksInState.data[i]);
+    //   // }
+    // }
   });
 
   //function for api call based on button clicked
-  function ajaxCallActivities(state) {
+  function ajaxCallState(state) {
     // var activitiesParkUrl = `${npsURL}activities/parks/?api_key=${npsAPIkey}&q=${val}`;
     var activitiesParkUrl = `${npsURL}parks/?api_key=${npsAPIkey}&stateCode=${state}`;
     $.ajax({
