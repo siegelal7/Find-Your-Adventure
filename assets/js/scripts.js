@@ -111,41 +111,41 @@ $(document).ready(function () {
 
   //function for api call based on button clicked
   // function ajaxCallState(state) {
-    // var activitiesParkUrl = `${npsURL}activities/parks/?api_key=${npsAPIkey}&q=${val}`;
-    // var activitiesParkUrl = `${npsURL}parks/?api_key=${npsAPIkey}&stateCode=${state}`;
-    // $.ajax({
-    //   url: activitiesParkUrl,
-    //   method: "GET",
-    // }).then(function (response) {
-    //   // console.log(response);
-    //   allParksInState = response;
-    //   console.log(allParksInState);
-    // });
-    // $.ajax({
-    //   url: activitiesParkUrl,
-    //   method: "GET",
-    // }).then(function (response) {
-    //   // console.log(response);
-    //   var resultsArray = [];
-    //   for (i = 0; i < response.data[0].parks.length; i++) {
-    //     if (response.data[0].parks[i].states == "GA") {
-    //       // console.log(response.data[0].parks[i]);
-    //       var results = response.data[0].parks[i];
-    //       var code = results.parkCode;
-    //       resultsArray.push(results.parkCode);
-    //       // console.log(resultsArray.length);
-    //       for (j = 0; j < resultsArray.length; j++) {
-    //         $.ajax({
-    //           url: `${npsURL}parks/?api_key=${npsAPIkey}&parkCode=${code}`,
-    //           method: "GET",
-    //         }).then(function (r) {
-    //           // console.log("test");
-    //           console.log(r);
-    //         });
-    //       }
-    //     }
-    //   }
-    // });
+  // var activitiesParkUrl = `${npsURL}activities/parks/?api_key=${npsAPIkey}&q=${val}`;
+  // var activitiesParkUrl = `${npsURL}parks/?api_key=${npsAPIkey}&stateCode=${state}`;
+  // $.ajax({
+  //   url: activitiesParkUrl,
+  //   method: "GET",
+  // }).then(function (response) {
+  //   // console.log(response);
+  //   allParksInState = response;
+  //   console.log(allParksInState);
+  // });
+  // $.ajax({
+  //   url: activitiesParkUrl,
+  //   method: "GET",
+  // }).then(function (response) {
+  //   // console.log(response);
+  //   var resultsArray = [];
+  //   for (i = 0; i < response.data[0].parks.length; i++) {
+  //     if (response.data[0].parks[i].states == "GA") {
+  //       // console.log(response.data[0].parks[i]);
+  //       var results = response.data[0].parks[i];
+  //       var code = results.parkCode;
+  //       resultsArray.push(results.parkCode);
+  //       // console.log(resultsArray.length);
+  //       for (j = 0; j < resultsArray.length; j++) {
+  //         $.ajax({
+  //           url: `${npsURL}parks/?api_key=${npsAPIkey}&parkCode=${code}`,
+  //           method: "GET",
+  //         }).then(function (r) {
+  //           // console.log("test");
+  //           console.log(r);
+  //         });
+  //       }
+  //     }
+  //   }
+  // });
   // }
   // ACTIVITY BUTTON SECTION END
 
@@ -186,6 +186,17 @@ $(document).ready(function () {
   });
 
   assessmentDiv.on("click", ".btn", function () {
-    ajaxTopics($(this).text());
+    var userChoice = $(this).text();
+    console.log(userChoice);
+    console.log(allParksInState);
+    console.log(allParksInState.data[0].topics);
+
+    for (var i = 0; i < allParksInState.data.length; i++) {
+      for (var j = 0; j < allParksInState.data[i].topics.length; j++) {
+        if (allParksInState.data[i].topics[j].name === userChoice) {
+          console.log(allParksInState.data[i].fullName);
+        }
+      }
+    }
   });
 });
