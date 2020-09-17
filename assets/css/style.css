@@ -10,12 +10,17 @@
   justify-content: center;
   z-index: 10;
   background: #53cae0 !important;
+  margin-bottom: 2em;
+  text-shadow: 1px 1px red;
+}
+.h1 {
+  font-size: 2em;
 }
 
 body {
   background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/%E1%83%AD%E1%83%90%E1%83%A3%E1%83%AE%E1%83%94%E1%83%91%E1%83%98_2.jpg/1200px-%E1%83%AD%E1%83%90%E1%83%A3%E1%83%AE%E1%83%94%E1%83%91%E1%83%98_2.jpg");
   z-index: 0;
-
+  font-size: 1.1em;
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -25,10 +30,64 @@ body {
   color: black;
   font-weight: bolder;
   opacity: 1 !important;
+  text-align: center;
 }
 
+#park-details {
+  margin-top: 10px;
+}
 
-#park-details{
+#originalPage {
+  /* text-align: center; */
+  margin-top: 5em;
+}
 
-  margin-top:10px;
+#adventure {
+  background: linear-gradient(navy, white, red, blue);
+
+  /* clip hackery */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#topicsBtn,
+#activityBtn,
+.btn {
+  background: #53cae0;
+  color: black;
+  text-shadow: 1px 1px #53cae0;
+}
+
+#topicsBtn:hover,
+#activityBtn:hover,
+.btn:hover {
+  background: navy;
+  text-shadow: 1px 1px #53cae0;
+}
+#addressSubmit {
+  position: relative;
+  bottom: 3.4em;
+  right: 7em;
+}
+
+.hours {
+  text-align: left;
+}
+
+.operating-hours {
+  text-decoration: underline;
+  text-align: left;
+  margin-left: 2em;
+}
+
+form {
+  color: white !important;
+  text-shadow: 2px 2px black;
+  font-size: 0.9em;
+}
+
+#park-detail-img {
+  position: relative;
+  bottom: 13em;
+  left: 9em;
 }
