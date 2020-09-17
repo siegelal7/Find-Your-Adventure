@@ -28,6 +28,8 @@ $(document).ready(function () {
   var inputCity = $("#inputCity");
   var inputState = $("#inputState");
   var inputZip = $("#inputZip");
+  var parkDetails = $("#park-details");
+  var parkDirectionsList = $("#directions-list");
   /**
    * FUNCTION DEFINITIONS
    */
@@ -154,6 +156,15 @@ $(document).ready(function () {
       method: "GET",
     }).then(function (response) {
       console.log(response);
+      parkDetails.attr("style","display:block");
+      for(var i=0; i< response.route.legs[0].maneuvers.length;i++)
+      {
+        console.log(response.route.legs[0].maneuvers[i].narrative);
+        var newParaEl= $("<p>");
+        newParaEl.text(response.route.legs[0].maneuvers[i].narrative);
+        parkDirectionsList.append(newParaEl);
+
+      }
     });
   });
 
