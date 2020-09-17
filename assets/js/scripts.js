@@ -8,6 +8,7 @@ $(document).ready(function () {
   var mapQuestAPIkey = "UKFuk0Xe7EAKnJmVEVb3gfUAKRVOlAzR";
   var mapsUrl = `http://www.mapquestapi.com/directions/v2/route?key=${mapQuestAPIkey}&`;
   var userAddress;
+  
   /**
    * DOM ELEMENTS
    **/
