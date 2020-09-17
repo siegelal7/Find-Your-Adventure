@@ -65,9 +65,9 @@ $(document).ready(function () {
 
     for (i = 0; i < array.length; i++) {
       var option = $(
-        "<button type='button' class='btn btn-primary'>" +
-        array[i] +
-        "</button>"
+        "<button type='button' class='btn btn-primary selection-btn'>" +
+          array[i] +
+          "</button>"
       );
       div.append(option);
     }
@@ -94,7 +94,6 @@ $(document).ready(function () {
 
   // Function - Creates the Parks Page
   function createParksPage() {
-
     clearScreen();
 
     for (i = 0; i < listOfParksArray.length; i++) {
@@ -126,7 +125,7 @@ $(document).ready(function () {
           listOfParksArray[i].operatingHours[0].standardHours
         ),
         entranceFees: listOfParksArray[i].entranceFees[0].cost,
-        images: JSON.stringify(listOfParksArray[i].images)
+        images: JSON.stringify(listOfParksArray[i].images),
       });
 
       // Creates Card-Body Div
@@ -175,6 +174,9 @@ $(document).ready(function () {
       "Guided Tours",
       "Wildlife Watching",
       "Hiking",
+      "Playground",
+      "Junior Ranger Program",
+      "Food",
     ];
 
     var question = "Which of the following activities most interests you?";
@@ -183,11 +185,9 @@ $(document).ready(function () {
 
   //event listener for the newly generated buttons
   activityDiv.on("click", ".btn", function () {
-
     var userChoice = $(this).text();
     createListOfParks(userChoice);
     createParksPage();
-
   });
 
   function parseStandardHours(hoursString) {
@@ -224,20 +224,16 @@ $(document).ready(function () {
 
   //Function to parse park images
   function parseParkImage(imagesObject) {
-
     var imagesArray = JSON.parse(imagesObject);
     if (imagesArray.length > 1) {
       for (var i = 0; i < 1; i++) {
-
         var imageEl = $("<img>");
         imageEl.attr("src", imagesArray[i].url);
         imageEl.attr("id", "park-detail-img");
         imageEl.attr("style", "height:200px;width:200px");
         parkDetailInfo.append(imageEl);
-
       }
     }
-
   }
 
   activityDiv.on("click", ".park-image", function () {
