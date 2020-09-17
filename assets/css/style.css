@@ -69,3 +69,25 @@ body {
   bottom: 3.4em;
   right: 7em;
 }
+
+.hours {
+  text-align: left;
+}
+
+.operating-hours {
+  text-decoration: underline;
+  text-align: left;
+  margin-left: 2em;
+}
+
+form {
+  color: white !important;
+  text-shadow: 2px 2px black;
+  font-size: 0.9em;
+}
+
+#park-detail-img {
+  position: relative;
+  bottom: 13em;
+  left: 9em;
+}
