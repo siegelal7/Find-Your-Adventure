@@ -193,7 +193,21 @@ $(document).ready(function () {
     }
   });
 
+  var parksWithTopics = [];
+
   assessmentDiv.on("click", ".btn", function () {
-    ajaxTopics($(this).text());
+    var userChoice = $(this).text();
+    // console.log(userChoice);
+    // console.log(allParksInState);
+    // console.log(allParksInState.data[0].topics);
+
+    for (var i = 0; i < allParksInState.data.length; i++) {
+      for (var j = 0; j < allParksInState.data[i].topics.length; j++) {
+        if (allParksInState.data[i].topics[j].name === userChoice) {
+          parksWithTopics.push(allParksInState.data[i]);
+        }
+      }
+    }
+    console.log(parksWithTopics);
   });
 });
