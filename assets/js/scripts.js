@@ -4,6 +4,7 @@ $(document).ready(function () {
    **/
   var npsURL = "https://developer.nps.gov/api/v1/";
   var npsAPIkey = "PtYiGrnXjG4FL7v9tOprJACeJgJV4KxlTarrmWXF";
+  var mapQuestAPIkey = "UKFuk0Xe7EAKnJmVEVb3gfUAKRVOlAzR";
   var allParksInState = {};
   /**
    * DOM ELEMENTS
@@ -118,18 +119,20 @@ $(document).ready(function () {
     clearScreen();
     for (y = 0; y < parksThatHaveActivity.length; y++) {
       
-      activityDiv.attr("class", "card-deck mt-5");
-        var card = $("<div class='card'></div>");
-          var img = $("<img class='card-img-top' alt='park-image'/>");
-          img.attr("src", parksThatHaveActivity[y].images[0].url);
-          // console.log(parksThatHaveActivity);
-          var div = $("<div class='card-body'></div>");
-            var h5 = $("<h5 class='card-title'>Header goes here</h5>");
-            var p = $("<p class='card-text'>Lorem Ipsum blah blah blah blha lbskjdfowiej woijfwo</p>");
+      activityDiv.attr("class", "card-deck row row-cols-3 mt-5");
+        var col = $("<div class = 'col'> </div>");
+          var card = $("<div class='card'></div>");
+            var img = $("<img class='card-img-top' alt='park-image'/>");
+            img.attr("src", parksThatHaveActivity[y].images[0].url);
+            // console.log(parksThatHaveActivity);
+            var div = $("<div class='card-body'></div>");
+              var h5 = $("<h5 class='card-title'>Header goes here</h5>");
+              var p = $("<p class='card-text'>Lorem Ipsum blah blah blah blha lbskjdfowiej woijfwo</p>");
 
       card.append(img, div);
-      div.append(h5, p);      
-      activityDiv.append(card);
+      div.append(h5, p); 
+
+      activityDiv.append(col);
     }
   });
 
