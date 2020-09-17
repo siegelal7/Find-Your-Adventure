@@ -9,7 +9,7 @@
 
 ## Description
 This is an app that will display a list of national parks based on the user’s location and preferences, including all of the information the user needs to know about the park.
-
+In this day and age, 
 
 ### *Usage*
 1. 

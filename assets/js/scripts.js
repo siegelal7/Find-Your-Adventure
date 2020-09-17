@@ -2,11 +2,12 @@ $(document).ready(function () {
   /**
    * GLOBAL VARIABLES
    **/
-  var npsURL = "https://developer.nps.gov/api/v1/";
   var npsAPIkey = "PtYiGrnXjG4FL7v9tOprJACeJgJV4KxlTarrmWXF";
+  var npsURL = `https://developer.nps.gov/api/v1/parks/?api_key=${npsAPIkey}&stateCode=`;
   var allParksInState = {};
-  mapsApiKey = "UKFuk0Xe7EAKnJmVEVb3gfUAKRVOlAzR";
-  var mapsUrl = `http://www.mapquestapi.com/directions/v2/route?key=${mapsApiKey}&`;
+  var mapQuestAPIkey = "UKFuk0Xe7EAKnJmVEVb3gfUAKRVOlAzR";
+  var mapsUrl = `http://www.mapquestapi.com/directions/v2/route?key=${mapQuestAPIkey}&`;
+  var userAddress;
   /**
    * DOM ELEMENTS
    **/
@@ -36,95 +37,35 @@ $(document).ready(function () {
 
   // Function - AJAX Call using the State Code
   function ajaxCallState(state) {
-    var stateParksURL = `${npsURL}parks/?api_key=${npsAPIkey}&stateCode=${state}`;
+    var stateParksURL = npsURL+=state;
     $.ajax({
       url: stateParksURL,
       method: "GET",
     }).then(function (response) {
       allParksInState = response;
-      // console.log(allParksInState);
     });
   }
-
-  // Function to compute distance to parks
-
-  // function distanceToPark() {
-  //   $.ajax({
-  //     url: `https://developer.nps.gov/api/v1/parks/?api_key=${npsAPIkey}&stateCode=GA`,
-  //     method: "GET",
-  //   }).then(function (parks) {
-  //     var fromAddressString = "4285 Roswell Rd NE,Atlanta,GA";
-  //     var toAddressString = "";
-
-  //     console.log(parks.data[0].addresses[0]);
-  //     if (parks.data[0].addresses[0].type === "Physical") {
-  //       console.log("physical address");
-  //       toAddressString =
-  //         parks.data[0].addresses[0].line3 +
-  //         "," +
-  //         parks.data[0].addresses[0].city +
-  //         "," +
-  //         parks.data[0].addresses[0].stateCode +
-  //         "," +
-  //         parks.data[0].addresses[0].postalCode;
-  //       console.log(toAddressString);
-  //     }
-
-  //     toAddressString = "31.2214699,-81.39452014";
-
-  //     console.log(
-  //       "http://.mapquestapi.com/directions/v2/route?from=" +
-  //         fromAddressString +
-  //         "&to=" +
-  //         toAddressString +
-  //         "&key=UKFuk0Xe7EAKnJmVEVb3gfUAKRVOlAzR"
-  //     );
-  //     $.ajax({
-  //       url:
-  //         "http://mapquestapi.com/directions/v2/route?from=" +
-  //         fromAddressString +
-  //         "&to=" +
-  //         toAddressString +
-  //         "&key=UKFuk0Xe7EAKnJmVEVb3gfUAKRVOlAzR",
-  //       method: "GET",
-  //     }).then(function (routeResponse) {
-  //       console.log(routeResponse);
-  //     });
-  //   });
-  // }
 
   /**
    * FUNCTION CALLS
    */
 
-  // distanceToPark();
-
   /**
    * EVENT HANDLERS
    */
 
-  //Address entry form
-  // Function to add event listener to distance button
-  // distanceBtn.on("click", function (event) {
-  //   console.log("Distance button event handler");
-  //   clearScreen();
-  //   distanceDiv.attr("style", "display:block");
-  // });
-  var addy;
   addressSubmit.on("click", function (event) {
     event.preventDefault();
     distanceDiv.attr("class", "displayNone");
     originalPage.attr("class", "display");
-    addy = `${inputAddress.val()}, ${inputCity.val()}, ${inputState.val()} ${inputZip.val()}`;
-    // console.log(addy);
+    userAddress = `${inputAddress.val()}, ${inputCity.val()}, ${inputState.val()} ${inputZip.val()}`;
 
     ajaxCallState(inputState.val());
   });
   // ACTIVITY BUTTON SECTION START!
   activityBtn.on("click", function () {
     clearScreen();
-    // console.log(addy);
-    // console.log(allParksInState);
+
     activityDiv.attr("class", "display");
     var header = $("<h2>");
     header.text("Which of the following activities most interests you?");
@@ -149,22 +90,14 @@ $(document).ready(function () {
   var parksThatHaveActivity = [];
   //event listener for the newly generated buttons
   activityDiv.on("click", ".btn", function () {
-    // console.log($(this).attr("button-value"));
     var val = $(this).attr("button-value");
-    // ajaxCallActivities(val);
-    // console.log(allParksInState);
 
     for (i = 0; i < allParksInState.data.length; i++) {
       var parks = allParksInState.data[i].activities;
-      // console.log(parks);
-      // var activities = parks.activities;
-      // console.log(allParksInState.data);
+
       for (x = 0; x < parks.length; x++) {
-        // console.log(parks[x].name);
         if (parks[x].name == val) {
-          // console.log(parks[x].name);
           parksThatHaveActivity.push(allParksInState.data[i]);
-          // console.log(allParksInState.data[i].fullName);
         }
       }
     }
@@ -187,7 +120,6 @@ $(document).ready(function () {
         `${parksThatHaveActivity[y].addresses[0].line1},  ${parksThatHaveActivity[y].addresses[0].city}, ${parksThatHaveActivity[y].addresses[0].stateCode} ${parksThatHaveActivity[y].addresses[0].postalCode}`
       );
 
-      // console.log(parksThatHaveActivity);
       var div = $("<div class='card-body'></div>");
       var h5 = $("<h5 class='card-title'>Header goes here</h5>");
       var p = $(
@@ -202,8 +134,8 @@ $(document).ready(function () {
 
   activityDiv.on("click", ".park-image", function () {
     clearScreen();
-    // distanceToPark();
-    mapsUrl += `from=${addy}&to=${$(this).attr("data-value")}`;
+
+    mapsUrl += `from=${userAddress}&to=${$(this).attr("data-value")}`;
     $.ajax({
       url: mapsUrl,
       method: "GET",
@@ -211,8 +143,6 @@ $(document).ready(function () {
       console.log(response);
     });
   });
-
-  // console.log(parksThatHaveActivity);
 
   // ACTIVITY BUTTON SECTION END
 
@@ -256,9 +186,6 @@ $(document).ready(function () {
 
   assessmentDiv.on("click", ".btn", function () {
     var userChoice = $(this).text();
-    // console.log(userChoice);
-    // console.log(allParksInState);
-    // console.log(allParksInState.data[0].topics);
 
     for (var i = 0; i < allParksInState.data.length; i++) {
       for (var j = 0; j < allParksInState.data[i].topics.length; j++) {
