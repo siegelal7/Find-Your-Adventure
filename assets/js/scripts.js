@@ -97,8 +97,8 @@ $(document).ready(function () {
     for (i = 0; i < array.length; i++) {
       var option = $(
         "<button type='button' class='btn btn-primary'>" +
-          array[i] +
-          "</button>"
+        array[i] +
+        "</button>"
       );
       div.append(option);
     }
@@ -125,7 +125,7 @@ $(document).ready(function () {
 
   // Function - Creates the Parks Page
   function createParksPage() {
-    
+
     clearScreen();
 
     for (i = 0; i < listOfParksArray.length; i++) {
@@ -157,6 +157,7 @@ $(document).ready(function () {
           listOfParksArray[i].operatingHours[0].standardHours
         ),
         entranceFees: listOfParksArray[i].entranceFees[0].cost,
+        images: JSON.stringify(listOfParksArray[i].images)
       });
 
       // Creates Card-Body Div
@@ -246,12 +247,62 @@ $(document).ready(function () {
 
   //event listener for the newly generated buttons
   activityDiv.on("click", ".btn", function () {
-    
+
     var userChoice = $(this).text();
     createListOfParks(userChoice);
     createParksPage();
 
   });
+
+  function parseStandardHours(hoursString) {
+    var standardHrs = JSON.parse(hoursString);
+
+    var list = $("<ul class='hours'>");
+    var listEl = $("<li>");
+    listEl.text("Monday: " + standardHrs.Monday);
+    list.append(listEl);
+
+    listEl = $("<li>");
+    listEl.text("Tuesday: " + standardHrs.Tuesday);
+    list.append(listEl);
+
+    listEl = $("<li>");
+    listEl.text("Wednesday: " + standardHrs.Wednesday);
+    list.append(listEl);
+
+    listEl = $("<li>");
+    listEl.text("Thursday: " + standardHrs.Thursday);
+    list.append(listEl);
+    parkDetailInfo.append(list);
+
+    listEl = $("<li>");
+    listEl.text("Friday: " + standardHrs.Friday);
+    list.append(listEl);
+    listEl = $("<li>");
+    listEl.text("Saturday: " + standardHrs.Saturday);
+    list.append(listEl);
+    listEl = $("<li>");
+    listEl.text("Sunday: " + standardHrs.Sunday);
+    list.append(listEl);
+  }
+
+  //Function to parse park images
+  function parseParkImage(imagesObject) {
+
+    var imagesArray = JSON.parse(imagesObject);
+    if (imagesArray.length > 1) {
+      for (var i = 0; i < 1; i++) {
+
+        var imageEl = $("<img>");
+        imageEl.attr("src", imagesArray[i].url);
+        imageEl.attr("id", "park-detail-img");
+        imageEl.attr("style", "height:200px;width:200px");
+        parkDetailInfo.append(imageEl);
+
+      }
+    }
+
+  }
 
   activityDiv.on("click", ".park-image", function () {
     clearScreen();
@@ -267,10 +318,11 @@ $(document).ready(function () {
     );
     parkDetailInfo.append(newParaEl);
     parseStandardHours($(this).attr("standardHours"));
-    var imageEl = $("<img>");
-    imageEl.attr("src", "https://via.placeholder.com/250/250");
-    imageEl.attr("id", "park-detail-img");
-    parkDetailInfo.append(imageEl);
+    parseParkImage($(this).attr("images"));
+    // var imageEl = $("<img>");
+    // imageEl.attr("src", "https://via.placeholder.com/250/250");
+    // imageEl.attr("id", "park-detail-img");
+    // parkDetailInfo.append(imageEl);
 
     mapsUrl += `from=${userAddress}&to=${$(this).attr("data-value")}`;
     $.ajax({
