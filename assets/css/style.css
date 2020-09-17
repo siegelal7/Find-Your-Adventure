@@ -13,23 +13,29 @@
   margin-bottom: 2em;
   text-shadow: 1px 1px red;
 }
+
 .h1 {
   font-size: 2em;
 }
 
 body {
-  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/%E1%83%AD%E1%83%90%E1%83%A3%E1%83%AE%E1%83%94%E1%83%91%E1%83%98_2.jpg/1200px-%E1%83%AD%E1%83%90%E1%83%A3%E1%83%AE%E1%83%94%E1%83%91%E1%83%98_2.jpg");
-  z-index: 0;
+  height: 100%;
   font-size: 1.1em;
-  background-repeat: no-repeat;
+  background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/%E1%83%AD%E1%83%90%E1%83%A3%E1%83%AE%E1%83%94%E1%83%91%E1%83%98_2.jpg/1200px-%E1%83%AD%E1%83%90%E1%83%A3%E1%83%AE%E1%83%94%E1%83%91%E1%83%98_2.jpg")
+    no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
   background-size: cover;
+  font-size: 1.1em;
+  margin: 0;
 }
 
 .container {
   z-index: 100;
   color: black;
   font-weight: bolder;
-  opacity: 1 !important;
+  /* opacity: 1 !important; */
   text-align: center;
 }
 
@@ -62,11 +68,7 @@ body {
 .btn:hover {
   background: navy;
   text-shadow: 1px 1px #53cae0;
-}
-#addressSubmit {
-  position: relative;
-  bottom: 3.4em;
-  right: 7em;
+  color: white;
 }
 
 .hours {
@@ -93,4 +95,5 @@ form {
 .selection-btn {
   margin-left: 0.2em;
   margin-right: 0.2em;
+  margin-bottom: 0.4em;
 }
