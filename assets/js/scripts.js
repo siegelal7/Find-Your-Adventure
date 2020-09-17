@@ -5,6 +5,7 @@ $(document).ready(function () {
   var npsAPIkey = "PtYiGrnXjG4FL7v9tOprJACeJgJV4KxlTarrmWXF";
   var npsURL = `https://developer.nps.gov/api/v1/parks/?api_key=${npsAPIkey}&stateCode=`;
   var allParksInState = {};
+  var listOfParksArray = [];
   var mapQuestAPIkey = "UKFuk0Xe7EAKnJmVEVb3gfUAKRVOlAzR";
   var mapsUrl = `https://www.mapquestapi.com/directions/v2/route?key=${mapQuestAPIkey}&`;
   var userAddress;
@@ -39,6 +40,7 @@ $(document).ready(function () {
   function clearScreen() {
     originalPage.attr("style", "display:none");
     activityDiv.empty();
+    topicsDiv.empty();
   }
 
   // Function - AJAX Call using the State Code
@@ -54,7 +56,6 @@ $(document).ready(function () {
 
   // Function - Creates a new page with buttons
   function createButtons(question, div, array) {
-
     clearScreen();
 
     var questionHeader = $("<h1>");
@@ -74,25 +75,75 @@ $(document).ready(function () {
 
   // Function - Creates a List of Parks
   function createListOfParks(userChoice) {
-
     var parks;
-    var parksArray = [];
 
     for (var i = 0; i < allParksInState.data.length; i++) {
-
       if (userAdventure === "Activity") {
         parks = allParksInState.data[i].activities;
-      }
-      else if (userAdventure === "Topics") {
+      } else if (userAdventure === "Topics") {
         parks = allParksInState.data[i].topics;
       }
 
       for (var j = 0; j < parks.length; j++) {
-
         if (parks[j].name === userChoice) {
-          parksArray.push(allParksInState.data[i]);
+          listOfParksArray.push(allParksInState.data[i]);
         }
       }
+    }
+  }
+
+  // Function - Creates the Parks Page
+  function createParksPage() {
+
+    clearScreen();
+
+    for (i = 0; i < listOfParksArray.length; i++) {
+      // Adds Class Card-Deck to Activity Div
+      activityDiv.attr("class", "card-deck row row-cols-3 mt-5");
+      var colDiv = $("<div class='col mb-4'></div>");
+      var cardDiv = $("<div class='card'></div>");
+
+      var img = $(
+        "<img class='card-img-top park-image' alt='park-image' style='height: 210px'/>"
+      );
+      if (listOfParksArray[i].images[0] != undefined) {
+        img.attr("src", listOfParksArray[i].images[0].url);
+      } else {
+        img.attr(
+          "src",
+          "https://files.tripstodiscover.com/files/2018/08/32533575_1785635178193287_5065019941074239488_o.jpg"
+        );
+      }
+      img.attr(
+        "data-value",
+        `${listOfParksArray[i].addresses[0].line1},  ${listOfParksArray[i].addresses[0].city}, ${listOfParksArray[i].addresses[0].stateCode} ${listOfParksArray[i].addresses[0].postalCode}`
+      );
+
+      img.attr({
+        name: listOfParksArray[i].fullName,
+        operatingHours: listOfParksArray[i].operatingHours[0].description,
+        standardHours: JSON.stringify(
+          listOfParksArray[i].operatingHours[0].standardHours
+        ),
+        entranceFees: listOfParksArray[i].entranceFees[0].cost,
+        images: JSON.stringify(listOfParksArray[i].images)
+      });
+
+      // Creates Card-Body Div
+      var cardBodyDiv = $("<div class='card-body'></div>");
+      // Creates Card Header
+      var h5 = $("<h5 class='card-title'></h5>");
+      h5.text(listOfParksArray[i].fullName);
+      // Creates Card Paragraph
+      var p = $("<p class='card-text'></p>");
+      p.text(
+        `${listOfParksArray[i].addresses[0].city}, ${listOfParksArray[i].addresses[0].stateCode}`
+      );
+
+      cardBodyDiv.append(h5, p);
+      cardDiv.append(img, cardBodyDiv);
+      colDiv.append(cardDiv);
+      activityDiv.append(colDiv);
     }
   }
 
@@ -115,7 +166,6 @@ $(document).ready(function () {
 
   // ACTIVITY BUTTON SECTION START!
   activityBtn.on("click", function () {
-
     userAdventure = "Activity";
     var activitiesArray = [
       "Camping",
@@ -131,78 +181,13 @@ $(document).ready(function () {
     createButtons(question, activityDiv, activitiesArray);
   });
 
-  var parksThatHaveActivity = [];
   //event listener for the newly generated buttons
   activityDiv.on("click", ".btn", function () {
 
     var userChoice = $(this).text();
     createListOfParks(userChoice);
+    createParksPage();
 
-    for (i = 0; i < allParksInState.data.length; i++) {
-      var parks = allParksInState.data[i].activities;
-
-      for (x = 0; x < parks.length; x++) {
-        if (parks[x].name == userChoice) {
-          parksThatHaveActivity.push(allParksInState.data[i]);
-        }
-      }
-    }
-    console.log(parksThatHaveActivity);
-
-    clearScreen();
-    for (y = 0; y < parksThatHaveActivity.length; y++) {
-      // Adds Class Card-Deck to Activity Div
-      activityDiv.attr("class", "card-deck row row-cols-3 mt-5");
-
-      // Creates Col Div
-      var colDiv = $("<div class='col mb-4'></div>");
-      // Creates Card Div
-      var cardDiv = $("<div class='card'></div>");
-      // Creates Image
-      var img = $(
-        "<img class='card-img-top park-image' alt='park-image' style='height: 210px'/>"
-      );
-      if (parksThatHaveActivity[y].images[0] != undefined) {
-        img.attr("src", parksThatHaveActivity[y].images[0].url);
-      } else {
-        img.attr(
-          "src",
-          "https://files.tripstodiscover.com/files/2018/08/32533575_1785635178193287_5065019941074239488_o.jpg"
-        );
-      }
-      img.attr(
-        "data-value",
-        `${parksThatHaveActivity[y].addresses[0].line1},  ${parksThatHaveActivity[y].addresses[0].city}, ${parksThatHaveActivity[y].addresses[0].stateCode} ${parksThatHaveActivity[y].addresses[0].postalCode}`
-      );
-
-      // console.log(parksThatHaveActivity[y]);
-
-      img.attr({
-        name: parksThatHaveActivity[y].fullName,
-        operatingHours: parksThatHaveActivity[y].operatingHours[0].description,
-        standardHours: JSON.stringify(
-          parksThatHaveActivity[y].operatingHours[0].standardHours
-        ),
-        entranceFees: parksThatHaveActivity[y].entranceFees[0].cost,
-        images: JSON.stringify(parksThatHaveActivity[y].images)
-      });
-
-      // Creates Card-Body Div
-      var cardBodyDiv = $("<div class='card-body'></div>");
-      // Creates Card Header
-      var h5 = $("<h5 class='card-title'></h5>");
-      h5.text(parksThatHaveActivity[y].fullName);
-      // Creates Card Paragraph
-      var p = $("<p class='card-text'></p>");
-      p.text(
-        `${parksThatHaveActivity[y].addresses[0].city}, ${parksThatHaveActivity[y].addresses[0].stateCode}`
-      );
-
-      cardBodyDiv.append(h5, p);
-      cardDiv.append(img, cardBodyDiv);
-      colDiv.append(cardDiv);
-      activityDiv.append(colDiv);
-    }
   });
 
   function parseStandardHours(hoursString) {
@@ -239,17 +224,19 @@ $(document).ready(function () {
 
   //Function to parse park images
   function parseParkImage(imagesObject) {
-  
+
     var imagesArray = JSON.parse(imagesObject);
-    for (var i = 0; i < imagesArray.length; i++) {
-      
-      var imageEl = $("<img>");
-      imageEl.attr("src", imagesArray[i].url);
-      imageEl.attr("id", "park-detail-img");
-      imageEl.attr("style", "height:100px;width:100px");
-      parkDetailInfo.append(imageEl);
-      
-    } 
+    if (imagesArray.length > 1) {
+      for (var i = 0; i < 1; i++) {
+
+        var imageEl = $("<img>");
+        imageEl.attr("src", imagesArray[i].url);
+        imageEl.attr("id", "park-detail-img");
+        imageEl.attr("style", "height:200px;width:200px");
+        parkDetailInfo.append(imageEl);
+
+      }
+    }
 
   }
 
@@ -294,7 +281,6 @@ $(document).ready(function () {
 
   // Event Listener - Loading Page Topics Button
   topicsBtn.on("click", function () {
-
     userAdventure = "Topics";
     var topicsArray = [
       "African American Heritage",
@@ -317,11 +303,10 @@ $(document).ready(function () {
     createButtons(question, topicsDiv, topicsArray);
   });
 
-  var parksWithTopics = [];
-
   topicsDiv.on("click", ".btn", function () {
     var userChoice = $(this).text();
 
     createListOfParks(userChoice);
+    createParksPage();
   });
 });
