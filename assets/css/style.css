@@ -9,17 +9,15 @@
 .navbar {
   justify-content: center;
   z-index: 10;
-  background: cyan !important;
+  background: #53cae0 !important;
 }
 
 body {
-  background-image: url("https://i.ytimg.com/vi/_1kYbTKlMRE/maxresdefault.jpg");
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/%E1%83%AD%E1%83%90%E1%83%A3%E1%83%AE%E1%83%94%E1%83%91%E1%83%98_2.jpg/1200px-%E1%83%AD%E1%83%90%E1%83%A3%E1%83%AE%E1%83%94%E1%83%91%E1%83%98_2.jpg");
   z-index: 0;
-  /* opacity: 0.5; */
-  /* height: 100vh;
-  width: 100vw; */
+
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
 }
 
 .container {
