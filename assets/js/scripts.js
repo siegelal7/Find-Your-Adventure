@@ -86,16 +86,16 @@ $(document).ready(function () {
     // ajaxCallActivities(val);
     // console.log(allParksInState);
 
-    // for (i = 0; i < allParksInState.data.length; i++) {
-    //   var parks = allParksInState.data[i];
-    //   console.log(parks.activites.name);
-    //   // for (j = 0; j < activities.length; j++) {
-    //   //   console.log(activities[j].name);
-    //   // }
-    //   // if (allParksInState.data[i].activites.name.includes(val)) {
-    //   //   console.log(allParksInState.data[i]);
-    //   // }
-    // }
+    for (i = 0; i < allParksInState.data.length; i++) {
+      var parks = allParksInState.data[i];
+      console.log(parks);
+      // for (j = 0; j < activities.length; j++) {
+      //   console.log(activities[j].name);
+      // }
+      // if (allParksInState.data[i].activites.name.includes(val)) {
+      //   console.log(allParksInState.data[i]);
+      // }
+    }
   });
 
   //function for api call based on button clicked
