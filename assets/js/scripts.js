@@ -86,7 +86,7 @@ $(document).ready(function () {
     ];
     for (i = 0; i < selections.length; i++) {
       var choice = $("<button>");
-      choice.attr("class", "btn btn-primary");
+      choice.attr("class", "btn btn-primary smiley");
       choice.attr("button-value", selections[i]);
       choice.text(selections[i]);
       activityDiv.append(choice);
