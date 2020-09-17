@@ -6,7 +6,7 @@ $(document).ready(function () {
   var npsURL = `https://developer.nps.gov/api/v1/parks/?api_key=${npsAPIkey}&stateCode=`;
   var allParksInState = {};
   var mapQuestAPIkey = "UKFuk0Xe7EAKnJmVEVb3gfUAKRVOlAzR";
-  var mapsUrl = `http://www.mapquestapi.com/directions/v2/route?key=${mapQuestAPIkey}&`;
+  var mapsUrl = `https://www.mapquestapi.com/directions/v2/route?key=${mapQuestAPIkey}&`;
   var userAddress;
   
   /**
@@ -115,7 +115,7 @@ $(document).ready(function () {
           // Creates Card Div
           var cardDiv = $("<div class='card'></div>");
             // Creates Image
-            var img = $("<img class='card-img-top park-image' alt='park-image'/>");
+            var img = $("<img class='card-img-top park-image' alt='park-image' style='height: 210px'/>");
               if (parksThatHaveActivity[y].images[0] != undefined) {
                 img.attr("src", parksThatHaveActivity[y].images[0].url);
               } else {
