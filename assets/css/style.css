@@ -64,3 +64,8 @@ body {
   background: navy;
   text-shadow: 1px 1px #53cae0;
 }
+#addressSubmit {
+  position: relative;
+  bottom: 3.4em;
+  right: 7em;
+}
