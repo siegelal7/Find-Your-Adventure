@@ -29,6 +29,7 @@ $(document).ready(function () {
    */
   function clearScreen() {
     originalPage.attr("style", "display:none");
+    activityDiv.empty();
   }
 
   // Function - AJAX Call using the State Code
@@ -86,7 +87,7 @@ $(document).ready(function () {
     ];
     for (i = 0; i < selections.length; i++) {
       var choice = $("<button>");
-      choice.attr("class", "btn btn-primary smiley");
+      choice.attr("class", "btn btn-primary");
       choice.attr("button-value", selections[i]);
       choice.text(selections[i]);
       activityDiv.append(choice);
@@ -114,7 +115,28 @@ $(document).ready(function () {
         }
       }
     }
+    clearScreen();
+    for (y = 0; y < parksThatHaveActivity.length; y++) {
+      var cardDeck = $("<div class='card-deck'></div>");
+      var card = $("<div class='card'></div>");
+      var img = $(
+        "<img src='http://duncanlock.net/images/posts/better-figures-images-plugin-for-pelican/dummy-200x200.png'class='card-img-top' alt='park-image' style='height:125px; width:125px;' />"
+      );
+      var div = $("<div class='card-body'></div>");
+      var h5 = $("<h5 class='card-title'>Header goes here</h5>");
+      var p = $(
+        "<p class='card-text'>Lorem Ipsum blah blah blah blha lbskjdfowiej woijfwo</p>"
+      );
+
+      activityDiv.append(cardDeck);
+      cardDeck.append(card);
+      card.append(img);
+      card.append(div);
+      div.append(h5);
+      div.append(p);
+    }
   });
+
   // console.log(parksThatHaveActivity);
 
   //function for api call based on button clicked
