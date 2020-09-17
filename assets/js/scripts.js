@@ -8,15 +8,15 @@ $(document).ready(function () {
   var mapQuestAPIkey = "UKFuk0Xe7EAKnJmVEVb3gfUAKRVOlAzR";
   var mapsUrl = `https://www.mapquestapi.com/directions/v2/route?key=${mapQuestAPIkey}&`;
   var userAddress;
-  
+
   /**
    * DOM ELEMENTS
    **/
   var landingPageHeader = $("#landingPageHeader");
-  var assessmentBtn = $("#assessmentBtn");
+  var topicsBtn = $("#topicsBtn");
   var distanceBtn = $("#distanceBtn");
   var activityBtn = $("#activityBtn");
-  var assessmentDiv = $("#assessmentDiv");
+  var topicsDiv = $("#topicsDiv");
   var distanceDiv = $("#distanceDiv");
   var activityDiv = $("#activityDiv");
   var parkListDiv = $("#parkListDiv");
@@ -42,13 +42,38 @@ $(document).ready(function () {
 
   // Function - AJAX Call using the State Code
   function ajaxCallState(state) {
-    var stateParksURL = npsURL+=state;
+    var stateParksURL = (npsURL += state);
     $.ajax({
       url: stateParksURL,
       method: "GET",
     }).then(function (response) {
       allParksInState = response;
     });
+  }
+
+  // Creates a new page with buttons
+  function createButtons(question, div, array){
+    
+    clearScreen();
+
+    var questionHeader = $("<h1>");
+    questionHeader.text(question);
+    div.append(questionHeader);
+    div.attr("class", ".display");
+    
+
+    for (i = 0; i < array.length; i++) {
+      var option = $(
+        "<button type='button' class='btn btn-primary'>" +
+          array[i] +
+          "</button>"
+      );
+      div.append(option);
+    }
+  }
+
+  function createListOfParks(){
+    
   }
 
   /**
@@ -68,16 +93,10 @@ $(document).ready(function () {
     ajaxCallState(inputState.val());
   });
 
-
   // ACTIVITY BUTTON SECTION START!
   activityBtn.on("click", function () {
-    clearScreen();
 
-    activityDiv.attr("class", "display");
-    var header = $("<h2>");
-    header.text("Which of the following activities most interests you?");
-    activityDiv.append(header);
-    var selections = [
+    var activitiesArray = [
       "Camping",
       "Fishing",
       "Biking",
@@ -86,18 +105,15 @@ $(document).ready(function () {
       "Wildlife Watching",
       "Hiking",
     ];
-    for (i = 0; i < selections.length; i++) {
-      var choice = $("<button>");
-      choice.attr("class", "btn btn-primary");
-      choice.attr("button-value", selections[i]);
-      choice.text(selections[i]);
-      activityDiv.append(choice);
-    }
+
+    var question = "Which of the following activities most interests you?";
+    createButtons(question, activityDiv, activitiesArray);
   });
+
   var parksThatHaveActivity = [];
   //event listener for the newly generated buttons
   activityDiv.on("click", ".btn", function () {
-    var val = $(this).attr("button-value");
+    var val = $(this).text();
 
     for (i = 0; i < allParksInState.data.length; i++) {
       var parks = allParksInState.data[i].activities;
@@ -111,9 +127,9 @@ $(document).ready(function () {
 
     clearScreen();
     for (y = 0; y < parksThatHaveActivity.length; y++) {
-      
       // Adds Class Card-Deck to Activity Div
       activityDiv.attr("class", "card-deck row row-cols-3 mt-5");
+
         // Creates Col Div
         var colDiv = $("<div class='col mb-4'></div>");
           // Creates Card Div
@@ -151,6 +167,7 @@ $(document).ready(function () {
               var p = $(
                 "<p class='card-text'>Lorem Ipsum blah blah blah blha lbskjdfowiej woijfwo</p>"
               );
+
 
       cardBodyDiv.append(h5, p);
       cardDiv.append(img, cardBodyDiv);
@@ -214,14 +231,14 @@ $(document).ready(function () {
       method: "GET",
     }).then(function (response) {
       console.log(response);
-        
-      for(var i=0; i< response.route.legs[0].maneuvers.length;i++)
-      {
+
+      parkDetails.attr("style", "display:block");
+      for (var i = 0; i < response.route.legs[0].maneuvers.length; i++) {
+
         console.log(response.route.legs[0].maneuvers[i].narrative);
-        var newParaEl= $("<p>");
+        var newParaEl = $("<p>");
         newParaEl.text(response.route.legs[0].maneuvers[i].narrative);
         parkDirectionsList.append(newParaEl);
-
       }
     });
 
@@ -232,9 +249,8 @@ $(document).ready(function () {
 
   // ACTIVITY BUTTON SECTION END
 
-  // Event Listener - Loading Page Assessment Button
-  assessmentBtn.on("click", function () {
-    clearScreen();
+  // Event Listener - Loading Page Topics Button
+  topicsBtn.on("click", function () {
 
     var topicsArray = [
       "African American Heritage",
@@ -253,24 +269,13 @@ $(document).ready(function () {
       "Women's History",
     ];
 
-    var questionHeader = $("<h1>");
-    questionHeader.text("Which topic would you like to explore?");
-    assessmentDiv.append(questionHeader);
-    assessmentDiv.attr("class", ".display");
-
-    for (i = 0; i < topicsArray.length; i++) {
-      var option = $(
-        "<button type='button' class='btn btn-primary'>" +
-          topicsArray[i] +
-          "</button>"
-      );
-      assessmentDiv.append(option);
-    }
+    var question = "Which topic would you like to explore?";
+    createButtons(question, topicsDiv, topicsArray);
   });
 
   var parksWithTopics = [];
 
-  assessmentDiv.on("click", ".btn", function () {
+  topicsDiv.on("click", ".btn", function () {
     var userChoice = $(this).text();
 
     for (var i = 0; i < allParksInState.data.length; i++) {
