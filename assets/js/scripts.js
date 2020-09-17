@@ -6,7 +6,7 @@ $(document).ready(function () {
   var npsURL = `https://developer.nps.gov/api/v1/parks/?api_key=${npsAPIkey}&stateCode=`;
   var allParksInState = {};
   var mapQuestAPIkey = "UKFuk0Xe7EAKnJmVEVb3gfUAKRVOlAzR";
-  var mapsUrl = `http://www.mapquestapi.com/directions/v2/route?key=${mapQuestAPIkey}&`;
+  var mapsUrl = `https://www.mapquestapi.com/directions/v2/route?key=${mapQuestAPIkey}&`;
   var userAddress;
   
   /**
@@ -28,6 +28,8 @@ $(document).ready(function () {
   var inputCity = $("#inputCity");
   var inputState = $("#inputState");
   var inputZip = $("#inputZip");
+  var parkDetails = $("#park-details");
+  var parkDirectionsList = $("#directions-list");
   /**
    * FUNCTION DEFINITIONS
    */
@@ -142,6 +144,15 @@ $(document).ready(function () {
       method: "GET",
     }).then(function (response) {
       console.log(response);
+      parkDetails.attr("style","display:block");
+      for(var i=0; i< response.route.legs[0].maneuvers.length;i++)
+      {
+        console.log(response.route.legs[0].maneuvers[i].narrative);
+        var newParaEl= $("<p>");
+        newParaEl.text(response.route.legs[0].maneuvers[i].narrative);
+        parkDirectionsList.append(newParaEl);
+
+      }
     });
   });
 
