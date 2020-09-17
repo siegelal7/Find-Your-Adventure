@@ -39,6 +39,7 @@ $(document).ready(function () {
       method: "GET",
     }).then(function (response) {
       allParksInState = response;
+      // console.log(allParksInState);
     });
   }
 
@@ -69,6 +70,7 @@ $(document).ready(function () {
   // ACTIVITY BUTTON SECTION START!
   activityBtn.on("click", function () {
     clearScreen();
+    // console.log(allParksInState);
     activityDiv.attr("class", "display");
     var header = $("<h2>");
     header.text("Which of the following activities most interests you?");
@@ -90,6 +92,7 @@ $(document).ready(function () {
       activityDiv.append(choice);
     }
   });
+  var parksThatHaveActivity = [];
   //event listener for the newly generated buttons
   activityDiv.on("click", ".btn", function () {
     // console.log($(this).attr("button-value"));
@@ -98,16 +101,21 @@ $(document).ready(function () {
     // console.log(allParksInState);
 
     for (i = 0; i < allParksInState.data.length; i++) {
-      var parks = allParksInState.data[i];
-      console.log(parks);
-      // for (j = 0; j < activities.length; j++) {
-      //   console.log(activities[j].name);
-      // }
-      // if (allParksInState.data[i].activites.name.includes(val)) {
-      //   console.log(allParksInState.data[i]);
-      // }
+      var parks = allParksInState.data[i].activities;
+      // console.log(parks);
+      // var activities = parks.activities;
+      // console.log(allParksInState.data);
+      for (x = 0; x < parks.length; x++) {
+        // console.log(parks[x].name);
+        if (parks[x].name == val) {
+          // console.log(parks[x].name);
+          parksThatHaveActivity.push(allParksInState.data[i]);
+          // console.log(allParksInState.data[i].fullName);
+        }
+      }
     }
   });
+  // console.log(parksThatHaveActivity);
 
   //function for api call based on button clicked
   // function ajaxCallState(state) {
