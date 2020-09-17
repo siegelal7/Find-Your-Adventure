@@ -43,9 +43,53 @@ $(document).ready(function () {
     });
   }
 
+// Function to compute distance to parks
+function distanceToPark()
+{
+
+  $.ajax({
+    url: "https://developer.nps.gov/api/v1/parks/?api_key=tYiGrnXjG4FL7Pv9tOprJACeJgJV4KxlTarrmWXF&stateCode=GA",
+    method:"GET"
+  }).then(function(parks){
+
+       var fromAddressString = "4285 Roswell Rd NE,Atlanta,GA";
+       var toAddressString = "";
+
+       console.log(parks.data[0].addresses[0]);
+       if(parks.data[0].addresses[0].type === "Physical")
+       {
+         console.log("physical address");
+         toAddressString = parks.data[0].addresses[0].line3 + "," + parks.data[0].addresses[0].city + "," +  parks.data[0].addresses[0].stateCode + "," +  parks.data[0].addresses[0].postalCode;
+         console.log(toAddressString);
+       }
+
+      toAddressString = "31.2214699,-81.39452014";
+
+       console.log("http://open.mapquestapi.com/directions/v2/route?from=" + fromAddressString + "&to="  + toAddressString + "&key=UKFuk0Xe7EAKnJmVEVb3gfUAKRVOlAzR");
+       $.ajax({
+         url:"http://open.mapquestapi.com/directions/v2/route?from=" + fromAddressString + "&to="  + toAddressString + "&key=UKFuk0Xe7EAKnJmVEVb3gfUAKRVOlAzR",
+         method: "GET"
+       }).then(function(routeResponse){
+
+         console.log(routeResponse);
+
+       });
+
+  });
+
+}
+
+
+
+
+
+
   /**
    * FUNCTION CALLS
    */
+
+  distanceToPark();
+
 
   /**
    * EVENT HANDLERS
@@ -156,6 +200,7 @@ $(document).ready(function () {
   // });
   // }
   // ACTIVITY BUTTON SECTION END
+
 
   // Event Listener - Loading Page Assessment Button
   assessmentBtn.on("click", function () {
