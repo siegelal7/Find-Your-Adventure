@@ -10,6 +10,8 @@
   justify-content: center;
   z-index: 10;
   background: #53cae0 !important;
+  margin-bottom: 1em;
+  text-shadow: 1px 1px red;
 }
 
 body {
@@ -27,8 +29,24 @@ body {
   opacity: 1 !important;
 }
 
+#park-details {
+  margin-top: 10px;
+}
 
-#park-details{
+#originalPage {
+  text-align: center;
+  margin-top: 7em;
+}
 
-  margin-top:10px;
+#adventure {
+  background: linear-gradient(navy, white, red, blue);
+
+  /* clip hackery */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#topicsBtn,
+#activityBtn {
+  background: #53cae0;
 }

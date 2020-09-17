@@ -50,15 +50,13 @@ $(document).ready(function () {
   }
 
   // Creates a new page with buttons
-  function createButtons(question, div, array){
-    
+  function createButtons(question, div, array) {
     clearScreen();
 
     var questionHeader = $("<h1>");
     questionHeader.text(question);
     div.append(questionHeader);
     div.attr("class", ".display");
-    
 
     for (i = 0; i < array.length; i++) {
       var option = $(
@@ -70,9 +68,7 @@ $(document).ready(function () {
     }
   }
 
-  function createListOfParks(){
-    
-  }
+  function createListOfParks() {}
 
   /**
    * FUNCTION CALLS
@@ -93,7 +89,6 @@ $(document).ready(function () {
 
   // ACTIVITY BUTTON SECTION START!
   activityBtn.on("click", function () {
-
     var activitiesArray = [
       "Camping",
       "Fishing",
@@ -187,7 +182,6 @@ $(document).ready(function () {
 
   // Event Listener - Loading Page Topics Button
   topicsBtn.on("click", function () {
-
     var topicsArray = [
       "African American Heritage",
       "American Revolution",
