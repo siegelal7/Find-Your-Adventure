@@ -10,6 +10,7 @@ $(document).ready(function () {
   var mapsUrl = `https://www.mapquestapi.com/directions/v2/route?key=${mapQuestAPIkey}&`;
   var userAddress;
   var userAdventure = "";
+  
   var object = {
     questions: ["Which topic would you like to explore?",
     "Which of the following activities most interests you?"
@@ -75,7 +76,7 @@ $(document).ready(function () {
   }
 
   // Function - AJAX Call using the State Code
-  function ajaxCallState(state) {
+  function ajaxCallNPSbyState(state) {
     var stateParksURL = (npsURL += state);
     $.ajax({
       url: stateParksURL,
@@ -95,11 +96,13 @@ $(document).ready(function () {
     div.attr("class", ".display");
 
     for (i = 0; i < array.length; i++) {
-      var option = $(
-        "<button type='button' class='btn btn-primary selection-btn'>" +
-          array[i] +
-          "</button>"
-      );
+      var option = $("<button>");
+      option.attr({
+        type: "button",
+        class: "btn btn-primary selection-btn",
+        "data-value": "" + array[i]
+      });
+      option.text(array[i]);
       div.append(option);
     }
   }
@@ -177,39 +180,6 @@ $(document).ready(function () {
     }
   }
 
-  // Function - 
-  function parseStandardHours(hoursString) {
-    var standardHrs = JSON.parse(hoursString);
-    standardHrs.Monday;
-    var list = $("<ul class='hours'>");
-    var listEl = $("<li>");
-    listEl.text("Monday: " + standardHrs.Monday);
-    list.append(listEl);
-
-    listEl = $("<li>");
-    listEl.text("Tuesday: " + standardHrs.Tuesday);
-    list.append(listEl);
-
-    listEl = $("<li>");
-    listEl.text("Wednesday: " + standardHrs.Wednesday);
-    list.append(listEl);
-
-    listEl = $("<li>");
-    listEl.text("Thursday: " + standardHrs.Thursday);
-    list.append(listEl);
-    parkDetailInfo.append(list);
-
-    listEl = $("<li>");
-    listEl.text("Friday: " + standardHrs.Friday);
-    list.append(listEl);
-    listEl = $("<li>");
-    listEl.text("Saturday: " + standardHrs.Saturday);
-    list.append(listEl);
-    listEl = $("<li>");
-    listEl.text("Sunday: " + standardHrs.Sunday);
-    list.append(listEl);
-  }
-
   /**
    * FUNCTION CALLS
    */
@@ -224,7 +194,7 @@ $(document).ready(function () {
     originalPage.attr("class", "display");
     userAddress = `${inputAddress.val()}, ${inputCity.val()}, ${inputState.val()} ${inputZip.val()}`;
 
-    ajaxCallState(inputState.val());
+    ajaxCallNPSbyState(inputState.val());
   });
 
   // ACTIVITY BUTTON SECTION START!
@@ -368,5 +338,11 @@ $(document).ready(function () {
 
     createListOfParks(userChoice);
     createParksPage();
+  });
+
+  originalPage.on("click", ".btn", function(event){
+    event.preventDefault();
+    console.log($(this).attr("data-value"));
+    console.log("Topics" == $(this).attr("data-value"));
   });
 });
