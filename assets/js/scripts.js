@@ -51,7 +51,7 @@ $(document).ready(function () {
     distanceDiv.attr("class", "displayNone");
     originalPage.attr("class", "display");
     var addy = `${inputAddress.val()}, ${inputCity.val()}, ${inputState.val()} ${inputZip.val()}`;
-    // console.log(addy);
+    console.log(addy);
 
     ajaxCallState(inputState.val());
   });
