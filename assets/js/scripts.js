@@ -23,6 +23,7 @@ $(document).ready(function () {
   var inputAddress = $("#inputAddress");
   var inputCity = $("#inputCity");
   var inputState = $("#inputState");
+  var inputParkSearchState = $("#inputSearchState");
   var inputZip = $("#inputZip");
   /**
    * FUNCTION DEFINITIONS
@@ -52,7 +53,7 @@ $(document).ready(function () {
     originalPage.attr("class", "display");
     var addy = `${inputAddress.val()}, ${inputCity.val()}, ${inputState.val()} ${inputZip.val()}`;
     // console.log(addy);
-    ajaxCallActivities(inputState.val());
+    ajaxCallActivities(inputParkSearchState.val());
   });
   // ACTIVITY BUTTON SECTION START!
   activityBtn.on("click", function () {
