@@ -66,8 +66,8 @@ $(document).ready(function () {
     for (i = 0; i < array.length; i++) {
       var option = $(
         "<button type='button' class='btn btn-primary selection-btn'>" +
-          array[i] +
-          "</button>"
+        array[i] +
+        "</button>"
       );
       div.append(option);
     }
@@ -125,6 +125,7 @@ $(document).ready(function () {
           listOfParksArray[i].operatingHours[0].standardHours
         ),
         entranceFees: listOfParksArray[i].entranceFees[0].cost,
+        images: JSON.stringify(listOfParksArray[i].images)
       });
 
       // Creates Card-Body Div
@@ -184,6 +185,10 @@ $(document).ready(function () {
 
   //event listener for the newly generated buttons
   activityDiv.on("click", ".btn", function () {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1480e5b630db186c46edb2aa49a6fedcae5521af
     var userChoice = $(this).text();
     createListOfParks(userChoice);
     createParksPage();
@@ -191,7 +196,7 @@ $(document).ready(function () {
 
   function parseStandardHours(hoursString) {
     var standardHrs = JSON.parse(hoursString);
-    standardHrs.Monday;
+
     var list = $("<ul class='hours'>");
     var listEl = $("<li>");
     listEl.text("Monday: " + standardHrs.Monday);
@@ -221,6 +226,24 @@ $(document).ready(function () {
     list.append(listEl);
   }
 
+  //Function to parse park images
+  function parseParkImage(imagesObject) {
+
+    var imagesArray = JSON.parse(imagesObject);
+    if (imagesArray.length > 1) {
+      for (var i = 0; i < 1; i++) {
+
+        var imageEl = $("<img>");
+        imageEl.attr("src", imagesArray[i].url);
+        imageEl.attr("id", "park-detail-img");
+        imageEl.attr("style", "height:200px;width:200px");
+        parkDetailInfo.append(imageEl);
+
+      }
+    }
+
+  }
+
   activityDiv.on("click", ".park-image", function () {
     clearScreen();
 
@@ -235,10 +258,11 @@ $(document).ready(function () {
     );
     parkDetailInfo.append(newParaEl);
     parseStandardHours($(this).attr("standardHours"));
-    var imageEl = $("<img>");
-    imageEl.attr("src", "https://via.placeholder.com/250/250");
-    imageEl.attr("id", "park-detail-img");
-    parkDetailInfo.append(imageEl);
+    parseParkImage($(this).attr("images"));
+    // var imageEl = $("<img>");
+    // imageEl.attr("src", "https://via.placeholder.com/250/250");
+    // imageEl.attr("id", "park-detail-img");
+    // parkDetailInfo.append(imageEl);
 
     mapsUrl += `from=${userAddress}&to=${$(this).attr("data-value")}`;
     $.ajax({
