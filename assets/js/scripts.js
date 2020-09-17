@@ -53,8 +53,8 @@ $(document).ready(function () {
   }
 
   // Function - Creates a new page with buttons
-  function createButtons(question, div, array){
-    
+  function createButtons(question, div, array) {
+
     clearScreen();
 
     var questionHeader = $("<h1>");
@@ -65,31 +65,31 @@ $(document).ready(function () {
     for (i = 0; i < array.length; i++) {
       var option = $(
         "<button type='button' class='btn btn-primary'>" +
-          array[i] +
-          "</button>"
+        array[i] +
+        "</button>"
       );
       div.append(option);
     }
   }
 
   // Function - Creates a List of Parks
-  function createListOfParks(userChoice){
+  function createListOfParks(userChoice) {
 
     var parks;
     var parksArray = [];
 
-    for( var i = 0; i < allParksInState.data.length; i++){
+    for (var i = 0; i < allParksInState.data.length; i++) {
 
-      if(userAdventure === "Activity"){
+      if (userAdventure === "Activity") {
         parks = allParksInState.data[i].activities;
       }
-      else if (userAdventure === "Topics"){
+      else if (userAdventure === "Topics") {
         parks = allParksInState.data[i].topics;
       }
 
-      for(var j = 0; j < parks.length; j++){
-        
-        if(parks[j].name === userChoice){
+      for (var j = 0; j < parks.length; j++) {
+
+        if (parks[j].name === userChoice) {
           parksArray.push(allParksInState.data[i]);
         }
       }
@@ -134,9 +134,9 @@ $(document).ready(function () {
   var parksThatHaveActivity = [];
   //event listener for the newly generated buttons
   activityDiv.on("click", ".btn", function () {
-    
+
     var userChoice = $(this).text();
-    createListOfParks(userChoice); 
+    createListOfParks(userChoice);
 
     for (i = 0; i < allParksInState.data.length; i++) {
       var parks = allParksInState.data[i].activities;
@@ -184,6 +184,7 @@ $(document).ready(function () {
           parksThatHaveActivity[y].operatingHours[0].standardHours
         ),
         entranceFees: parksThatHaveActivity[y].entranceFees[0].cost,
+        images: JSON.stringify(parksThatHaveActivity[y].images)
       });
 
       // Creates Card-Body Div
@@ -206,7 +207,7 @@ $(document).ready(function () {
 
   function parseStandardHours(hoursString) {
     var standardHrs = JSON.parse(hoursString);
-    standardHrs.Monday;
+
     var list = $("<ul class='hours'>");
     var listEl = $("<li>");
     listEl.text("Monday: " + standardHrs.Monday);
@@ -236,6 +237,22 @@ $(document).ready(function () {
     list.append(listEl);
   }
 
+  //Function to parse park images
+  function parseParkImage(imagesObject) {
+  
+    var imagesArray = JSON.parse(imagesObject);
+    for (var i = 0; i < imagesArray.length; i++) {
+      
+      var imageEl = $("<img>");
+      imageEl.attr("src", imagesArray[i].url);
+      imageEl.attr("id", "park-detail-img");
+      imageEl.attr("style", "height:100px;width:100px");
+      parkDetailInfo.append(imageEl);
+      
+    } 
+
+  }
+
   activityDiv.on("click", ".park-image", function () {
     clearScreen();
 
@@ -250,10 +267,11 @@ $(document).ready(function () {
     );
     parkDetailInfo.append(newParaEl);
     parseStandardHours($(this).attr("standardHours"));
-    var imageEl = $("<img>");
-    imageEl.attr("src", "https://via.placeholder.com/250/250");
-    imageEl.attr("id", "park-detail-img");
-    parkDetailInfo.append(imageEl);
+    parseParkImage($(this).attr("images"));
+    // var imageEl = $("<img>");
+    // imageEl.attr("src", "https://via.placeholder.com/250/250");
+    // imageEl.attr("id", "park-detail-img");
+    // parkDetailInfo.append(imageEl);
 
     mapsUrl += `from=${userAddress}&to=${$(this).attr("data-value")}`;
     $.ajax({
@@ -304,6 +322,6 @@ $(document).ready(function () {
   topicsDiv.on("click", ".btn", function () {
     var userChoice = $(this).text();
 
-    createListOfParks(userChoice); 
+    createListOfParks(userChoice);
   });
 });
