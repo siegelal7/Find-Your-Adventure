@@ -51,8 +51,8 @@ $(document).ready(function () {
     distanceDiv.attr("class", "displayNone");
     originalPage.attr("class", "display");
     var addy = `${inputAddress.val()}, ${inputCity.val()}, ${inputState.val()} ${inputZip.val()}`;
-    console.log(addy);
-    ajaxCallActivities();
+    // console.log(addy);
+    ajaxCallActivities(inputState.val());
   });
   // ACTIVITY BUTTON SECTION START!
   activityBtn.on("click", function () {
@@ -87,9 +87,9 @@ $(document).ready(function () {
   });
 
   //function for api call based on button clicked
-  function ajaxCallActivities() {
+  function ajaxCallActivities(state) {
     // var activitiesParkUrl = `${npsURL}activities/parks/?api_key=${npsAPIkey}&q=${val}`;
-    var activitiesParkUrl = `${npsURL}parks/?api_key=${npsAPIkey}&stateCode=GA`;
+    var activitiesParkUrl = `${npsURL}parks/?api_key=${npsAPIkey}&stateCode=${state}`;
     $.ajax({
       url: activitiesParkUrl,
       method: "GET",
