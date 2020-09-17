@@ -31,6 +31,17 @@ $(document).ready(function () {
     originalPage.attr("style", "display:none");
   }
 
+  // Function - AJAX Call using the State Code
+  function ajaxCallState(state) {
+    var stateParksURL = `${npsURL}parks/?api_key=${npsAPIkey}&stateCode=${state}`;
+    $.ajax({
+      url: stateParksURL,
+      method: "GET",
+    }).then(function (response) {
+      allParksInState = response;
+    });
+  }
+
   /**
    * FUNCTION CALLS
    */
@@ -99,17 +110,17 @@ $(document).ready(function () {
   });
 
   //function for api call based on button clicked
-  function ajaxCallState(state) {
+  // function ajaxCallState(state) {
     // var activitiesParkUrl = `${npsURL}activities/parks/?api_key=${npsAPIkey}&q=${val}`;
-    var activitiesParkUrl = `${npsURL}parks/?api_key=${npsAPIkey}&stateCode=${state}`;
-    $.ajax({
-      url: activitiesParkUrl,
-      method: "GET",
-    }).then(function (response) {
-      // console.log(response);
-      allParksInState = response;
-      console.log(allParksInState);
-    });
+    // var activitiesParkUrl = `${npsURL}parks/?api_key=${npsAPIkey}&stateCode=${state}`;
+    // $.ajax({
+    //   url: activitiesParkUrl,
+    //   method: "GET",
+    // }).then(function (response) {
+    //   // console.log(response);
+    //   allParksInState = response;
+    //   console.log(allParksInState);
+    // });
     // $.ajax({
     //   url: activitiesParkUrl,
     //   method: "GET",
@@ -135,7 +146,7 @@ $(document).ready(function () {
     //     }
     //   }
     // });
-  }
+  // }
   // ACTIVITY BUTTON SECTION END
 
   // Event Listener - Loading Page Assessment Button
@@ -177,21 +188,4 @@ $(document).ready(function () {
   assessmentDiv.on("click", ".btn", function () {
     ajaxTopics($(this).text());
   });
-
-  //function for api call based on button clicked
-  function ajaxTopics(topic) {
-    var topicsURL =
-      npsURL + "topics/parks/?api_key=" + npsAPIkey + "&q=" + topic;
-    $.ajax({
-      url: topicsURL,
-      method: "GET",
-    }).then(function (response) {});
-  }
-
-  // Function to add event listener to distance button
-  // distanceBtn.on("click", function (event) {
-  //   console.log("Distance button event handler");
-  //   clearScreen();
-  //   distanceDiv.attr("style", "display:block");
-  // });
 });
