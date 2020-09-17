@@ -5,8 +5,8 @@ $(document).ready(function () {
   var npsURL = "https://developer.nps.gov/api/v1/";
   var npsAPIkey = "PtYiGrnXjG4FL7v9tOprJACeJgJV4KxlTarrmWXF";
 
-   /** 
-    * DOM ELEMENTS
+  /**
+   * DOM ELEMENTS
    **/
   var landingPageHeader = $("#landingPageHeader");
   var assessmentBtn = $("#assessmentBtn");
@@ -19,6 +19,11 @@ $(document).ready(function () {
   var parkDiv = $("#parkDiv");
   var container = $("#container");
   var originalPage = $("#originalPage");
+  var addressSubmit = $("#addressSubmit");
+  var inputAddress = $("#inputAddress");
+  var inputCity = $("#inputCity");
+  var inputState = $("#inputState");
+  var inputZip = $("#inputZip");
   /**
    * FUNCTION DEFINITIONS
    */
@@ -33,6 +38,21 @@ $(document).ready(function () {
   /**
    * EVENT HANDLERS
    */
+
+  //Address entry form
+  // Function to add event listener to distance button
+  // distanceBtn.on("click", function (event) {
+  //   console.log("Distance button event handler");
+  //   clearScreen();
+  //   distanceDiv.attr("style", "display:block");
+  // });
+  addressSubmit.on("click", function (event) {
+    event.preventDefault();
+    distanceDiv.attr("class", "displayNone");
+    originalPage.attr("class", "display");
+    var addy = `${inputAddress.val()}, ${inputCity.val()}, ${inputState.val()} ${inputZip.val()}`;
+    console.log(addy);
+  });
   // ACTIVITY BUTTON SECTION START!
   activityBtn.on("click", function () {
     clearScreen();
@@ -67,17 +87,31 @@ $(document).ready(function () {
   //function for api call based on button clicked
   function ajaxCallActivities(val) {
     var activitiesParkUrl = `${npsURL}activities/parks/?api_key=${npsAPIkey}&q=${val}`;
-    $.ajax({
-      url: activitiesParkUrl,
-      method: "GET",
-    }).then(function (response) {
-      // console.log(response);
-      for (i = 0; i < response.data[0].parks.length; i++) {
-        if (response.data[0].parks[i].states == "GA") {
-          console.log(response.data[0].parks[i]);
-        }
-      }
-    });
+    // $.ajax({
+    //   url: activitiesParkUrl,
+    //   method: "GET",
+    // }).then(function (response) {
+    //   // console.log(response);
+    //   var resultsArray = [];
+    //   for (i = 0; i < response.data[0].parks.length; i++) {
+    //     if (response.data[0].parks[i].states == "GA") {
+    //       // console.log(response.data[0].parks[i]);
+    //       var results = response.data[0].parks[i];
+    //       var code = results.parkCode;
+    //       resultsArray.push(results.parkCode);
+    //       // console.log(resultsArray.length);
+    //       for (j = 0; j < resultsArray.length; j++) {
+    //         $.ajax({
+    //           url: `${npsURL}parks/?api_key=${npsAPIkey}&parkCode=${code}`,
+    //           method: "GET",
+    //         }).then(function (r) {
+    //           // console.log("test");
+    //           console.log(r);
+    //         });
+    //       }
+    //     }
+    //   }
+    // });
   }
   // ACTIVITY BUTTON SECTION END
 
@@ -100,7 +134,6 @@ $(document).ready(function () {
       "Pacific Islander Heritage",
       "Presidents",
       "Women's History",
-
     ];
 
     var questionHeader = $("<h1>");
@@ -122,21 +155,20 @@ $(document).ready(function () {
     ajaxTopics($(this).text());
   });
 
-   //function for api call based on button clicked
-   function ajaxTopics(topic) {
-    var topicsURL = npsURL + "topics/parks/?api_key=" + npsAPIkey + "&q=" + topic;
+  //function for api call based on button clicked
+  function ajaxTopics(topic) {
+    var topicsURL =
+      npsURL + "topics/parks/?api_key=" + npsAPIkey + "&q=" + topic;
     $.ajax({
       url: topicsURL,
       method: "GET",
-    }).then(function (response) {
-
-    });
+    }).then(function (response) {});
   }
 
   // Function to add event listener to distance button
-  distanceBtn.on("click", function (event) {
-    console.log("Distance button event handler");
-    clearScreen();
-    distanceDiv.attr("style", "display:block");
-  });
+  // distanceBtn.on("click", function (event) {
+  //   console.log("Distance button event handler");
+  //   clearScreen();
+  //   distanceDiv.attr("style", "display:block");
+  // });
 });
