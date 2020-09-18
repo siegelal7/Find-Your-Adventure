@@ -122,7 +122,7 @@ $(document).ready(function () {
         `${listOfParksArray[i].addresses[0].line1},  ${listOfParksArray[i].addresses[0].city}, ${listOfParksArray[i].addresses[0].stateCode} ${listOfParksArray[i].addresses[0].postalCode}`
       );
 
-      img.attr({
+      cardDiv.attr({
         name: listOfParksArray[i].fullName,
         operatingHours: listOfParksArray[i].operatingHours[0].description,
         standardHours: JSON.stringify(
@@ -200,7 +200,7 @@ $(document).ready(function () {
       // imageEl.append(favoriteStar);
     }
   }
-
+  
   /**
    * FUNCTION CALLS
    */
@@ -254,7 +254,9 @@ $(document).ready(function () {
 
     // Fill in the selected park detail
     var parkNameText = $(this).attr("name");
+    // var parkNameText = $(this).children("img").attr("name");
     var parkOperatingHours = $(this).attr("operatingHours");
+    // var parkOperatingHours = $(this).children("img").attr("operatingHours");
     parkName.text(parkNameText);
     var newParaEl = $("<p>").text("Operating Detail: " + parkOperatingHours);
     parkDetailInfo.append(newParaEl);
