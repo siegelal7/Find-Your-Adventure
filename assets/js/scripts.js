@@ -11,38 +11,6 @@ $(document).ready(function () {
   var userAddress;
   var userAdventure = "";
 
-  var object = {
-    questions: [
-      "Which topic would you like to explore?",
-      "Which of the following activities most interests you?",
-    ],
-    activitiesArray: [
-      "Camping",
-      "Fishing",
-      "Biking",
-      "Shopping",
-      "Guided Tours",
-      "Wildlife Watching",
-      "Hiking",
-    ],
-    topics: [
-      "African American Heritage",
-      "American Revolution",
-      "Asian American Heritage",
-      "Colonization and Settlement",
-      "Great Depression",
-      "Hispanic American Heritage",
-      "Latino American Heritage",
-      "LGBTQ American Heritage",
-      "Military",
-      "Monuments and Memorials",
-      "Native American Heritage",
-      "Pacific Islander Heritage",
-      "Presidents",
-      "Women's History",
-    ],
-  };
-
   /**
    * DOM ELEMENTS
    **/
@@ -348,9 +316,12 @@ $(document).ready(function () {
     createListOfParks(userChoice);
     createParksPage();
   });
+<<<<<<< HEAD
 
   container.on("click", ".btn", function (event) {
     event.preventDefault();
     console.log($(this).attr("data-value"));
   });
+=======
+>>>>>>> d77c5b3efb76395e4c4f0171f159f02f82a215a0
 });
