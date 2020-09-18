@@ -265,9 +265,13 @@ $(document).ready(function () {
         var imageEl = $("<img>");
         imageEl.attr("src", imagesArray[i].url);
         imageEl.attr("id", "park-detail-img");
-        imageEl.attr("style", "height:200px;width:200px");
+        imageEl.attr("style", "height:200px;width:200px;z-index:1");
         parkDetailInfo.append(imageEl);
       }
+      // FIXME: I can't get fontawesome Icon to work..
+      // var favoriteStar = $("<i class='fas fa-bookmark'></i>");
+      // favoriteStar.attr("style", "z-index:100; height:2em; width:2em");
+      // imageEl.append(favoriteStar);
     }
   }
 
