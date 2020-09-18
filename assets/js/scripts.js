@@ -311,6 +311,7 @@ $(document).ready(function () {
         parkDirectionsList.append(newParaEl);
       }
       var totalDist = $("<p>").text(response.distance);
+      totalDist.attr("id", "totalDistance");
       parkDirectionsList.append(totalDist);
     });
 
