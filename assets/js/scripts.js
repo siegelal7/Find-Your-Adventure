@@ -10,6 +10,8 @@ $(document).ready(function () {
   var mapsUrl = `https://www.mapquestapi.com/directions/v2/route?key=${mapQuestAPIkey}&`;
   var userAddress;
   var userAdventure = "";
+  var adventureArray = [];
+  var question;
 
   /**
    * DOM ELEMENTS
@@ -36,6 +38,21 @@ $(document).ready(function () {
   /**
    * FUNCTION DEFINITIONS
    */
+
+  function addGobackBtn(divName) {
+    var newRow = $("<row>");
+    var newDiv = $("<div>");
+    newDiv.addClass("col text-center");
+
+    var goBackBtn = $("<button>");
+    goBackBtn.text("Go Back");
+    goBackBtn.addClass(" btn-primary selection-btn goBack");
+    // goBackBtn.attr("data-value", dataValue);
+    newDiv.append(goBackBtn);
+
+    newRow.append(newDiv);
+    divName.append(newRow);
+  }
 
   // Function - Clears the Current Screen
   function clearScreen() {
@@ -73,6 +90,7 @@ $(document).ready(function () {
       option.text(array[i]);
       div.append(option);
     }
+
   }
 
   // Function - Creates a List of Parks
@@ -91,6 +109,36 @@ $(document).ready(function () {
           listOfParksArray.push(allParksInState.data[i]);
         }
       }
+    }
+    noResultListOfParks();
+  }
+
+  // Function - Checks the List of Parks
+  function noResultListOfParks(){
+    if (listOfParksArray.length === 0){
+      adventureDiv.empty();
+
+      var counter = 5;
+      var errorHeader = $("<h1>");
+      errorHeader.attr("style", "background-color: white");
+      var errorHeaderSpan = $("<span>" + counter + "</span>.");
+      errorHeader.text("Sadly there are no national parks in your state that include your selection. Redirecting you to the last page in ").append(errorHeaderSpan).append(" seconds.");
+      adventureDiv.append(errorHeader);
+      
+      var timer = setInterval(function(){
+
+        counter--;
+        errorHeaderSpan.text(counter);
+        console.log(counter);
+
+        if(counter === 0){
+          clearInterval(timer);
+          createButtons(question, adventureDiv, adventureArray);
+        }
+      }, 1000);
+    }
+    else{
+      createParksPage();
     }
   }
 
@@ -149,6 +197,7 @@ $(document).ready(function () {
       colDiv.append(cardDiv);
       adventureDiv.append(colDiv);
     }
+
   }
 
   // Function - Parse Parks' Standard Hours
@@ -248,6 +297,7 @@ $(document).ready(function () {
     event.preventDefault();
     distanceDiv.attr("class", "displayNone");
     originalPage.attr("class", "display");
+    originalPage.attr("style","display:Block");
     userAddress = `${inputAddress.val()}, ${inputCity.val()}, ${inputState.val()} ${inputZip.val()}`;
 
     ajaxCallNPSbyState(inputState.val());
@@ -258,7 +308,7 @@ $(document).ready(function () {
   // Event Listener - User clicks Activity Button, Populate the Screen with Activities
   activityBtn.on("click", function () {
     userAdventure = $(this).attr("data-value");
-    var activitiesArray = [
+    adventureArray = [
       "Camping",
       "Fishing",
       "Biking",
@@ -271,14 +321,14 @@ $(document).ready(function () {
       "Food",
     ];
 
-    var question = "Which of the following activities most interests you?";
-    createButtons(question, adventureDiv, activitiesArray);
+    question = "Which of the following activities most interests you?";
+    createButtons(question, adventureDiv, adventureArray);
   });
 
   // Event Listener - User clicks Topics Button, Populate the Screen with Topics
   topicsBtn.on("click", function () {
     userAdventure = $(this).attr("data-value");
-    var topicsArray = [
+    adventureArray = [
       "African American Heritage",
       "American Revolution",
       "Asian American Heritage",
@@ -295,15 +345,14 @@ $(document).ready(function () {
       "Women's History",
     ];
 
-    var question = "Which topic would you like to explore?";
-    createButtons(question, adventureDiv, topicsArray);
+    question = "Which topic would you like to explore?";
+    createButtons(question, adventureDiv, adventureArray);
   });
 
   // Event Listener - User clicks Activity or Topic, Create list of Parks
   adventureDiv.on("click", ".btn", function () {
     var userChoice = $(this).text();
     createListOfParks(userChoice);
-    createParksPage();
   });
 
   // Event Listener - User clicks one Park, Display Park Details
@@ -360,6 +409,21 @@ $(document).ready(function () {
     event.preventDefault();
 
     distanceDiv.attr("class", "display");
+    
     originalPage.attr("class", "displayNone");
+    originalPage.attr("style", "display:none");
+
+    // adventureDiv.attr("class", "displayNone");
+  });
+
+
+  $(document).on("click", ".goBack", function (event) {
+    event.preventDefault();
+    
+    adventureDiv.attr("class", "displayNone");
+    originalPage.attr("class", "display");
+
+    originalPage.attr("style", "display:block");
+
   });
 });

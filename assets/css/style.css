@@ -85,6 +85,7 @@ body {
 #topicsBtn,
 #activityBtn,
 #mainMenuBtn,
+.goBack,
 .btn {
   background: #53cae0;
   color: black;
@@ -94,6 +95,7 @@ body {
 #topicsBtn:hover,
 #activityBtn:hover,
 #mainMenuBtn:hover,
+.goBack:hover,
 .btn:hover {
   background: navy;
   text-shadow: 1px 1px #53cae0;
