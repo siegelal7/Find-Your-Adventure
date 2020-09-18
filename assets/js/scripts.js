@@ -10,7 +10,7 @@ $(document).ready(function () {
   var mapsUrl = `https://www.mapquestapi.com/directions/v2/route?key=${mapQuestAPIkey}&`;
   var userAddress;
   var userAdventure = "";
-  
+
   var object = {
     questions: ["Which topic would you like to explore?",
     "Which of the following activities most interests you?"
@@ -340,9 +340,8 @@ $(document).ready(function () {
     createParksPage();
   });
 
-  originalPage.on("click", ".btn", function(event){
+  container.on("click", ".btn", function(event){
     event.preventDefault();
     console.log($(this).attr("data-value"));
-    console.log("Topics" == $(this).attr("data-value"));
   });
 });
