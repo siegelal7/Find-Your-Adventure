@@ -37,6 +37,21 @@ $(document).ready(function () {
    * FUNCTION DEFINITIONS
    */
 
+  function addGobackBtn(divName) {
+    var newRow = $("<row>");
+    var newDiv = $("<div>");
+    newDiv.addClass("col text-center");
+
+    var goBackBtn = $("<button>");
+    goBackBtn.text("Go Back");
+    goBackBtn.addClass(" btn-primary selection-btn goBack");
+    // goBackBtn.attr("data-value", dataValue);
+    newDiv.append(goBackBtn);
+
+    newRow.append(newDiv);
+    divName.append(newRow);
+  }
+
   // Function - Clears the Current Screen
   function clearScreen() {
     originalPage.attr("style", "display:none");
@@ -73,6 +88,7 @@ $(document).ready(function () {
       option.text(array[i]);
       div.append(option);
     }
+
   }
 
   // Function - Creates a List of Parks
@@ -149,6 +165,7 @@ $(document).ready(function () {
       colDiv.append(cardDiv);
       adventureDiv.append(colDiv);
     }
+
   }
 
   // Function - Parse Parks' Standard Hours
@@ -240,6 +257,7 @@ $(document).ready(function () {
 
     var question = "Which of the following activities most interests you?";
     createButtons(question, adventureDiv, activitiesArray);
+    addGobackBtn(adventureDiv, "adventureDiv");
   });
 
   // Event Listener - User clicks Topics Button, Populate the Screen with Topics
@@ -264,6 +282,7 @@ $(document).ready(function () {
 
     var question = "Which topic would you like to explore?";
     createButtons(question, adventureDiv, topicsArray);
+    addGobackBtn(adventureDiv);
   });
 
   // Event Listener - User clicks Activity or Topic, Create list of Parks
@@ -324,5 +343,18 @@ $(document).ready(function () {
 
     distanceDiv.attr("class", "display");
     originalPage.attr("class", "displayNone");
+  });
+
+
+  $(document).on("click", ".goBack", function (event) {
+    event.preventDefault();
+    console.log($(this));
+
+    adventureDiv.attr("class", "displayNone");
+
+
+    originalPage.attr("class", "display");
+    originalPage.attr("style", "display:block");
+
   });
 });
