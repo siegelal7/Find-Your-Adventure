@@ -62,7 +62,7 @@ $(document).ready(function () {
 
   // Function - AJAX Call using the State Code
   function ajaxCallNPSbyState(state) {
-    var stateParksURL = (npsURL + state);
+    var stateParksURL = npsURL + state;
     $.ajax({
       url: stateParksURL,
       method: "GET",
@@ -237,11 +237,44 @@ $(document).ready(function () {
   function parseParkImage(imagesObject) {
     var imagesArray = JSON.parse(imagesObject);
     if (imagesArray.length > 1) {
-      for (var i = 0; i < 1; i++) {
+      // var carouselSlide = $(
+      //   "<div id='carouselControls' class='carousel slide' data-ride='carousel'>"
+      // );
+      // var carouselInner = $("<div class='carousel-inner'>");
+      // var carouselPrevControl = $(
+      //   "<a class='carousel-control-prev' href='#carouselControls' role='button' data-slide='prev'>"
+      // );
+      // var carouselNextControl = $(
+      //   "<a class='carousel-control-next' href='#carouselControls' role='button' data-slide='next'>"
+      // );
+      // var prevIcon = $(
+      //   "<span class='carousel-control-prev-icon' aria-hidden='true'>"
+      // );
+      // var prevWord = $("<span class='sr-only'>Previous</span>");
+      // var nextIcon = $(
+      //   "<span class='carousel-control-next-icon' aria-hidden='true'>"
+      // );
+      // var nextWord = $("<span class='sr-only'>Next</span>");
+      // carouselSlide.append(
+      //   carouselInner,
+      //   carouselPrevControl,
+      //   carouselNextControl
+      // );
+      // carouselNextControl.append(nextIcon, nextWord);
+      // carouselPrevControl.append(prevIcon, prevWord);
+      //TODO: in order to revert the multi image issue, change below to
+      //TODO: i<1; i++)
+      for (var i = 0; i < imagesArray.length; i++) {
+        // var carouselItem = $("<div class='carousel-item'>");
+        // var imageEl = $("<img class='d-block w-100'>");
         var imageEl = $("<img>");
         imageEl.attr("src", imagesArray[i].url);
         imageEl.attr("id", "park-detail-img");
         imageEl.attr("style", "height:200px;width:200px;z-index:1");
+        // carouselInner.append(carouselItem);
+
+        // parkDetailInfo.append(carouselSlide);
+        // carouselItem.append(imageEl);
         parkDetailInfo.append(imageEl);
       }
       // FIXME: I can't get fontawesome Icon to work..
@@ -348,12 +381,16 @@ $(document).ready(function () {
     }).then(function (response) {
       parkDetails.attr("style", "display:block");
       // parkDetails.attr("id", "directions");
+      var orderedDirectionsList = $("<ol>");
+      parkDirectionsList.append(orderedDirectionsList);
+
       for (var i = 0; i < response.route.legs[0].maneuvers.length; i++) {
         // console.log(response.route.legs[0].maneuvers[i].narrative);
-        var newParaEl = $("<p>");
+
+        var newParaEl = $("<li>");
         newParaEl.text(response.route.legs[0].maneuvers[i].narrative);
 
-        parkDirectionsList.append(newParaEl);
+        orderedDirectionsList.append(newParaEl);
       }
       var totalDistance = $("<p>").text(
         `Total Distance: ${response.route.distance} miles`
@@ -361,7 +398,7 @@ $(document).ready(function () {
       var travelTime = $("<p>").text(
         `Total time: ${response.route.formattedTime}`
       );
-      parkDirectionsList.append(totalDistance, travelTime);
+      parkDirectionsList.prepend(totalDistance, travelTime);
     });
 
     parkDetails.attr("style", "display:block");

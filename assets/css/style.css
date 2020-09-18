@@ -60,6 +60,11 @@ body {
 
 #park-details {
   margin-top: 10px;
+  font-weight: normal;
+}
+
+#park-name {
+  font-weight: bold;
 }
 
 #directions-list {
@@ -87,8 +92,6 @@ body {
   text-shadow: 1px 1px #53cae0;
 }
 
-
-
 #topicsBtn:hover,
 #activityBtn:hover,
 #mainMenuBtn:hover,
@@ -99,10 +102,8 @@ body {
   color: white;
 }
 
-
-#mainMenuBtn
-{
-   margin-top:20px;
+#mainMenuBtn {
+  margin-top: 20px;
 }
 
 .hours {
@@ -130,4 +131,11 @@ form {
   margin-left: 0.2em;
   margin-right: 0.2em;
   margin-bottom: 0.4em;
+}
+
+#directions-list {
+  text-align: left;
+  justify-content: left;
+  float: left;
+  font-weight: normal;
 }
