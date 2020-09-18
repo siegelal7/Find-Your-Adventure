@@ -19,9 +19,7 @@ $(document).ready(function () {
   var distanceBtn = $("#distanceBtn");
   var activityBtn = $("#activityBtn");
   var adventureDiv = $("#adventureDiv");
-  var topicsDiv = $("#topicsDiv");
   var distanceDiv = $("#distanceDiv");
-  var activityDiv = $("#activityDiv");
   var parkListDiv = $("#parkListDiv");
   var container = $("#container");
   var originalPage = $("#originalPage");
@@ -245,7 +243,31 @@ $(document).ready(function () {
     createButtons(question, adventureDiv, activitiesArray);
   });
 
-  // Event Listener - User clicks Activity, Create list of Parks
+  // Event Listener - User clicks Topics Button, Populate the Screen with Topics
+  topicsBtn.on("click", function () {
+    userAdventure = "Topics";
+    var topicsArray = [
+      "African American Heritage",
+      "American Revolution",
+      "Asian American Heritage",
+      "Colonization and Settlement",
+      "Great Depression",
+      "Hispanic American Heritage",
+      "Latino American Heritage",
+      "LGBTQ American Heritage",
+      "Military",
+      "Monuments and Memorials",
+      "Native American Heritage",
+      "Pacific Islander Heritage",
+      "Presidents",
+      "Women's History",
+    ];
+
+    var question = "Which topic would you like to explore?";
+    createButtons(question, adventureDiv, topicsArray);
+  });
+
+  // Event Listener - User clicks Activity or Topic, Create list of Parks
   adventureDiv.on("click", ".btn", function () {
     var userChoice = $(this).text();
     createListOfParks(userChoice);
@@ -253,11 +275,7 @@ $(document).ready(function () {
   });
 
   // Event Listener - User clicks one Park, Display Park Details
-<<<<<<< HEAD
-  adventureDiv.on("click", ".park-image", function () {
-=======
-  activityDiv.on("click", ".card", function () {
->>>>>>> c17e356bef9f6b9832a5de46ab0ef96affe2b728
+  adventureDiv.on("click", ".card", function () {
     clearScreen();
 
     // Fill in the selected park detail
@@ -292,31 +310,5 @@ $(document).ready(function () {
     });
 
     parkDetails.attr("style", "display:block");
-  });
-
-  // ACTIVITY BUTTON SECTION END
-
-  // Event Listener - User clicks Topics Button, Populate the Screen with Topics
-  topicsBtn.on("click", function () {
-    userAdventure = "Topics";
-    var topicsArray = [
-      "African American Heritage",
-      "American Revolution",
-      "Asian American Heritage",
-      "Colonization and Settlement",
-      "Great Depression",
-      "Hispanic American Heritage",
-      "Latino American Heritage",
-      "LGBTQ American Heritage",
-      "Military",
-      "Monuments and Memorials",
-      "Native American Heritage",
-      "Pacific Islander Heritage",
-      "Presidents",
-      "Women's History",
-    ];
-
-    var question = "Which topic would you like to explore?";
-    createButtons(question, adventureDiv, topicsArray);
   });
 });
