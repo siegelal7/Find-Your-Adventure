@@ -153,7 +153,7 @@ $(document).ready(function () {
         `${listOfParksArray[i].addresses[0].line1},  ${listOfParksArray[i].addresses[0].city}, ${listOfParksArray[i].addresses[0].stateCode} ${listOfParksArray[i].addresses[0].postalCode}`
       );
 
-      img.attr({
+      cardDiv.attr({
         name: listOfParksArray[i].fullName,
         operatingHours: listOfParksArray[i].operatingHours[0].description,
         standardHours: JSON.stringify(
@@ -275,12 +275,14 @@ $(document).ready(function () {
     }
   }
 
-  activityDiv.on("click", ".park-image", function () {
+  activityDiv.on("click", ".card", function () {
     clearScreen();
 
     // Fill in the selected park detail
     var parkNameText = $(this).attr("name");
+    // var parkNameText = $(this).children("img").attr("name");
     var parkOperatingHours = $(this).attr("operatingHours");
+    // var parkOperatingHours = $(this).children("img").attr("operatingHours");
     parkName.text(parkNameText);
     var newParaEl = $("<p>").text("Operating Detail: " + parkOperatingHours);
     parkDetailInfo.append(newParaEl);
@@ -347,7 +349,7 @@ $(document).ready(function () {
     createParksPage();
   });
 
-  container.on("click", ".btn", function(event){
+  container.on("click", ".btn", function (event) {
     event.preventDefault();
     console.log($(this).attr("data-value"));
   });
