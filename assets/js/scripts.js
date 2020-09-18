@@ -306,6 +306,13 @@ $(document).ready(function () {
 
         parkDirectionsList.append(newParaEl);
       }
+      var totalDistance = $("<p>").text(
+        `Total Distance: ${response.route.distance} miles`
+      );
+      var travelTime = $("<p>").text(
+        `Total time: ${response.route.formattedTime}`
+      );
+      parkDirectionsList.append(totalDistance, travelTime);
     });
 
     parkDetails.attr("style", "display:block");
