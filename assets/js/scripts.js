@@ -270,7 +270,10 @@ $(document).ready(function () {
     parseStandardHours($(this).attr("standardHours"));
     parseParkImage($(this).attr("images"));
 
-    mapsUrl += `from=${userAddress}&to=${$(this).attr("data-value")}`;
+    mapsUrl += `from=${userAddress}&to=${$(this)
+      .children()
+      .get(0)
+      .attr("data-value")}`;
     $.ajax({
       url: mapsUrl,
       method: "GET",
