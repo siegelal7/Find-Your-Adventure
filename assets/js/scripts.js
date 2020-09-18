@@ -232,6 +232,7 @@ $(document).ready(function () {
     event.preventDefault();
     distanceDiv.attr("class", "displayNone");
     originalPage.attr("class", "display");
+    originalPage.attr("style","display:Block");
     userAddress = `${inputAddress.val()}, ${inputCity.val()}, ${inputState.val()} ${inputZip.val()}`;
 
     ajaxCallNPSbyState(inputState.val());
@@ -257,7 +258,7 @@ $(document).ready(function () {
 
     var question = "Which of the following activities most interests you?";
     createButtons(question, adventureDiv, activitiesArray);
-    addGobackBtn(adventureDiv, "adventureDiv");
+    addGobackBtn(adventureDiv);
   });
 
   // Event Listener - User clicks Topics Button, Populate the Screen with Topics
@@ -342,18 +343,20 @@ $(document).ready(function () {
     event.preventDefault();
 
     distanceDiv.attr("class", "display");
+    
     originalPage.attr("class", "displayNone");
+    originalPage.attr("style", "display:none");
+
+    // adventureDiv.attr("class", "displayNone");
   });
 
 
   $(document).on("click", ".goBack", function (event) {
     event.preventDefault();
-    console.log($(this));
-
+    
     adventureDiv.attr("class", "displayNone");
-
-
     originalPage.attr("class", "display");
+
     originalPage.attr("style", "display:block");
 
   });
