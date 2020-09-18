@@ -79,18 +79,28 @@ body {
 
 #topicsBtn,
 #activityBtn,
+#mainMenuBtn,
 .btn {
   background: #53cae0;
   color: black;
   text-shadow: 1px 1px #53cae0;
 }
 
+
+
 #topicsBtn:hover,
 #activityBtn:hover,
+#mainMenuBtn:hover,
 .btn:hover {
   background: navy;
   text-shadow: 1px 1px #53cae0;
   color: white;
+}
+
+
+#mainMenuBtn
+{
+   margin-top:20px;
 }
 
 .hours {

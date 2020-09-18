@@ -310,4 +310,12 @@ $(document).ready(function () {
 
     parkDetails.attr("style", "display:block");
   });
+   // Event Listener to return to main page
+   $("#mainMenuBtn").on("click", function(event){
+    event.preventDefault();
+
+    distanceDiv.attr("class", "display");
+    originalPage.attr("class", "displayNone");
+
+  });
 });
