@@ -18,9 +18,8 @@ $(document).ready(function () {
   var topicsBtn = $("#topicsBtn");
   var distanceBtn = $("#distanceBtn");
   var activityBtn = $("#activityBtn");
-  var topicsDiv = $("#topicsDiv");
+  var adventureDiv = $("#adventureDiv");
   var distanceDiv = $("#distanceDiv");
-  var activityDiv = $("#activityDiv");
   var parkListDiv = $("#parkListDiv");
   var container = $("#container");
   var originalPage = $("#originalPage");
@@ -41,8 +40,8 @@ $(document).ready(function () {
   // Function - Clears the Current Screen
   function clearScreen() {
     originalPage.attr("style", "display:none");
-    activityDiv.empty();
-    topicsDiv.empty();
+    //activityDiv.empty();
+    adventureDiv.empty();
   }
 
   // Function - AJAX Call using the State Code
@@ -102,7 +101,7 @@ $(document).ready(function () {
 
     for (i = 0; i < listOfParksArray.length; i++) {
       // Adds Class Card-Deck to Activity Div
-      activityDiv.attr("class", "card-deck row row-cols-3 mt-5");
+      adventureDiv.attr("class", "card-deck row row-cols-3 mt-5");
       var colDiv = $("<div class='col mb-4'></div>");
       var cardDiv = $("<div class='card'></div>");
 
@@ -142,11 +141,14 @@ $(document).ready(function () {
       p.text(
         `${listOfParksArray[i].addresses[0].city}, ${listOfParksArray[i].addresses[0].stateCode}`
       );
+      var smallTextPrompt = $(
+        "<p class='card-text'><small class='text-muted'>Click card for park info</small></p>"
+      );
 
-      cardBodyDiv.append(h5, p);
+      cardBodyDiv.append(h5, p, smallTextPrompt);
       cardDiv.append(img, cardBodyDiv);
       colDiv.append(cardDiv);
-      activityDiv.append(colDiv);
+      adventureDiv.append(colDiv);
     }
   }
 
@@ -200,7 +202,7 @@ $(document).ready(function () {
       // imageEl.append(favoriteStar);
     }
   }
-  
+
   /**
    * FUNCTION CALLS
    */
@@ -238,60 +240,8 @@ $(document).ready(function () {
     ];
 
     var question = "Which of the following activities most interests you?";
-    createButtons(question, activityDiv, activitiesArray);
+    createButtons(question, adventureDiv, activitiesArray);
   });
-
-  // Event Listener - User clicks Activity, Create list of Parks
-  activityDiv.on("click", ".btn", function () {
-    var userChoice = $(this).text();
-    createListOfParks(userChoice);
-    createParksPage();
-  });
-
-  // Event Listener - User clicks one Park, Display Park Details
-  activityDiv.on("click", ".park-image", function () {
-    clearScreen();
-
-    // Fill in the selected park detail
-    var parkNameText = $(this).attr("name");
-    // var parkNameText = $(this).children("img").attr("name");
-    var parkOperatingHours = $(this).attr("operatingHours");
-    // var parkOperatingHours = $(this).children("img").attr("operatingHours");
-    parkName.text(parkNameText);
-    var newParaEl = $("<p>").text("Operating Detail: " + parkOperatingHours);
-    parkDetailInfo.append(newParaEl);
-    newParaEl = $("<p class='operating-hours'>").text(
-      "Standard Operating Hours"
-    );
-    parkDetailInfo.append(newParaEl);
-    parseStandardHours($(this).attr("standardHours"));
-    parseParkImage($(this).attr("images"));
-    // var imageEl = $("<img>");
-    // imageEl.attr("src", "https://via.placeholder.com/250/250");
-    // imageEl.attr("id", "park-detail-img");
-    // parkDetailInfo.append(imageEl);
-
-    mapsUrl += `from=${userAddress}&to=${$(this).attr("data-value")}`;
-    $.ajax({
-      url: mapsUrl,
-      method: "GET",
-    }).then(function (response) {
-      parkDetails.attr("style", "display:block");
-      // parkDetails.attr("id", "directions");
-      for (var i = 0; i < response.route.legs[0].maneuvers.length; i++) {
-        // console.log(response.route.legs[0].maneuvers[i].narrative);
-        var newParaEl = $("<p>");
-        newParaEl.text(response.route.legs[0].maneuvers[i].narrative);
-
-        parkDirectionsList.append(newParaEl);
-      }
-    });
-
-    parkDetails.attr("style", "display:block");
-  });
-
-  // ACTIVITY BUTTON SECTION END
-
 
   // Event Listener - User clicks Topics Button, Populate the Screen with Topics
   topicsBtn.on("click", function () {
@@ -314,25 +264,59 @@ $(document).ready(function () {
     ];
 
     var question = "Which topic would you like to explore?";
-    createButtons(question, topicsDiv, topicsArray);
+    createButtons(question, adventureDiv, topicsArray);
   });
 
-  // Event Listener - User clicks Topic, Create list of Parks
-  topicsDiv.on("click", ".btn", function () {
+  // Event Listener - User clicks Activity or Topic, Create list of Parks
+  adventureDiv.on("click", ".btn", function () {
     var userChoice = $(this).text();
-
     createListOfParks(userChoice);
     createParksPage();
   });
 
-  // Event Listener to return to main page
-  $("#mainMenuBtn").on("click", function(event){
+  // Event Listener - User clicks one Park, Display Park Details
+  adventureDiv.on("click", ".card", function () {
+    clearScreen();
+
+    // Fill in the selected park detail
+    var parkNameText = $(this).attr("name");
+    // var parkNameText = $(this).children("img").attr("name");
+    var parkOperatingHours = $(this).attr("operatingHours");
+    // var parkOperatingHours = $(this).children("img").attr("operatingHours");
+    parkName.text(parkNameText);
+    var newParaEl = $("<p>").text("Operating Detail: " + parkOperatingHours);
+    parkDetailInfo.append(newParaEl);
+    newParaEl = $("<p class='operating-hours'>").text(
+      "Standard Operating Hours"
+    );
+    parkDetailInfo.append(newParaEl);
+    parseStandardHours($(this).attr("standardHours"));
+    parseParkImage($(this).attr("images"));
+
+    mapsUrl += `from=${userAddress}&to=${$(this).attr("data-value")}`;
+    $.ajax({
+      url: mapsUrl,
+      method: "GET",
+    }).then(function (response) {
+      parkDetails.attr("style", "display:block");
+      // parkDetails.attr("id", "directions");
+      for (var i = 0; i < response.route.legs[0].maneuvers.length; i++) {
+        // console.log(response.route.legs[0].maneuvers[i].narrative);
+        var newParaEl = $("<p>");
+        newParaEl.text(response.route.legs[0].maneuvers[i].narrative);
+
+        parkDirectionsList.append(newParaEl);
+      }
+    });
+
+    parkDetails.attr("style", "display:block");
+  });
+   // Event Listener to return to main page
+   $("#mainMenuBtn").on("click", function(event){
     event.preventDefault();
 
     distanceDiv.attr("class", "display");
     originalPage.attr("class", "displayNone");
 
   });
-
-
 });
