@@ -22,7 +22,6 @@ $(document).ready(function () {
   var distanceDiv = $("#distanceDiv");
   var activityDiv = $("#activityDiv");
   var parkListDiv = $("#parkListDiv");
-  var parkDiv = $("#parkDiv");
   var container = $("#container");
   var originalPage = $("#originalPage");
   var addressSubmit = $("#addressSubmit");
@@ -38,6 +37,8 @@ $(document).ready(function () {
   /**
    * FUNCTION DEFINITIONS
    */
+
+  // Function - Clears the Current Screen
   function clearScreen() {
     originalPage.attr("style", "display:none");
     activityDiv.empty();
@@ -149,50 +150,7 @@ $(document).ready(function () {
     }
   }
 
-  /**
-   * FUNCTION CALLS
-   */
-
-  /**
-   * EVENT HANDLERS
-   */
-
-  addressSubmit.on("click", function (event) {
-    event.preventDefault();
-    distanceDiv.attr("class", "displayNone");
-    originalPage.attr("class", "display");
-    userAddress = `${inputAddress.val()}, ${inputCity.val()}, ${inputState.val()} ${inputZip.val()}`;
-
-    ajaxCallNPSbyState(inputState.val());
-  });
-
-  // ACTIVITY BUTTON SECTION START!
-  activityBtn.on("click", function () {
-    userAdventure = "Activity";
-    var activitiesArray = [
-      "Camping",
-      "Fishing",
-      "Biking",
-      "Shopping",
-      "Guided Tours",
-      "Wildlife Watching",
-      "Hiking",
-      "Playground",
-      "Junior Ranger Program",
-      "Food",
-    ];
-
-    var question = "Which of the following activities most interests you?";
-    createButtons(question, activityDiv, activitiesArray);
-  });
-
-  //event listener for the newly generated buttons
-  activityDiv.on("click", ".btn", function () {
-    var userChoice = $(this).text();
-    createListOfParks(userChoice);
-    createParksPage();
-  });
-
+  // Function - Parse Parks' Standard Hours
   function parseStandardHours(hoursString) {
     var standardHrs = JSON.parse(hoursString);
 
@@ -225,7 +183,7 @@ $(document).ready(function () {
     list.append(listEl);
   }
 
-  //Function to parse park images
+  //Function - Parse Park Images
   function parseParkImage(imagesObject) {
     var imagesArray = JSON.parse(imagesObject);
     if (imagesArray.length > 1) {
@@ -243,6 +201,54 @@ $(document).ready(function () {
     }
   }
 
+  /**
+   * FUNCTION CALLS
+   */
+
+  /**
+   * EVENT HANDLERS
+   */
+
+  // Event Listener - User clicks Address Submit, Address is stored, Call AJAX
+  addressSubmit.on("click", function (event) {
+    event.preventDefault();
+    distanceDiv.attr("class", "displayNone");
+    originalPage.attr("class", "display");
+    userAddress = `${inputAddress.val()}, ${inputCity.val()}, ${inputState.val()} ${inputZip.val()}`;
+
+    ajaxCallNPSbyState(inputState.val());
+  });
+
+  // ACTIVITY BUTTON SECTION START!
+
+  // Event Listener - User clicks Activity Button, Populate the Screen with Activities
+  activityBtn.on("click", function () {
+    userAdventure = "Activity";
+    var activitiesArray = [
+      "Camping",
+      "Fishing",
+      "Biking",
+      "Shopping",
+      "Guided Tours",
+      "Wildlife Watching",
+      "Hiking",
+      "Playground",
+      "Junior Ranger Program",
+      "Food",
+    ];
+
+    var question = "Which of the following activities most interests you?";
+    createButtons(question, activityDiv, activitiesArray);
+  });
+
+  // Event Listener - User clicks Activity, Create list of Parks
+  activityDiv.on("click", ".btn", function () {
+    var userChoice = $(this).text();
+    createListOfParks(userChoice);
+    createParksPage();
+  });
+
+  // Event Listener - User clicks one Park, Display Park Details
   activityDiv.on("click", ".park-image", function () {
     clearScreen();
 
@@ -284,7 +290,8 @@ $(document).ready(function () {
 
   // ACTIVITY BUTTON SECTION END
 
-  // Event Listener - Loading Page Topics Button
+
+  // Event Listener - User clicks Topics Button, Populate the Screen with Topics
   topicsBtn.on("click", function () {
     userAdventure = "Topics";
     var topicsArray = [
@@ -308,6 +315,7 @@ $(document).ready(function () {
     createButtons(question, topicsDiv, topicsArray);
   });
 
+  // Event Listener - User clicks Topic, Create list of Parks
   topicsDiv.on("click", ".btn", function () {
     var userChoice = $(this).text();
 
