@@ -115,7 +115,7 @@ $(document).ready(function () {
           "https://files.tripstodiscover.com/files/2018/08/32533575_1785635178193287_5065019941074239488_o.jpg"
         );
       }
-      img.attr(
+      cardDiv.attr(
         "data-value",
         `${listOfParksArray[i].addresses[0].line1},  ${listOfParksArray[i].addresses[0].city}, ${listOfParksArray[i].addresses[0].stateCode} ${listOfParksArray[i].addresses[0].postalCode}`
       );
@@ -224,7 +224,7 @@ $(document).ready(function () {
 
   // Event Listener - User clicks Activity Button, Populate the Screen with Activities
   activityBtn.on("click", function () {
-    userAdventure = $(this).attr("data-value");;
+    userAdventure = $(this).attr("data-value");
     var activitiesArray = [
       "Camping",
       "Fishing",
@@ -311,8 +311,8 @@ $(document).ready(function () {
     parkDetails.attr("style", "display:block");
   });
 
-   // Event Listener to return to main page
-   $("#mainMenuBtn").on("click", function(event){
+  // Event Listener to return to main page
+  $("#mainMenuBtn").on("click", function (event) {
     event.preventDefault();
 
     distanceDiv.attr("class", "display");
