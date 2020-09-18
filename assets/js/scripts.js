@@ -18,6 +18,7 @@ $(document).ready(function () {
   var topicsBtn = $("#topicsBtn");
   var distanceBtn = $("#distanceBtn");
   var activityBtn = $("#activityBtn");
+  var adventureDiv = $("#adventureDiv");
   var topicsDiv = $("#topicsDiv");
   var distanceDiv = $("#distanceDiv");
   var activityDiv = $("#activityDiv");
@@ -41,8 +42,8 @@ $(document).ready(function () {
   // Function - Clears the Current Screen
   function clearScreen() {
     originalPage.attr("style", "display:none");
-    activityDiv.empty();
-    topicsDiv.empty();
+    //activityDiv.empty();
+    adventureDiv.empty();
   }
 
   // Function - AJAX Call using the State Code
@@ -102,7 +103,7 @@ $(document).ready(function () {
 
     for (i = 0; i < listOfParksArray.length; i++) {
       // Adds Class Card-Deck to Activity Div
-      activityDiv.attr("class", "card-deck row row-cols-3 mt-5");
+      adventureDiv.attr("class", "card-deck row row-cols-3 mt-5");
       var colDiv = $("<div class='col mb-4'></div>");
       var cardDiv = $("<div class='card'></div>");
 
@@ -146,7 +147,7 @@ $(document).ready(function () {
       cardBodyDiv.append(h5, p);
       cardDiv.append(img, cardBodyDiv);
       colDiv.append(cardDiv);
-      activityDiv.append(colDiv);
+      adventureDiv.append(colDiv);
     }
   }
 
@@ -238,18 +239,18 @@ $(document).ready(function () {
     ];
 
     var question = "Which of the following activities most interests you?";
-    createButtons(question, activityDiv, activitiesArray);
+    createButtons(question, adventureDiv, activitiesArray);
   });
 
   // Event Listener - User clicks Activity, Create list of Parks
-  activityDiv.on("click", ".btn", function () {
+  adventureDiv.on("click", ".btn", function () {
     var userChoice = $(this).text();
     createListOfParks(userChoice);
     createParksPage();
   });
 
   // Event Listener - User clicks one Park, Display Park Details
-  activityDiv.on("click", ".park-image", function () {
+  adventureDiv.on("click", ".park-image", function () {
     clearScreen();
 
     // Fill in the selected park detail
@@ -314,14 +315,6 @@ $(document).ready(function () {
     ];
 
     var question = "Which topic would you like to explore?";
-    createButtons(question, topicsDiv, topicsArray);
-  });
-
-  // Event Listener - User clicks Topic, Create list of Parks
-  topicsDiv.on("click", ".btn", function () {
-    var userChoice = $(this).text();
-
-    createListOfParks(userChoice);
-    createParksPage();
+    createButtons(question, adventureDiv, topicsArray);
   });
 });
