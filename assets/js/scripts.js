@@ -45,7 +45,7 @@ $(document).ready(function () {
 
   // Function - AJAX Call using the State Code
   function ajaxCallNPSbyState(state) {
-    var stateParksURL = (npsURL += state);
+    var stateParksURL = (npsURL + state);
     $.ajax({
       url: stateParksURL,
       method: "GET",
