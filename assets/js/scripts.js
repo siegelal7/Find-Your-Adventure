@@ -22,7 +22,7 @@ $(document).ready(function () {
   var distanceDiv = $("#distanceDiv");
   var parkListDiv = $("#parkListDiv");
   var container = $("#container");
-  var originalPage = $("#originalPage");
+  var adventurePage = $("#adventurePage");
   var addressSubmit = $("#addressSubmit");
   var inputAddress = $("#inputAddress");
   var inputCity = $("#inputCity");
@@ -39,8 +39,7 @@ $(document).ready(function () {
 
   // Function - Clears the Current Screen
   function clearScreen() {
-    originalPage.attr("style", "display:none");
-    //activityDiv.empty();
+    adventurePage.attr("style", "display:none");
     adventureDiv.empty();
   }
 
@@ -215,7 +214,7 @@ $(document).ready(function () {
   addressSubmit.on("click", function (event) {
     event.preventDefault();
     distanceDiv.attr("class", "displayNone");
-    originalPage.attr("class", "display");
+    adventurePage.attr("class", "display");
     userAddress = `${inputAddress.val()}, ${inputCity.val()}, ${inputState.val()} ${inputZip.val()}`;
 
     ajaxCallNPSbyState(inputState.val());
@@ -225,7 +224,7 @@ $(document).ready(function () {
 
   // Event Listener - User clicks Activity Button, Populate the Screen with Activities
   activityBtn.on("click", function () {
-    userAdventure = "Activity";
+    userAdventure = $(this).attr("data-value");;
     var activitiesArray = [
       "Camping",
       "Fishing",
@@ -245,7 +244,7 @@ $(document).ready(function () {
 
   // Event Listener - User clicks Topics Button, Populate the Screen with Topics
   topicsBtn.on("click", function () {
-    userAdventure = "Topics";
+    userAdventure = $(this).attr("data-value");
     var topicsArray = [
       "African American Heritage",
       "American Revolution",
@@ -317,11 +316,14 @@ $(document).ready(function () {
 
     parkDetails.attr("style", "display:block");
   });
-  // Event Listener to return to main page
-  $("#mainMenuBtn").on("click", function (event) {
+
+
+   // Event Listener to return to main page
+   $("#mainMenuBtn").on("click", function(event){
     event.preventDefault();
 
     distanceDiv.attr("class", "display");
-    originalPage.attr("class", "displayNone");
+    adventurePage.attr("class", "displayNone");
+
   });
 });
