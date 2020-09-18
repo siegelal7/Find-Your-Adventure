@@ -12,9 +12,10 @@ $(document).ready(function () {
   var userAdventure = "";
 
   var object = {
-    questions: ["Which topic would you like to explore?",
-    "Which of the following activities most interests you?"
-  ],
+    questions: [
+      "Which topic would you like to explore?",
+      "Which of the following activities most interests you?",
+    ],
     activitiesArray: [
       "Camping",
       "Fishing",
@@ -39,8 +40,8 @@ $(document).ready(function () {
       "Pacific Islander Heritage",
       "Presidents",
       "Women's History",
-    ]
-  }
+    ],
+  };
 
   /**
    * DOM ELEMENTS
@@ -100,7 +101,7 @@ $(document).ready(function () {
       option.attr({
         type: "button",
         class: "btn btn-primary selection-btn",
-        "data-value": "" + array[i]
+        "data-value": "" + array[i],
       });
       option.text(array[i]);
       div.append(option);
@@ -264,9 +265,13 @@ $(document).ready(function () {
         var imageEl = $("<img>");
         imageEl.attr("src", imagesArray[i].url);
         imageEl.attr("id", "park-detail-img");
-        imageEl.attr("style", "height:200px;width:200px");
+        imageEl.attr("style", "height:200px;width:200px;z-index:1");
         parkDetailInfo.append(imageEl);
       }
+      // FIXME: I can't get fontawesome Icon to work..
+      // var favoriteStar = $("<i class='fas fa-bookmark'></i>");
+      // favoriteStar.attr("style", "z-index:100; height:2em; width:2em");
+      // imageEl.append(favoriteStar);
     }
   }
 
@@ -296,10 +301,12 @@ $(document).ready(function () {
       method: "GET",
     }).then(function (response) {
       parkDetails.attr("style", "display:block");
+      // parkDetails.attr("id", "directions");
       for (var i = 0; i < response.route.legs[0].maneuvers.length; i++) {
         // console.log(response.route.legs[0].maneuvers[i].narrative);
         var newParaEl = $("<p>");
         newParaEl.text(response.route.legs[0].maneuvers[i].narrative);
+
         parkDirectionsList.append(newParaEl);
       }
     });
