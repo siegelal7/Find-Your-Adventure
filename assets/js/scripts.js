@@ -18,9 +18,8 @@ $(document).ready(function () {
   var topicsBtn = $("#topicsBtn");
   var distanceBtn = $("#distanceBtn");
   var activityBtn = $("#activityBtn");
-  var topicsDiv = $("#topicsDiv");
+  var adventureDiv = $("#adventureDiv");
   var distanceDiv = $("#distanceDiv");
-  var activityDiv = $("#activityDiv");
   var parkListDiv = $("#parkListDiv");
   var container = $("#container");
   var originalPage = $("#originalPage");
@@ -41,8 +40,8 @@ $(document).ready(function () {
   // Function - Clears the Current Screen
   function clearScreen() {
     originalPage.attr("style", "display:none");
-    activityDiv.empty();
-    topicsDiv.empty();
+    //activityDiv.empty();
+    adventureDiv.empty();
   }
 
   // Function - AJAX Call using the State Code
@@ -102,7 +101,7 @@ $(document).ready(function () {
 
     for (i = 0; i < listOfParksArray.length; i++) {
       // Adds Class Card-Deck to Activity Div
-      activityDiv.attr("class", "card-deck row row-cols-3 mt-5");
+      adventureDiv.attr("class", "card-deck row row-cols-3 mt-5");
       var colDiv = $("<div class='col mb-4'></div>");
       var cardDiv = $("<div class='card'></div>");
 
@@ -149,7 +148,7 @@ $(document).ready(function () {
       cardBodyDiv.append(h5, p, smallTextPrompt);
       cardDiv.append(img, cardBodyDiv);
       colDiv.append(cardDiv);
-      activityDiv.append(colDiv);
+      adventureDiv.append(colDiv);
     }
   }
 
@@ -241,18 +240,42 @@ $(document).ready(function () {
     ];
 
     var question = "Which of the following activities most interests you?";
-    createButtons(question, activityDiv, activitiesArray);
+    createButtons(question, adventureDiv, activitiesArray);
   });
 
-  // Event Listener - User clicks Activity, Create list of Parks
-  activityDiv.on("click", ".btn", function () {
+  // Event Listener - User clicks Topics Button, Populate the Screen with Topics
+  topicsBtn.on("click", function () {
+    userAdventure = "Topics";
+    var topicsArray = [
+      "African American Heritage",
+      "American Revolution",
+      "Asian American Heritage",
+      "Colonization and Settlement",
+      "Great Depression",
+      "Hispanic American Heritage",
+      "Latino American Heritage",
+      "LGBTQ American Heritage",
+      "Military",
+      "Monuments and Memorials",
+      "Native American Heritage",
+      "Pacific Islander Heritage",
+      "Presidents",
+      "Women's History",
+    ];
+
+    var question = "Which topic would you like to explore?";
+    createButtons(question, adventureDiv, topicsArray);
+  });
+
+  // Event Listener - User clicks Activity or Topic, Create list of Parks
+  adventureDiv.on("click", ".btn", function () {
     var userChoice = $(this).text();
     createListOfParks(userChoice);
     createParksPage();
   });
 
   // Event Listener - User clicks one Park, Display Park Details
-  activityDiv.on("click", ".card", function () {
+  adventureDiv.on("click", ".card", function () {
     clearScreen();
 
     // Fill in the selected park detail
@@ -290,39 +313,5 @@ $(document).ready(function () {
     });
 
     parkDetails.attr("style", "display:block");
-  });
-
-  // ACTIVITY BUTTON SECTION END
-
-  // Event Listener - User clicks Topics Button, Populate the Screen with Topics
-  topicsBtn.on("click", function () {
-    userAdventure = "Topics";
-    var topicsArray = [
-      "African American Heritage",
-      "American Revolution",
-      "Asian American Heritage",
-      "Colonization and Settlement",
-      "Great Depression",
-      "Hispanic American Heritage",
-      "Latino American Heritage",
-      "LGBTQ American Heritage",
-      "Military",
-      "Monuments and Memorials",
-      "Native American Heritage",
-      "Pacific Islander Heritage",
-      "Presidents",
-      "Women's History",
-    ];
-
-    var question = "Which topic would you like to explore?";
-    createButtons(question, topicsDiv, topicsArray);
-  });
-
-  // Event Listener - User clicks Topic, Create list of Parks
-  topicsDiv.on("click", ".btn", function () {
-    var userChoice = $(this).text();
-
-    createListOfParks(userChoice);
-    createParksPage();
   });
 });
