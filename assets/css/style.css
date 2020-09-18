@@ -73,7 +73,6 @@ body {
 
 #adventure {
   background: linear-gradient(navy, white, red, blue);
-
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
