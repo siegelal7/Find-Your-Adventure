@@ -142,8 +142,11 @@ $(document).ready(function () {
       p.text(
         `${listOfParksArray[i].addresses[0].city}, ${listOfParksArray[i].addresses[0].stateCode}`
       );
+      var smallTextPrompt = $(
+        "<p class='card-text'><small class='text-muted'>Click card for park info</small></p>"
+      );
 
-      cardBodyDiv.append(h5, p);
+      cardBodyDiv.append(h5, p, smallTextPrompt);
       cardDiv.append(img, cardBodyDiv);
       colDiv.append(cardDiv);
       activityDiv.append(colDiv);
@@ -200,7 +203,7 @@ $(document).ready(function () {
       // imageEl.append(favoriteStar);
     }
   }
-  
+
   /**
    * FUNCTION CALLS
    */
@@ -249,7 +252,7 @@ $(document).ready(function () {
   });
 
   // Event Listener - User clicks one Park, Display Park Details
-  activityDiv.on("click", ".park-image", function () {
+  activityDiv.on("click", ".card", function () {
     clearScreen();
 
     // Fill in the selected park detail
@@ -266,10 +269,6 @@ $(document).ready(function () {
     parkDetailInfo.append(newParaEl);
     parseStandardHours($(this).attr("standardHours"));
     parseParkImage($(this).attr("images"));
-    // var imageEl = $("<img>");
-    // imageEl.attr("src", "https://via.placeholder.com/250/250");
-    // imageEl.attr("id", "park-detail-img");
-    // parkDetailInfo.append(imageEl);
 
     mapsUrl += `from=${userAddress}&to=${$(this).attr("data-value")}`;
     $.ajax({
@@ -291,7 +290,6 @@ $(document).ready(function () {
   });
 
   // ACTIVITY BUTTON SECTION END
-
 
   // Event Listener - User clicks Topics Button, Populate the Screen with Topics
   topicsBtn.on("click", function () {
