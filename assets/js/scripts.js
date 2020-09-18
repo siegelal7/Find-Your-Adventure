@@ -293,7 +293,10 @@ $(document).ready(function () {
     parseStandardHours($(this).attr("standardHours"));
     parseParkImage($(this).attr("images"));
 
-    mapsUrl += `from=${userAddress}&to=${$(this).attr("data-value")}`;
+    mapsUrl += `from=${userAddress}&to=${$(this)
+      .children()
+      .get(0)
+      .attr("data-value")}`;
     $.ajax({
       url: mapsUrl,
       method: "GET",
@@ -307,16 +310,18 @@ $(document).ready(function () {
 
         parkDirectionsList.append(newParaEl);
       }
+      var totalDist = $("<p>").text(response.distance);
+      totalDist.attr("id", "totalDistance");
+      parkDirectionsList.append(totalDist);
     });
 
     parkDetails.attr("style", "display:block");
   });
-   // Event Listener to return to main page
-   $("#mainMenuBtn").on("click", function(event){
+  // Event Listener to return to main page
+  $("#mainMenuBtn").on("click", function (event) {
     event.preventDefault();
 
     distanceDiv.attr("class", "display");
     originalPage.attr("class", "displayNone");
-
   });
 });
