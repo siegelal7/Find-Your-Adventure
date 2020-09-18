@@ -26,12 +26,13 @@
   </head>
 
   <body>
+    
     <div class="bg"></div>
     <nav class="navbar navbar-light bg-light head">
       <span class="navbar-brand mb-0 h1">Adventure awaits!</span>
     </nav>
 
-    <div class="container">
+    <main class="container">
       <div id="distanceDiv" class="row">
         <div class="col-sm-12">
           <form>
@@ -130,7 +131,7 @@
                 </select>
               </div>
             </div>
-            <button type="submit" class="btn btn-primary" id="addressSubmit">
+            <button type="submit" class="btn btn-primary" id="addressSubmit" data-value="submitBtn">
               Search Parks
             </button>
           </form>
@@ -155,10 +156,7 @@
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- blah -->
-    <main class="container">
+      
       <div id="originalPage" class="displayNone">
         <h1 id="landingPageHeader">
           How do you wish to choose your

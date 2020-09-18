@@ -347,9 +347,8 @@ $(document).ready(function () {
     createParksPage();
   });
 
-  originalPage.on("click", ".btn", function (event) {
+  container.on("click", ".btn", function(event){
     event.preventDefault();
     console.log($(this).attr("data-value"));
-    console.log("Topics" == $(this).attr("data-value"));
   });
 });
