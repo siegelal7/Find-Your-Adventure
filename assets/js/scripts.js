@@ -40,7 +40,6 @@ $(document).ready(function () {
   // Function - Clears the Current Screen
   function clearScreen() {
     originalPage.attr("style", "display:none");
-    //activityDiv.empty();
     adventureDiv.empty();
   }
 
@@ -225,7 +224,7 @@ $(document).ready(function () {
 
   // Event Listener - User clicks Activity Button, Populate the Screen with Activities
   activityBtn.on("click", function () {
-    userAdventure = "Activity";
+    userAdventure = $(this).attr("data-value");;
     var activitiesArray = [
       "Camping",
       "Fishing",
@@ -245,7 +244,7 @@ $(document).ready(function () {
 
   // Event Listener - User clicks Topics Button, Populate the Screen with Topics
   topicsBtn.on("click", function () {
-    userAdventure = "Topics";
+    userAdventure = $(this).attr("data-value");
     var topicsArray = [
       "African American Heritage",
       "American Revolution",
