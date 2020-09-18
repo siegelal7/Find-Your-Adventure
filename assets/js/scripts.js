@@ -91,7 +91,6 @@ $(document).ready(function () {
       div.append(option);
     }
     addGobackBtn(div);
-
   }
 
   // Function - Creates a List of Parks
@@ -115,30 +114,33 @@ $(document).ready(function () {
   }
 
   // Function - Checks the List of Parks
-  function noResultListOfParks(){
-    if (listOfParksArray.length === 0){
+  function noResultListOfParks() {
+    if (listOfParksArray.length === 0) {
       adventureDiv.empty();
 
       var counter = 5;
       var errorHeader = $("<h1>");
       errorHeader.attr("style", "background-color: white");
       var errorHeaderSpan = $("<span>" + counter + "</span>.");
-      errorHeader.text("Sadly there are no national parks in your state that include your selection. Redirecting you to the last page in ").append(errorHeaderSpan).append(" seconds.");
+      errorHeader
+        .text(
+          "Sadly there are no national parks in your state that include your selection. Redirecting you to the last page in "
+        )
+        .append(errorHeaderSpan)
+        .append(" seconds.");
       adventureDiv.append(errorHeader);
-      
-      var timer = setInterval(function(){
 
+      var timer = setInterval(function () {
         counter--;
         errorHeaderSpan.text(counter);
         console.log(counter);
 
-        if(counter === 0){
+        if (counter === 0) {
           clearInterval(timer);
           createButtons(question, adventureDiv, adventureArray);
         }
       }, 1000);
-    }
-    else{
+    } else {
       createParksPage();
     }
   }
@@ -198,7 +200,6 @@ $(document).ready(function () {
       colDiv.append(cardDiv);
       adventureDiv.append(colDiv);
     }
-
   }
 
   // Function - Parse Parks' Standard Hours
@@ -265,7 +266,7 @@ $(document).ready(function () {
       // carouselPrevControl.append(prevIcon, prevWord);
       //TODO: in order to revert the multi image issue, change below to
       //TODO: i<1; i++)
-      for (var i = 0; i < imagesArray.length; i++) {
+      for (var i = 0; i < 1; i++) {
         // var carouselItem = $("<div class='carousel-item'>");
         // var imageEl = $("<img class='d-block w-100'>");
         var imageEl = $("<img>");
@@ -298,7 +299,7 @@ $(document).ready(function () {
     event.preventDefault();
     distanceDiv.attr("class", "displayNone");
     originalPage.attr("class", "display");
-    originalPage.attr("style","display:Block");
+    originalPage.attr("style", "display:Block");
     userAddress = `${inputAddress.val()}, ${inputCity.val()}, ${inputState.val()} ${inputZip.val()}`;
 
     ajaxCallNPSbyState(inputState.val());
@@ -348,7 +349,6 @@ $(document).ready(function () {
 
     question = "Which topic would you like to explore?";
     createButtons(question, adventureDiv, adventureArray);
-    
   });
 
   // Event Listener - User clicks Activity or Topic, Create list of Parks
@@ -411,21 +411,19 @@ $(document).ready(function () {
     event.preventDefault();
 
     distanceDiv.attr("class", "display");
-    
+
     originalPage.attr("class", "displayNone");
     originalPage.attr("style", "display:none");
 
     // adventureDiv.attr("class", "displayNone");
   });
 
-
   $(document).on("click", ".goBack", function (event) {
     event.preventDefault();
-    
+
     adventureDiv.attr("class", "displayNone");
     originalPage.attr("class", "display");
 
     originalPage.attr("style", "display:block");
-
   });
 });
