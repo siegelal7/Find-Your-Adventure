@@ -90,6 +90,7 @@ $(document).ready(function () {
       option.text(array[i]);
       div.append(option);
     }
+    addGobackBtn(div);
 
   }
 
@@ -347,6 +348,7 @@ $(document).ready(function () {
 
     question = "Which topic would you like to explore?";
     createButtons(question, adventureDiv, adventureArray);
+    
   });
 
   // Event Listener - User clicks Activity or Topic, Create list of Parks
