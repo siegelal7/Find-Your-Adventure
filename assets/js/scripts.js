@@ -163,7 +163,7 @@ $(document).ready(function () {
 
       var counter = 5;
       var errorHeader = $("<h1>");
-      errorHeader.attr("style", "background-color: white");
+      errorHeader.attr("style", "background-color: transparent");
       var errorHeaderSpan = $("<span>" + counter + "</span>.");
       errorHeader
         .text(
