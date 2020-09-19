@@ -238,6 +238,13 @@ $(document).ready(function () {
   function parseParkImage(imagesObject) {
     var imagesArray = JSON.parse(imagesObject);
     if (imagesArray.length > 1) {
+
+      var carouselDiv = $("<div id='carouselExampleControls' class='carousel slide' data-ride='carousel'></div>"); 
+        var carouselInnerDiv = $("<div class='carousel-inner'></div>");
+          var carouselItemDIv = $("<div class='carousel-item active'></div>");
+        var carouselCtrlPrev = $("");
+        var carouselCtrlNext = $("");
+
       // var carouselSlide = $(
       //   "<div id='carouselControls' class='carousel slide' data-ride='carousel'>"
       // );
