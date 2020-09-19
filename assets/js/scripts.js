@@ -100,7 +100,6 @@ $(document).ready(function () {
           url: specificParkUrl + $(this).attr("parkCode"),
           method: "GET",
         }).then(function (response) {
-          // console.log(response);
           // clearScreen();
           //ClearScreen() didn't have below functionality
           distanceDiv.addClass("displayNone");
@@ -306,51 +305,47 @@ $(document).ready(function () {
   //Function - Parse Park Images
   function parseParkImage(imagesObject) {
     var imagesArray = JSON.parse(imagesObject);
-    if (imagesArray.length > 1) {
-      // var carouselSlide = $(
-      //   "<div id='carouselControls' class='carousel slide' data-ride='carousel'>"
-      // );
-      // var carouselInner = $("<div class='carousel-inner'>");
-      // var carouselPrevControl = $(
-      //   "<a class='carousel-control-prev' href='#carouselControls' role='button' data-slide='prev'>"
-      // );
-      // var carouselNextControl = $(
-      //   "<a class='carousel-control-next' href='#carouselControls' role='button' data-slide='next'>"
-      // );
-      // var prevIcon = $(
-      //   "<span class='carousel-control-prev-icon' aria-hidden='true'>"
-      // );
-      // var prevWord = $("<span class='sr-only'>Previous</span>");
-      // var nextIcon = $(
-      //   "<span class='carousel-control-next-icon' aria-hidden='true'>"
-      // );
-      // var nextWord = $("<span class='sr-only'>Next</span>");
-      // carouselSlide.append(
-      //   carouselInner,
-      //   carouselPrevControl,
-      //   carouselNextControl
-      // );
-      // carouselNextControl.append(nextIcon, nextWord);
-      // carouselPrevControl.append(prevIcon, prevWord);
-      //TODO: in order to revert the multi image issue, change below to
-      //TODO: i<1; i++)
-      for (var i = 0; i < 1; i++) {
-        // var carouselItem = $("<div class='carousel-item'>");
-        // var imageEl = $("<img class='d-block w-100'>");
-        var imageEl = $("<img>");
-        imageEl.attr("src", imagesArray[i].url);
-        imageEl.attr("id", "park-detail-img");
-        imageEl.attr("style", "height:200px;width:200px;z-index:1");
-        // carouselInner.append(carouselItem);
 
-        // parkDetailInfo.append(carouselSlide);
-        // carouselItem.append(imageEl);
-        parkDetailInfo.append(imageEl);
-      }
-      // FIXME: I can't get fontawesome Icon to work..
-      // var favoriteStar = $("<i class='fas fa-bookmark'></i>");
-      // favoriteStar.attr("style", "z-index:100; height:2em; width:2em");
-      // imageEl.append(favoriteStar);
+    if (imagesArray.length > 1) {
+
+      var carouselDiv = $("<div id='carouselExampleControls' class='carousel slide' data-ride='carousel'></div>"); 
+        var carouselInnerDiv = $("<div class='carousel-inner'></div>");
+        var carouselItemDiv = $("<div class='carousel-item active'></div>");
+            var imageEl = $("<img>");
+            imageEl.attr({
+              "src": imagesArray[0].url,
+              "alt": imagesArray[0].altText,
+              "id": "park-detail-img" + i,
+              "class": "d-block w-100 h-100",
+          });
+          carouselItemDiv.append(imageEl);
+          carouselInnerDiv.append(carouselItemDiv);
+        
+
+        for(var i = 1; i < imagesArray.length; i++){
+          var carouselItemDiv2 = $("<div class='carousel-item'></div>");
+            var imageEl2 = $("<img>");
+            imageEl2.attr({
+              "src": imagesArray[i].url,
+              "alt": imagesArray[i].altText,
+              "id": "park-detail-img" + i,
+              "class": "d-block w-100 h-100",
+          });
+          carouselItemDiv2.append(imageEl2);
+          carouselInnerDiv.append(carouselItemDiv2);
+        }
+
+          var carouselCtrlPrev = $("<a class='carousel-control-prev' href='#carouselExampleControls' role='button' data-slide='prev'>");
+          var prevSpan = $("<span class='carousel-control-prev-icon' aria-hidden='true'></span>");
+          var prevSpan2 = $("<span class='sr-only'>Previous</span>");
+            carouselCtrlPrev.append(prevSpan, prevSpan2);
+        var carouselCtrlNext = $("<a class='carousel-control-next' href='#carouselExampleControls' role='button' data-slide='next'>");
+          var nextSpan = $("<span class='carousel-control-next-icon' aria-hidden='true'></span>");
+          var nextSpan2 = $("<span class='sr-only'>Next</span>");
+            carouselCtrlNext.append(nextSpan, nextSpan2);
+
+        carouselDiv.append(carouselInnerDiv, carouselCtrlPrev, carouselCtrlNext);
+        parkDetailInfo.append(carouselDiv);
     }
   }
 
