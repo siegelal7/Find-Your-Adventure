@@ -104,6 +104,7 @@ $(document).ready(function () {
           //ClearScreen() didn't have below functionality
           distanceDiv.addClass("displayNone");
           distanceDiv.attr("style", "display:none");
+          // $("#directionsDiv").attr("style", "display:none");
           // console.log(response.data[0]);
           var data = response.data[0];
           var address = data.addresses[0];
@@ -307,45 +308,53 @@ $(document).ready(function () {
     var imagesArray = JSON.parse(imagesObject);
 
     if (imagesArray.length > 1) {
+      var carouselDiv = $(
+        "<div id='carouselExampleControls' class='carousel slide' data-ride='carousel'></div>"
+      );
+      var carouselInnerDiv = $("<div class='carousel-inner'></div>");
+      var carouselItemDiv = $("<div class='carousel-item active'></div>");
+      var imageEl = $("<img>");
+      imageEl.attr({
+        src: imagesArray[0].url,
+        alt: imagesArray[0].altText,
+        id: "park-detail-img" + i,
+        class: "d-block w-100 h-100",
+      });
+      carouselItemDiv.append(imageEl);
+      carouselInnerDiv.append(carouselItemDiv);
 
-      var carouselDiv = $("<div id='carouselExampleControls' class='carousel slide' data-ride='carousel'></div>"); 
-        var carouselInnerDiv = $("<div class='carousel-inner'></div>");
-        var carouselItemDiv = $("<div class='carousel-item active'></div>");
-            var imageEl = $("<img>");
-            imageEl.attr({
-              "src": imagesArray[0].url,
-              "alt": imagesArray[0].altText,
-              "id": "park-detail-img" + i,
-              "class": "d-block w-100 h-100",
-          });
-          carouselItemDiv.append(imageEl);
-          carouselInnerDiv.append(carouselItemDiv);
-        
+      for (var i = 1; i < imagesArray.length; i++) {
+        var carouselItemDiv2 = $("<div class='carousel-item'></div>");
+        var imageEl2 = $("<img>");
+        imageEl2.attr({
+          src: imagesArray[i].url,
+          alt: imagesArray[i].altText,
+          id: "park-detail-img" + i,
+          class: "d-block w-100 h-100",
+        });
+        carouselItemDiv2.append(imageEl2);
+        carouselInnerDiv.append(carouselItemDiv2);
+      }
 
-        for(var i = 1; i < imagesArray.length; i++){
-          var carouselItemDiv2 = $("<div class='carousel-item'></div>");
-            var imageEl2 = $("<img>");
-            imageEl2.attr({
-              "src": imagesArray[i].url,
-              "alt": imagesArray[i].altText,
-              "id": "park-detail-img" + i,
-              "class": "d-block w-100 h-100",
-          });
-          carouselItemDiv2.append(imageEl2);
-          carouselInnerDiv.append(carouselItemDiv2);
-        }
+      var carouselCtrlPrev = $(
+        "<a class='carousel-control-prev' href='#carouselExampleControls' role='button' data-slide='prev'>"
+      );
+      var prevSpan = $(
+        "<span class='carousel-control-prev-icon' aria-hidden='true'></span>"
+      );
+      var prevSpan2 = $("<span class='sr-only'>Previous</span>");
+      carouselCtrlPrev.append(prevSpan, prevSpan2);
+      var carouselCtrlNext = $(
+        "<a class='carousel-control-next' href='#carouselExampleControls' role='button' data-slide='next'>"
+      );
+      var nextSpan = $(
+        "<span class='carousel-control-next-icon' aria-hidden='true'></span>"
+      );
+      var nextSpan2 = $("<span class='sr-only'>Next</span>");
+      carouselCtrlNext.append(nextSpan, nextSpan2);
 
-          var carouselCtrlPrev = $("<a class='carousel-control-prev' href='#carouselExampleControls' role='button' data-slide='prev'>");
-          var prevSpan = $("<span class='carousel-control-prev-icon' aria-hidden='true'></span>");
-          var prevSpan2 = $("<span class='sr-only'>Previous</span>");
-            carouselCtrlPrev.append(prevSpan, prevSpan2);
-        var carouselCtrlNext = $("<a class='carousel-control-next' href='#carouselExampleControls' role='button' data-slide='next'>");
-          var nextSpan = $("<span class='carousel-control-next-icon' aria-hidden='true'></span>");
-          var nextSpan2 = $("<span class='sr-only'>Next</span>");
-            carouselCtrlNext.append(nextSpan, nextSpan2);
-
-        carouselDiv.append(carouselInnerDiv, carouselCtrlPrev, carouselCtrlNext);
-        parkDetailInfo.append(carouselDiv);
+      carouselDiv.append(carouselInnerDiv, carouselCtrlPrev, carouselCtrlNext);
+      parkDetailInfo.append(carouselDiv);
     }
   }
 
@@ -390,6 +399,7 @@ $(document).ready(function () {
       clearScreen();
       parkListDiv.attr("style", "display:none");
       parkDetails.attr("style", "display:none");
+      // parkListDiv.attr("style", "display:block");
       for (i = 0; i < response.data.length; i++) {
         // Adds Class Card-Deck to Activity Div
         var results = response.data[i];
