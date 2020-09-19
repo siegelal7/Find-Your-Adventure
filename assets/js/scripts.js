@@ -310,21 +310,29 @@ $(document).ready(function () {
 
       var carouselDiv = $("<div id='carouselExampleControls' class='carousel slide' data-ride='carousel'></div>"); 
         var carouselInnerDiv = $("<div class='carousel-inner'></div>");
-
-        for(var i = 0; i < imagesArray.length; i++){
-          var carouselItemDiv = $("<div class='carousel-item active'></div>");
+        var carouselItemDiv = $("<div class='carousel-item active'></div>");
             var imageEl = $("<img>");
             imageEl.attr({
+              "src": imagesArray[0].url,
+              "alt": imagesArray[0].altText,
+              "id": "park-detail-img" + i,
+              "class": "d-block w-100 h-100",
+          });
+          carouselItemDiv.append(imageEl);
+          carouselInnerDiv.append(carouselItemDiv);
+        
+
+        for(var i = 1; i < imagesArray.length; i++){
+          var carouselItemDiv2 = $("<div class='carousel-item'></div>");
+            var imageEl2 = $("<img>");
+            imageEl2.attr({
               "src": imagesArray[i].url,
               "alt": imagesArray[i].altText,
               "id": "park-detail-img" + i,
               "class": "d-block w-100 h-100",
           });
-          console.log("i: " + i);
-          carouselItemDiv.append(imageEl);
-          console.log("carouselItemDiv: " + carouselItemDiv);
-          carouselInnerDiv.append(carouselItemDiv);
-          console.log("carouselInnerDiv: " + carouselInnerDiv);
+          carouselItemDiv2.append(imageEl2);
+          carouselInnerDiv.append(carouselItemDiv2);
         }
 
           var carouselCtrlPrev = $("<a class='carousel-control-prev' href='#carouselExampleControls' role='button' data-slide='prev'>");
