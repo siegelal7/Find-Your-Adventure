@@ -29,7 +29,15 @@
     <!-- Website Header -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light head">
       <span class="navbar-brand mb-0 h1">Adventure Awaits!</span>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
 
@@ -45,7 +53,6 @@
 
         </ul>
       </div>
-    </div>
     </nav>
 
     <main class="container">
@@ -76,8 +83,14 @@
               <!-- Form - State Options -->
               <div class="form-group col-sm-4">
                 <label for="inputState">State (required)</label>
-                <select id="inputState" class="form-control">
-                  <option selected>Choose...</option>
+                <select
+                  name="state"
+                  id="inputState"
+                  class="form-control"
+                  required
+                  aria-required="true"
+                >
+                  <option value="none" selected>Choose...</option>
                   <option value="AL">Alabama</option>
                   <option value="AK">Alaska</option>
                   <option value="AZ">Arizona</option>
@@ -130,6 +143,14 @@
                   <option value="WI">Wisconsin</option>
                   <option value="WY">Wyoming</option>
                 </select>
+                <div
+                  class="alert alert-danger"
+                  role="alert"
+                  id="validationAlert"
+                  style="display: none"
+                >
+                  Please enter a state!
+                </div>
               </div>
 
               <!-- Form - Zip Code -->
@@ -207,14 +228,14 @@
 
       <!-- Div - Filter Parks by Topics -->
       <div id="adventureDivWrapper">
-      <div id="adventureDiv" class="displayNone"></div>
+        <div id="adventureDiv" class="displayNone"></div>
       </div>
 
       <!-- Div - Filtered List of Parks -->
       <div id="parkListDiv" class="displayNone"></div>
 
       <!-- Single Park Details -->
-      <div id="park-details" style="display:none">
+      <div id="park-details" style="display: none">
         <div class="row">
           <div class="col-sm-8">
             <div class="card bg-light">

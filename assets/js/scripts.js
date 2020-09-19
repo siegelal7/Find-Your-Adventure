@@ -65,18 +65,16 @@ $(document).ready(function () {
     if (currentPage === "parkList") {
       adventureDivWrapper.children(".tobeDeleted").remove();
       adventureDivWrapper.prepend(newRow);
-
-    }
-    else if (currentPage === "parkDetails" || currentPage === "parkDetailsMainMenu") {
+    } else if (
+      currentPage === "parkDetails" ||
+      currentPage === "parkDetailsMainMenu"
+    ) {
       divName.prepend(newRow);
     }
 
     else {
       divName.append(newRow);
     }
-
-
-
   }
 
   // Function - Clears the Current Screen
@@ -159,7 +157,6 @@ $(document).ready(function () {
     navMenu.attr("style", "display:block");
     navSearchPageOption.removeClass("disabled");
     div.attr("style", "display:");
-
   }
 
   // Function - Creates a List of Parks
@@ -173,7 +170,6 @@ $(document).ready(function () {
       } else if (userAdventure === "Topics") {
         parks = allParksInState.data[i].topics;
       }
-
 
       for (var j = 0; j < parks.length; j++) {
         if (parks[j].name === userChoice) {
@@ -273,9 +269,6 @@ $(document).ready(function () {
       colDiv.append(cardDiv);
       adventureDiv.append(colDiv);
     }
-
-
-
   }
 
   // Function - Parse Parks' Standard Hours
@@ -373,14 +366,19 @@ $(document).ready(function () {
   // Event Listener - User clicks Address Submit, Address is stored, Call AJAX
   addressSubmit.on("click", function (event) {
     event.preventDefault();
-    distanceDiv.attr("class", "displayNone");
-    distanceDiv.attr("style", "display:none");
-    originalPage.attr("class", "display");
-    originalPage.attr("style", "display:Block");
-    navMenu.attr("style", "display:block");
-    userAddress = `${inputAddress.val()}, ${inputCity.val()}, ${inputState.val()} ${inputZip.val()}`;
 
-    ajaxCallNPSbyState(inputState.val());
+    if (inputState.val() == "none") {
+      validationAlert.attr("style", "display:block");
+    } else {
+      distanceDiv.attr("class", "displayNone");
+      distanceDiv.attr("style", "display:none");
+      originalPage.attr("class", "display");
+      originalPage.attr("style", "display:Block");
+      navMenu.attr("style", "display:block");
+      userAddress = `${inputAddress.val()}, ${inputCity.val()}, ${inputState.val()} ${inputZip.val()}`;
+
+      ajaxCallNPSbyState(inputState.val());
+    }
   });
 
   // ACTIVITY BUTTON SECTION START!
@@ -500,7 +498,6 @@ $(document).ready(function () {
       parkDirectionsList.prepend(totalDistance, travelTime);
     });
     
-
   }
 
   // Event Listener - User clicks one Park, Display Park Details
@@ -527,7 +524,8 @@ $(document).ready(function () {
     parseParkImage($(this).attr("images"));
 
     var mapsQueryUrl = "";
-    mapsQueryUrl = mapsUrl + `from=${userAddress}&to=${$(this).attr("data-value")}`;
+    mapsQueryUrl =
+      mapsUrl + `from=${userAddress}&to=${$(this).attr("data-value")}`;
     //TODO: here's the favorite button for now
 
     var favoriteBtn = $("<button>");
@@ -560,9 +558,6 @@ $(document).ready(function () {
       parkDirectionsList.prepend(totalDistance, travelTime);
 
     });
-
-
-
   });
 
   //event listener for add to favorites button
@@ -597,7 +592,6 @@ $(document).ready(function () {
   $(document).on("click", ".goBack", function (event) {
     event.preventDefault();
     if ($(this).attr("data-value") === "parkDetails") {
-
       adventureDiv.attr("style", "display:");
       parkDetails.attr("class", "displayNone");
       parkDetails.attr("style", "display:None");
@@ -614,8 +608,7 @@ $(document).ready(function () {
       parkDetailInfo.empty();
       parkDirectionsList.empty();
       parkDetails.children(".tobeDeleted").remove();
-    }
-    else {
+    } else {
       adventureDiv.attr("style", "display:none");
       originalPage.addClass(".display");
 

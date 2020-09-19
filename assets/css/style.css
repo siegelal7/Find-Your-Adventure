@@ -15,8 +15,7 @@
   text-shadow: 1px 1px red;
 }
 
-#navbarSupportedContent
-{
+#navbarSupportedContent {
   display: none;
 }
 
@@ -63,7 +62,17 @@ body {
   z-index: 500;
 }
 
+#validationAlert {
+  height: fit-content;
+  width: fit-content;
+  font-size: 0.8em;
+}
+
+#favoriteParksList {
+  width: fit-content;
+}
 .favorite-list-item {
+  width: fit-content;
   color: white;
   font-size: 1em;
   text-align: left;
