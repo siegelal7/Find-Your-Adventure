@@ -525,7 +525,8 @@ $(document).ready(function () {
       park: nameOfPark,
       parkCode: code,
     };
-    if (favoriteParks.includes(val) === false) {
+    //FIXME: this if statement isn't working properly
+    if (favoriteParks.includes(faveObject) === false) {
       favoriteParks.push(faveObject);
     }
 
