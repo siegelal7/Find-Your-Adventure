@@ -391,7 +391,6 @@ $(document).ready(function () {
       url: url,
       method: "GET",
     }).then(function (response) {
-      // console.log(response);
       distanceDiv.attr("style", "display:none");
       clearScreen();
       parkListDiv.attr("style", "display:none");
