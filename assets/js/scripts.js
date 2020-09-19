@@ -387,6 +387,11 @@ $(document).ready(function () {
       "Playground",
       "Junior Ranger Program",
       "Food",
+      "Astronomy",
+      "Boating",
+      "Living History",
+      "Skiing",
+      "Swimming",
     ];
 
     question = "Which of the following activities most interests you?";
