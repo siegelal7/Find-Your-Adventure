@@ -58,6 +58,17 @@ body {
   z-index: 500;
 }
 
+.favorite-list-item {
+  color: white;
+  font-size: 1em;
+  text-align: left;
+}
+.favorite-list-item:hover {
+  color: red;
+  font-size: 1em;
+  cursor: pointer;
+}
+
 #park-details {
   margin-top: 10px;
   font-weight: normal;
