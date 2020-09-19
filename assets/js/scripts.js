@@ -2,8 +2,10 @@ $(document).ready(function () {
   /**
    * GLOBAL VARIABLES
    **/
+
   var npsAPIkey = "PtYiGrnXjG4FL7v9tOprJACeJgJV4KxlTarrmWXF";
   var npsURL = `https://developer.nps.gov/api/v1/parks/?api_key=${npsAPIkey}&stateCode=`;
+  var specificParkUrl = `https://developer.nps.gov/api/v1/parks/?api_key=${npsAPIkey}&parkCode=`;
   var allParksInState = {};
   var listOfParksArray = [];
   var mapQuestAPIkey = "UKFuk0Xe7EAKnJmVEVb3gfUAKRVOlAzR";
@@ -34,7 +36,8 @@ $(document).ready(function () {
   var parkDirectionsList = $("#directions-list");
   var parkDetailInfo = $("#park-detail-info");
   var parkName = $("#park-name");
-
+  var parkCode = $("#park-code");
+  var favoriteParksListEL = $("#FavoriteParksList");
   /**
    * FUNCTION DEFINITIONS
    */
@@ -91,7 +94,6 @@ $(document).ready(function () {
       div.append(option);
     }
     addGobackBtn(div);
-
   }
 
   // Function - Creates a List of Parks
@@ -115,30 +117,33 @@ $(document).ready(function () {
   }
 
   // Function - Checks the List of Parks
-  function noResultListOfParks(){
-    if (listOfParksArray.length === 0){
+  function noResultListOfParks() {
+    if (listOfParksArray.length === 0) {
       adventureDiv.empty();
 
       var counter = 5;
       var errorHeader = $("<h1>");
       errorHeader.attr("style", "background-color: white");
       var errorHeaderSpan = $("<span>" + counter + "</span>.");
-      errorHeader.text("Sadly there are no national parks in your state that include your selection. Redirecting you to the last page in ").append(errorHeaderSpan).append(" seconds.");
+      errorHeader
+        .text(
+          "Sadly there are no national parks in your state that include your selection. Redirecting you to the last page in "
+        )
+        .append(errorHeaderSpan)
+        .append(" seconds.");
       adventureDiv.append(errorHeader);
-      
-      var timer = setInterval(function(){
 
+      var timer = setInterval(function () {
         counter--;
         errorHeaderSpan.text(counter);
         console.log(counter);
 
-        if(counter === 0){
+        if (counter === 0) {
           clearInterval(timer);
           createButtons(question, adventureDiv, adventureArray);
         }
       }, 1000);
-    }
-    else{
+    } else {
       createParksPage();
     }
   }
@@ -175,6 +180,7 @@ $(document).ready(function () {
         standardHours: JSON.stringify(
           listOfParksArray[i].operatingHours[0].standardHours
         ),
+        parkCode: listOfParksArray[i].parkCode,
         entranceFees: listOfParksArray[i].entranceFees[0].cost,
         images: JSON.stringify(listOfParksArray[i].images),
       });
@@ -198,7 +204,6 @@ $(document).ready(function () {
       colDiv.append(cardDiv);
       adventureDiv.append(colDiv);
     }
-
   }
 
   // Function - Parse Parks' Standard Hours
@@ -265,7 +270,7 @@ $(document).ready(function () {
       // carouselPrevControl.append(prevIcon, prevWord);
       //TODO: in order to revert the multi image issue, change below to
       //TODO: i<1; i++)
-      for (var i = 0; i < imagesArray.length; i++) {
+      for (var i = 0; i < 1; i++) {
         // var carouselItem = $("<div class='carousel-item'>");
         // var imageEl = $("<img class='d-block w-100'>");
         var imageEl = $("<img>");
@@ -298,7 +303,7 @@ $(document).ready(function () {
     event.preventDefault();
     distanceDiv.attr("class", "displayNone");
     originalPage.attr("class", "display");
-    originalPage.attr("style","display:Block");
+    originalPage.attr("style", "display:Block");
     userAddress = `${inputAddress.val()}, ${inputCity.val()}, ${inputState.val()} ${inputZip.val()}`;
 
     ajaxCallNPSbyState(inputState.val());
@@ -348,7 +353,6 @@ $(document).ready(function () {
 
     question = "Which topic would you like to explore?";
     createButtons(question, adventureDiv, adventureArray);
-    
   });
 
   // Event Listener - User clicks Activity or Topic, Create list of Parks
@@ -357,16 +361,82 @@ $(document).ready(function () {
     createListOfParks(userChoice);
   });
 
+  //FIXME: FIXME: effffffff
+  function parkDetailsFunction(
+    name,
+    parkCode,
+    operatingHours,
+    standardHours,
+    images,
+    to
+  ) {
+    clearScreen();
+    var parkNameText = name;
+    //had to add park code so that localstorage could search by code it's hidden on page tho
+    var parkCodeText = parkCode;
+    // var parkNameText = $(this).children("img").attr("name");
+    var parkOperatingHours = operatingHours;
+    // var parkOperatingHours = $(this).children("img").attr("operatingHours");
+    parkName.text(parkNameText);
+    // parkCode.text(parkCodeText);
+    var newParaEl = $("<p>").text("Operating Detail: " + parkOperatingHours);
+    parkDetailInfo.append(newParaEl);
+    newParaEl = $("<p class='operating-hours'>").text(
+      "Standard Operating Hours"
+    );
+    parkDetailInfo.append(newParaEl);
+    parseStandardHours(standardHours);
+    parseParkImage(images);
+
+    //TODO: here's the favorite button for now
+    var favoriteBtn = $("<button>");
+    favoriteBtn.text("Favorite");
+    favoriteBtn.attr("id", "favoriteBtn");
+    favoriteBtn.attr("class", "btn btn-primary btn-sm");
+    parkDetailInfo.append(favoriteBtn);
+
+    mapsUrl += `from=${userAddress}&to=${to}`;
+    $.ajax({
+      url: mapsUrl,
+      method: "GET",
+    }).then(function (response) {
+      parkDetails.attr("style", "display:block");
+      // parkDetails.attr("id", "directions");
+      var orderedDirectionsList = $("<ol>");
+      parkDirectionsList.append(orderedDirectionsList);
+
+      for (var i = 0; i < response.route.legs[0].maneuvers.length; i++) {
+        // console.log(response.route.legs[0].maneuvers[i].narrative);
+
+        var newParaEl = $("<li>");
+        newParaEl.text(response.route.legs[0].maneuvers[i].narrative);
+
+        orderedDirectionsList.append(newParaEl);
+      }
+      var totalDistance = $("<p>").text(
+        `Total Distance: ${response.route.distance} miles`
+      );
+      var travelTime = $("<p>").text(
+        `Total time: ${response.route.formattedTime}`
+      );
+      parkDirectionsList.prepend(totalDistance, travelTime);
+    });
+
+    parkDetails.attr("style", "display:block");
+  }
   // Event Listener - User clicks one Park, Display Park Details
   adventureDiv.on("click", ".card", function () {
     clearScreen();
 
     // Fill in the selected park detail
     var parkNameText = $(this).attr("name");
+    //had to add park code so that localstorage could search by code
+    var parkCodeText = $(this).attr("parkCode");
     // var parkNameText = $(this).children("img").attr("name");
     var parkOperatingHours = $(this).attr("operatingHours");
     // var parkOperatingHours = $(this).children("img").attr("operatingHours");
     parkName.text(parkNameText);
+    parkCode.text(parkCodeText);
     var newParaEl = $("<p>").text("Operating Detail: " + parkOperatingHours);
     parkDetailInfo.append(newParaEl);
     newParaEl = $("<p class='operating-hours'>").text(
@@ -375,6 +445,13 @@ $(document).ready(function () {
     parkDetailInfo.append(newParaEl);
     parseStandardHours($(this).attr("standardHours"));
     parseParkImage($(this).attr("images"));
+
+    //TODO: here's the favorite button for now
+    var favoriteBtn = $("<button>");
+    favoriteBtn.text("Favorite");
+    favoriteBtn.attr("id", "favoriteBtn");
+    favoriteBtn.attr("class", "btn btn-primary btn-sm");
+    parkDetailInfo.append(favoriteBtn);
 
     mapsUrl += `from=${userAddress}&to=${$(this).attr("data-value")}`;
     $.ajax({
@@ -405,27 +482,78 @@ $(document).ready(function () {
 
     parkDetails.attr("style", "display:block");
   });
+  //TODO: move this empty array and function call---empty array to be single source of truth for favorite parks
+  var favoriteParks = [];
+  getFavoriteList();
+  function getFavoriteList() {
+    var faves = JSON.parse(localStorage.getItem("parks"));
+    if (faves !== null) {
+      favoriteParks = faves;
+    }
+    for (i = 0; i < favoriteParks.length; i++) {
+      var listItem = $("<li>");
+      listItem.text(favoriteParks[i].park);
+      listItem.attr("parkCode", favoriteParks[i].parkCode);
+      listItem.attr("class", "favorite-list-item");
+      //FIXME: click even listener for the list items
+      listItem.on("click", function () {
+        // console.log($(this).attr("parkCode"));
+        $.ajax({
+          url: specificParkUrl + $(this).attr("parkCode"),
+          method: "GET",
+        }).then(function (response) {
+          // console.log(response);
+          // clearScreen();
+          //ClearScreen() didn't have below functionality
+          distanceDiv.addClass("displayNone");
+          // console.log(response.data[0]);
+          var data = response.data[0];
+          var address = data.addresses[0];
+          parkDetailsFunction(
+            data.fullName,
+            data.parkCode,
+            data.operatingHours[0].description,
+            JSON.stringify(data.operatingHours[0].standardHours),
+            JSON.stringify(data.images),
+            `${address.line1},  ${address.city}, ${address.stateCode} ${address.postalCode}`
+          );
+        });
+      });
+      favoriteParksListEL.append(listItem);
+    }
+  }
+
+  //event listener for add to favorites button
+  $(this).on("click", "#favoriteBtn", function () {
+    var nameOfPark = parkName.text();
+    var code = parkCode.text();
+    var faveObject = {
+      park: nameOfPark,
+      parkCode: code,
+    };
+
+    favoriteParks.push(faveObject);
+    localStorage.setItem("parks", JSON.stringify(favoriteParks));
+  });
 
   // Event Listener to return to main page
   $("#mainMenuBtn").on("click", function (event) {
     event.preventDefault();
 
     distanceDiv.attr("class", "display");
-    
+
     originalPage.attr("class", "displayNone");
     originalPage.attr("style", "display:none");
 
     // adventureDiv.attr("class", "displayNone");
   });
 
-
   $(document).on("click", ".goBack", function (event) {
     event.preventDefault();
-    
+
     adventureDiv.attr("class", "displayNone");
     originalPage.attr("class", "display");
 
     originalPage.attr("style", "display:block");
-
   });
 });
