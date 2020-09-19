@@ -304,34 +304,16 @@ $(document).ready(function () {
       var carouselDiv = $("<div id='carouselExampleControls' class='carousel slide' data-ride='carousel'></div>"); 
         var carouselInnerDiv = $("<div class='carousel-inner'></div>");
           var carouselItemDIv = $("<div class='carousel-item active'></div>");
-        var carouselCtrlPrev = $("");
-        var carouselCtrlNext = $("");
 
-      // var carouselSlide = $(
-      //   "<div id='carouselControls' class='carousel slide' data-ride='carousel'>"
-      // );
-      // var carouselInner = $("<div class='carousel-inner'>");
-      // var carouselPrevControl = $(
-      //   "<a class='carousel-control-prev' href='#carouselControls' role='button' data-slide='prev'>"
-      // );
-      // var carouselNextControl = $(
-      //   "<a class='carousel-control-next' href='#carouselControls' role='button' data-slide='next'>"
-      // );
-      // var prevIcon = $(
-      //   "<span class='carousel-control-prev-icon' aria-hidden='true'>"
-      // );
-      // var prevWord = $("<span class='sr-only'>Previous</span>");
-      // var nextIcon = $(
-      //   "<span class='carousel-control-next-icon' aria-hidden='true'>"
-      // );
-      // var nextWord = $("<span class='sr-only'>Next</span>");
-      // carouselSlide.append(
-      //   carouselInner,
-      //   carouselPrevControl,
-      //   carouselNextControl
-      // );
-      // carouselNextControl.append(nextIcon, nextWord);
-      // carouselPrevControl.append(prevIcon, prevWord);
+        var carouselCtrlPrev = $("<a>");
+          var prevSpan = $("<span class='carousel-control-prev-icon' aria-hidden='true'></span>");
+          var prevSpan2 = $("<span class='sr-only'>Previous</span>");
+            carouselCtrlPrev.text("class='carousel-control-prev' href='#carouselExampleControls' role='button' data-slide='prev'>").append(prevSpan, prevSpan2);
+        var carouselCtrlNext = $("<a>");
+          var nextSpan = $("<span class='carousel-control-next-icon' aria-hidden='true'></span>");
+          var nextSpan2 = $("<span class='sr-only'>Next</span>");
+            carouselCtrlNext.text("class='carousel-control-next' href='#carouselExampleControls' role='button' data-slide='next'>").append(nextSpan, nextSpan2);
+
       //TODO: in order to revert the multi image issue, change below to
       //TODO: i<1; i++)
       for (var i = 0; i < 1; i++) {
