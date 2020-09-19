@@ -43,12 +43,12 @@ $(document).ready(function () {
   var navMenu = $("#navbarSupportedContent");
   var navMainPageOption = $("#nav-mainPage");
   var navSearchPageOption = $("#nav-search");
+  var validationAlert = $("#validationAlert");
   /**
    * FUNCTION DEFINITIONS
    */
 
   function addGobackBtn(divName, currentPage) {
-
     var newRow = $("<row>");
     newRow.addClass("tobeDeleted");
     var newDiv = $("<div>");
@@ -70,9 +70,7 @@ $(document).ready(function () {
       currentPage === "parkDetailsMainMenu"
     ) {
       divName.prepend(newRow);
-    }
-
-    else {
+    } else {
       divName.append(newRow);
     }
   }
@@ -449,9 +447,9 @@ $(document).ready(function () {
   ) {
     clearScreen();
 
-    navMenu.attr("style","display:block");
+    navMenu.attr("style", "display:block");
     navSearchPageOption.addClass("disabled");
-    
+
     var parkNameText = name;
     //had to add park code so that localstorage could search by code it's hidden on page tho
     var parkCodeText = parkCode;
@@ -502,7 +500,6 @@ $(document).ready(function () {
       );
       parkDirectionsList.prepend(totalDistance, travelTime);
     });
-    
   }
 
   // Event Listener - User clicks one Park, Display Park Details
@@ -561,7 +558,6 @@ $(document).ready(function () {
         `Total time: ${response.route.formattedTime}`
       );
       parkDirectionsList.prepend(totalDistance, travelTime);
-
     });
   });
 
@@ -603,9 +599,8 @@ $(document).ready(function () {
       parkDetailInfo.empty();
       parkDirectionsList.empty();
       parkDetails.children(".tobeDeleted").remove();
-      addGobackBtn(adventureDiv, "parkList")
-    }
-    else if ($(this).attr("data-value") === "parkDetailsMainMenu") {
+      addGobackBtn(adventureDiv, "parkList");
+    } else if ($(this).attr("data-value") === "parkDetailsMainMenu") {
       distanceDiv.addClass("display");
       distanceDiv.attr("style", "display:block");
       parkDetails.addClass("displayNone");
@@ -624,7 +619,6 @@ $(document).ready(function () {
   });
 
   navMainPageOption.on("click", function (event) {
-   
     event.preventDefault();
 
     distanceDiv.addClass("display");
@@ -642,13 +636,10 @@ $(document).ready(function () {
     parkDirectionsList.empty();
     parkDetails.children(".tobeDeleted").remove();
 
-
     navMenu.attr("style", "display:none");
-
   });
 
-  navSearchPageOption.on("click", function(){
-
+  navSearchPageOption.on("click", function () {
     event.preventDefault();
 
     distanceDiv.addClass("displayNone");
@@ -665,9 +656,5 @@ $(document).ready(function () {
     parkDetailInfo.empty();
     parkDirectionsList.empty();
     parkDetails.children(".tobeDeleted").remove();
-
-
-    
-
   });
 });
