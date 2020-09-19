@@ -93,6 +93,15 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
+#optionCard {
+  transition: all 0.2s ease-in-out;
+}
+
+#optionCard:hover {
+  box-shadow: 3px 3px black;
+  transform: scale(1.03);
+}
+
 #topicsBtn,
 #activityBtn,
 #mainMenuBtn,
