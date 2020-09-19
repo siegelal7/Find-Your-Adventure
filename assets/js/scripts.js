@@ -219,7 +219,7 @@ $(document).ready(function () {
 
     for (i = 0; i < listOfParksArray.length; i++) {
       // Adds Class Card-Deck to Activity Div
-      adventureDiv.attr("class", "card-deck row row-cols-3 mt-5");
+      adventureDiv.attr("class", "card-deck row row-cols-3 mt-5 mb-5");
       var colDiv = $("<div class='col mb-4'></div>");
       var cardDiv = $("<div class='card'></div>");
 
@@ -704,7 +704,7 @@ $(document).ready(function () {
     navMenu.attr("style", "display:none");
   });
 
-  navSearchPageOption.on("click", function () {
+  navSearchPageOption.on("click", function (event) {
     event.preventDefault();
 
     distanceDiv.addClass("displayNone");
