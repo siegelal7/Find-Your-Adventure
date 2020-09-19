@@ -61,6 +61,12 @@ body {
 #addressSubmit {
   z-index: 500;
 }
+
+#validationAlert {
+  height: fit-content;
+  width: fit-content;
+}
+
 #favoriteParksList {
   width: fit-content;
 }
