@@ -62,9 +62,10 @@ $(document).ready(function () {
       adventureDivWrapper.prepend(newRow);
 
     }
-    else if (currentPage === "parkDetails") {
+    else if (currentPage === "parkDetails" || currentPage === "parkDetailsMainMenu") {
       divName.prepend(newRow);
     }
+    
     else {
       divName.append(newRow);
     }
@@ -101,6 +102,7 @@ $(document).ready(function () {
           // clearScreen();
           //ClearScreen() didn't have below functionality
           distanceDiv.addClass("displayNone");
+          distanceDiv.attr("style","display:none");
           // console.log(response.data[0]);
           var data = response.data[0];
           var address = data.addresses[0];
@@ -365,6 +367,7 @@ $(document).ready(function () {
   addressSubmit.on("click", function (event) {
     event.preventDefault();
     distanceDiv.attr("class", "displayNone");
+    distanceDiv.attr("style", "display:none");
     originalPage.attr("class", "display");
     originalPage.attr("style", "display:Block");
     userAddress = `${inputAddress.val()}, ${inputCity.val()}, ${inputState.val()} ${inputZip.val()}`;
@@ -483,8 +486,8 @@ $(document).ready(function () {
       );
       parkDirectionsList.prepend(totalDistance, travelTime);
     });
-
-    parkDetails.attr("style", "display:block");
+    addGobackBtn(parkDetails, "parkDetailsMainMenu");
+    
   }
 
   // Event Listener - User clicks one Park, Display Park Details
@@ -570,6 +573,7 @@ $(document).ready(function () {
     event.preventDefault();
 
     distanceDiv.attr("class", "display");
+    distanceDiv.attr("style", "display:block");
 
     originalPage.attr("class", "displayNone");
     originalPage.attr("style", "display:none");
@@ -589,9 +593,19 @@ $(document).ready(function () {
       parkDetails.children(".tobeDeleted").empty();
       addGobackBtn(adventureDiv, "parkList")
     }
+    else if( $(this).attr("data-value") ==="parkDetailsMainMenu")
+    {
+      distanceDiv.addClass("display");
+      distanceDiv.attr("style","display:block");
+      parkDetails.addClass("displayNone");
+      parkDetails.attr("style", "display:none");
+      parkDetailInfo.empty();
+      parkDirectionsList.empty();
+      parkDetails.children(".tobeDeleted").remove();
+    }
     else {
       adventureDiv.attr("style", "display:none");
-      originalPage.attr("class", "display");
+      originalPage.addClass(".display");
 
       originalPage.attr("style", "display:block");
       adventureDivWrapper.children(".tobeDeleted").empty();
