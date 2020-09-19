@@ -100,6 +100,7 @@ body {
 #optionCard:hover {
   box-shadow: 3px 3px black;
   transform: scale(1.03);
+  cursor: pointer;
 }
 
 #topicsBtn,
