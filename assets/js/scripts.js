@@ -555,7 +555,10 @@ $(document).ready(function () {
       url: mapsUrl,
       method: "GET",
     }).then(function (response) {
-      parkDetails.attr("style", "display:block");
+      parkDetails.attr({
+        "style": "display:block",
+        "class": "mb-5"
+      });
       var orderedDirectionsList = $("<ol>");
       parkDirectionsList.append(orderedDirectionsList);
 
@@ -616,7 +619,10 @@ $(document).ready(function () {
       url: mapsQueryUrl,
       method: "GET",
     }).then(function (response) {
-      parkDetails.attr("style", "display:block");
+      parkDetails.attr({
+        "style": "display:block",
+        "class": "mb-5"
+      });
       var orderedDirectionsList = $("<ol>");
       parkDirectionsList.append(orderedDirectionsList);
 
