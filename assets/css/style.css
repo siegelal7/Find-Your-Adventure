@@ -15,6 +15,11 @@
   text-shadow: 1px 1px red;
 }
 
+#navbarSupportedContent
+{
+  display: none;
+}
+
 .footer {
   position: fixed;
   bottom: 0;

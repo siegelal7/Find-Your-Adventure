@@ -21,6 +21,7 @@ $(document).ready(function () {
   var distanceBtn = $("#distanceBtn");
   var activityBtn = $("#activityBtn");
   var adventureDiv = $("#adventureDiv");
+  var adventureDivWrapper = $("#adventureDivWrapper");
   var distanceDiv = $("#distanceDiv");
   var parkListDiv = $("#parkListDiv");
   var container = $("#container");
@@ -39,19 +40,33 @@ $(document).ready(function () {
    * FUNCTION DEFINITIONS
    */
 
-  function addGobackBtn(divName) {
+  function addGobackBtn(divName, currentPage) {
     var newRow = $("<row>");
+    newRow.addClass("tobeDeleted");
     var newDiv = $("<div>");
     newDiv.addClass("col text-center");
 
     var goBackBtn = $("<button>");
     goBackBtn.text("Go Back");
     goBackBtn.addClass(" btn-primary selection-btn goBack");
-    // goBackBtn.attr("data-value", dataValue);
-    newDiv.append(goBackBtn);
 
+    goBackBtn.attr("data-value", currentPage);
+    newDiv.append(goBackBtn);
     newRow.append(newDiv);
-    divName.append(newRow);
+
+    if (currentPage === "parkList") {
+      adventureDivWrapper.prepend(newRow);
+
+    }
+    else if (currentPage === "parkDetails") {
+      divName.prepend(newRow);
+    }
+    else {
+      divName.append(newRow);
+    }
+
+
+
   }
 
   // Function - Clears the Current Screen
@@ -90,13 +105,15 @@ $(document).ready(function () {
       option.text(array[i]);
       div.append(option);
     }
-    addGobackBtn(div);
+    addGobackBtn(div, "adventuresList");
+    div.attr("style", "display:");
 
   }
 
   // Function - Creates a List of Parks
   function createListOfParks(userChoice) {
     var parks;
+    listOfParksArray =[];
 
     for (var i = 0; i < allParksInState.data.length; i++) {
       if (userAdventure === "Activity") {
@@ -104,19 +121,21 @@ $(document).ready(function () {
       } else if (userAdventure === "Topics") {
         parks = allParksInState.data[i].topics;
       }
+   
 
-      for (var j = 0; j < parks.length; j++) {
-        if (parks[j].name === userChoice) {
-          listOfParksArray.push(allParksInState.data[i]);
-        }
+    for (var j = 0; j < parks.length; j++) {
+      if (parks[j].name === userChoice) {
+        listOfParksArray.push(allParksInState.data[i]);
       }
     }
+  }
+
     noResultListOfParks();
   }
 
   // Function - Checks the List of Parks
-  function noResultListOfParks(){
-    if (listOfParksArray.length === 0){
+  function noResultListOfParks() {
+    if (listOfParksArray.length === 0) {
       adventureDiv.empty();
 
       var counter = 5;
@@ -125,20 +144,20 @@ $(document).ready(function () {
       var errorHeaderSpan = $("<span>" + counter + "</span>.");
       errorHeader.text("Sadly there are no national parks in your state that include your selection. Redirecting you to the last page in ").append(errorHeaderSpan).append(" seconds.");
       adventureDiv.append(errorHeader);
-      
-      var timer = setInterval(function(){
+
+      var timer = setInterval(function () {
 
         counter--;
         errorHeaderSpan.text(counter);
         console.log(counter);
 
-        if(counter === 0){
+        if (counter === 0) {
           clearInterval(timer);
           createButtons(question, adventureDiv, adventureArray);
         }
       }, 1000);
     }
-    else{
+    else {
       createParksPage();
     }
   }
@@ -146,6 +165,8 @@ $(document).ready(function () {
   // Function - Creates the Parks Page
   function createParksPage() {
     clearScreen();
+
+    addGobackBtn(adventureDiv, "parkList");
 
     for (i = 0; i < listOfParksArray.length; i++) {
       // Adds Class Card-Deck to Activity Div
@@ -175,7 +196,7 @@ $(document).ready(function () {
         standardHours: JSON.stringify(
           listOfParksArray[i].operatingHours[0].standardHours
         ),
-        entranceFees: listOfParksArray[i].entranceFees[0].cost,
+        // entranceFees: listOfParksArray[i].entranceFees[0].cost,
         images: JSON.stringify(listOfParksArray[i].images),
       });
 
@@ -198,6 +219,8 @@ $(document).ready(function () {
       colDiv.append(cardDiv);
       adventureDiv.append(colDiv);
     }
+
+
 
   }
 
@@ -298,7 +321,7 @@ $(document).ready(function () {
     event.preventDefault();
     distanceDiv.attr("class", "displayNone");
     originalPage.attr("class", "display");
-    originalPage.attr("style","display:Block");
+    originalPage.attr("style", "display:Block");
     userAddress = `${inputAddress.val()}, ${inputCity.val()}, ${inputState.val()} ${inputZip.val()}`;
 
     ajaxCallNPSbyState(inputState.val());
@@ -348,7 +371,7 @@ $(document).ready(function () {
 
     question = "Which topic would you like to explore?";
     createButtons(question, adventureDiv, adventureArray);
-    
+
   });
 
   // Event Listener - User clicks Activity or Topic, Create list of Parks
@@ -359,7 +382,9 @@ $(document).ready(function () {
 
   // Event Listener - User clicks one Park, Display Park Details
   adventureDiv.on("click", ".card", function () {
-    clearScreen();
+    //clearScreen();
+    adventureDiv.attr("style", "display:none");
+    adventureDivWrapper.children(".tobeDeleted").attr("style", "display:none");
 
     // Fill in the selected park detail
     var parkNameText = $(this).attr("name");
@@ -376,9 +401,10 @@ $(document).ready(function () {
     parseStandardHours($(this).attr("standardHours"));
     parseParkImage($(this).attr("images"));
 
-    mapsUrl += `from=${userAddress}&to=${$(this).attr("data-value")}`;
+    var mapsQueryUrl = "";
+    mapsQueryUrl = mapsUrl + `from=${userAddress}&to=${$(this).attr("data-value")}`;
     $.ajax({
-      url: mapsUrl,
+      url: mapsQueryUrl,
       method: "GET",
     }).then(function (response) {
       parkDetails.attr("style", "display:block");
@@ -401,9 +427,11 @@ $(document).ready(function () {
         `Total time: ${response.route.formattedTime}`
       );
       parkDirectionsList.prepend(totalDistance, travelTime);
+      addGobackBtn(parkDetails, "parkDetails");
     });
 
-    parkDetails.attr("style", "display:block");
+
+
   });
 
   // Event Listener to return to main page
@@ -411,21 +439,34 @@ $(document).ready(function () {
     event.preventDefault();
 
     distanceDiv.attr("class", "display");
-    
+
     originalPage.attr("class", "displayNone");
     originalPage.attr("style", "display:none");
 
-    // adventureDiv.attr("class", "displayNone");
+
   });
 
 
   $(document).on("click", ".goBack", function (event) {
     event.preventDefault();
-    
-    adventureDiv.attr("class", "displayNone");
-    originalPage.attr("class", "display");
+    if ($(this).attr("data-value") === "parkDetails") {
 
-    originalPage.attr("style", "display:block");
+      adventureDiv.attr("style", "display:");
+      parkDetails.attr("class", "displayNone");
+      parkDetails.attr("style", "display:None");
+      parkDetailInfo.empty();
+      parkDirectionsList.empty();
+      parkDetails.children(".tobeDeleted").empty();
+      addGobackBtn(adventureDiv, "parkList")
+    }
+    else {
+      adventureDiv.attr("style", "display:none");
+      originalPage.attr("class", "display");
+
+      originalPage.attr("style", "display:block");
+      adventureDivWrapper.children(".tobeDeleted").empty();
+      adventureDiv.empty();
+    }
 
   });
 });
