@@ -305,7 +305,7 @@ $(document).ready(function () {
   //Function - Parse Park Images
   function parseParkImage(imagesObject) {
     var imagesArray = JSON.parse(imagesObject);
-    console.log(imagesArray);
+
     if (imagesArray.length > 1) {
 
       var carouselDiv = $("<div id='carouselExampleControls' class='carousel slide' data-ride='carousel'></div>"); 
@@ -346,16 +346,6 @@ $(document).ready(function () {
 
         carouselDiv.append(carouselInnerDiv, carouselCtrlPrev, carouselCtrlNext);
         parkDetailInfo.append(carouselDiv);
-
-      //TODO: in order to revert the multi image issue, change below to
-      //TODO: i<1; i++)
-
-      //for (var i = 0; i < 1; i++) {
-      //}
-      // FIXME: I can't get fontawesome Icon to work..
-      // var favoriteStar = $("<i class='fas fa-bookmark'></i>");
-      // favoriteStar.attr("style", "z-index:100; height:2em; width:2em");
-      // imageEl.append(favoriteStar);
     }
   }
 
