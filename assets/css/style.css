@@ -15,6 +15,10 @@
   text-shadow: 1px 1px red;
 }
 
+#navbarSupportedContent {
+  display: none;
+}
+
 .footer {
   position: fixed;
   bottom: 0;
@@ -23,7 +27,7 @@
   background: rgba(73, 66, 8, 0.6) !important;
   font-weight: bold;
   justify-content: center;
-  z-index: 0;
+  z-index: -1;
   font-size: 0.8em;
 }
 
@@ -58,6 +62,27 @@ body {
   z-index: 500;
 }
 
+#validationAlert {
+  height: fit-content;
+  width: fit-content;
+  font-size: 0.8em;
+}
+
+#favoriteParksList {
+  width: fit-content;
+}
+.favorite-list-item {
+  width: fit-content;
+  color: white;
+  font-size: 1em;
+  text-align: left;
+}
+.favorite-list-item:hover {
+  color: red;
+  font-size: 1em;
+  cursor: pointer;
+}
+
 #park-details {
   margin-top: 10px;
   font-weight: normal;
@@ -80,6 +105,16 @@ body {
   background: linear-gradient(navy, white, red, blue);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+#optionCard {
+  transition: all 0.2s ease-in-out;
+}
+
+#optionCard:hover {
+  box-shadow: 3px 3px black;
+  transform: scale(1.03);
+  cursor: pointer;
 }
 
 #topicsBtn,
