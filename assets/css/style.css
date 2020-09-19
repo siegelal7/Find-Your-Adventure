@@ -30,6 +30,9 @@
   z-index: -1;
   font-size: 0.8em;
 }
+.footer span {
+  color: white !important;
+}
 
 .h1 {
   font-size: 2em;
@@ -47,7 +50,11 @@ body {
   font-size: 1.1em;
   margin: 0;
 }
-
+.headerForm {
+  position: absolute;
+  top: 2;
+  left: 2%;
+}
 .container {
   z-index: 100;
   color: black;
