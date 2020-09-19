@@ -65,6 +65,7 @@ body {
 #validationAlert {
   height: fit-content;
   width: fit-content;
+  font-size: 0.8em;
 }
 
 #favoriteParksList {
