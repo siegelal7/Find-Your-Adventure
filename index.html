@@ -88,8 +88,14 @@
               <!-- Form - State Options -->
               <div class="form-group col-sm-4">
                 <label for="inputState">State (required)</label>
-                <select id="inputState" class="form-control" required>
-                  <option selected>Choose...</option>
+                <select
+                  name="state"
+                  id="inputState"
+                  class="form-control"
+                  required
+                  aria-required="true"
+                >
+                  <option value="none" selected>Choose...</option>
                   <option value="AL">Alabama</option>
                   <option value="AK">Alaska</option>
                   <option value="AZ">Arizona</option>
@@ -142,6 +148,14 @@
                   <option value="WI">Wisconsin</option>
                   <option value="WY">Wyoming</option>
                 </select>
+                <div
+                  class="alert alert-danger"
+                  role="alert"
+                  id="validationAlert"
+                  style="display: none"
+                >
+                  Please enter a state!
+                </div>
               </div>
 
               <!-- Form - Zip Code -->
