@@ -44,6 +44,7 @@ $(document).ready(function () {
   var navMainPageOption = $("#nav-mainPage");
   var navSearchPageOption = $("#nav-search");
   var validationAlert = $("#validationAlert");
+  var searchBtn = $("#searchBtn");
   /**
    * FUNCTION DEFINITIONS
    */
@@ -377,6 +378,75 @@ $(document).ready(function () {
 
       ajaxCallNPSbyState(inputState.val());
     }
+  });
+
+  // FIXME: not working from the final results page for some reason
+  searchBtn.on("click", function (event) {
+    event.preventDefault();
+    // console.log("test");
+    var term = $(this).siblings().val();
+    // console.log(term);
+    var url = `https://developer.nps.gov/api/v1/parks/?api_key=PtYiGrnXjG4FL7v9tOprJACeJgJV4KxlTarrmWXF&q=${term}`;
+    $.ajax({
+      url: url,
+      method: "GET",
+    }).then(function (response) {
+      distanceDiv.attr("style", "display:none");
+      clearScreen();
+      parkListDiv.attr("style", "display:none");
+      parkDetails.attr("style", "display:none");
+      for (i = 0; i < response.data.length; i++) {
+        // Adds Class Card-Deck to Activity Div
+        var results = response.data[i];
+        adventureDiv.attr("class", "card-deck row row-cols-3 mt-5");
+        var colDiv = $("<div class='col mb-4'></div>");
+        var cardDiv = $("<div class='card'></div>");
+
+        var img = $(
+          "<img class='card-img-top park-image' alt='park-image' style='height: 210px'/>"
+        );
+        if (results.images[0] != undefined) {
+          img.attr("src", results.images[0].url);
+        } else {
+          img.attr(
+            "src",
+            "https://files.tripstodiscover.com/files/2018/08/32533575_1785635178193287_5065019941074239488_o.jpg"
+          );
+        }
+        cardDiv.attr(
+          "data-value",
+          `${results.addresses[0].line1},  ${results.addresses[0].city}, ${results.addresses[0].stateCode} ${results.addresses[0].postalCode}`
+        );
+
+        cardDiv.attr({
+          name: results.fullName,
+          operatingHours: results.operatingHours[0].description,
+          standardHours: JSON.stringify(
+            results.operatingHours[0].standardHours
+          ),
+          parkCode: results.parkCode,
+          entranceFees: results.entranceFees[0].cost,
+          images: JSON.stringify(results.images),
+          id: "optionCard",
+        });
+
+        // Creates Card-Body Div
+        var cardBodyDiv = $("<div class='card-body'></div>");
+        // Creates Card Header
+        var h5 = $("<h5 class='card-title'></h5>");
+        h5.text(results.fullName);
+        // Creates Card Paragraph
+        var p = $("<p class='card-text'></p>");
+        p.text(
+          `${results.addresses[0].city}, ${results.addresses[0].stateCode}`
+        );
+
+        cardBodyDiv.append(h5, p);
+        cardDiv.append(img, cardBodyDiv);
+        colDiv.append(cardDiv);
+        adventureDiv.append(colDiv);
+      }
+    });
   });
 
   // ACTIVITY BUTTON SECTION START!
