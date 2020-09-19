@@ -2,8 +2,10 @@ $(document).ready(function () {
   /**
    * GLOBAL VARIABLES
    **/
+
   var npsAPIkey = "PtYiGrnXjG4FL7v9tOprJACeJgJV4KxlTarrmWXF";
   var npsURL = `https://developer.nps.gov/api/v1/parks/?api_key=${npsAPIkey}&stateCode=`;
+  var specificParkUrl = `https://developer.nps.gov/api/v1/parks/?api_key=${npsAPIkey}&parkCode=`;
   var allParksInState = {};
   var listOfParksArray = [];
   var mapQuestAPIkey = "UKFuk0Xe7EAKnJmVEVb3gfUAKRVOlAzR";
@@ -35,7 +37,8 @@ $(document).ready(function () {
   var parkDirectionsList = $("#directions-list");
   var parkDetailInfo = $("#park-detail-info");
   var parkName = $("#park-name");
-
+  var parkCode = $("#park-code");
+  var favoriteParksListEL = $("#FavoriteParksList");
   /**
    * FUNCTION DEFINITIONS
    */
@@ -142,11 +145,15 @@ $(document).ready(function () {
       var errorHeader = $("<h1>");
       errorHeader.attr("style", "background-color: white");
       var errorHeaderSpan = $("<span>" + counter + "</span>.");
-      errorHeader.text("Sadly there are no national parks in your state that include your selection. Redirecting you to the last page in ").append(errorHeaderSpan).append(" seconds.");
+      errorHeader
+        .text(
+          "Sadly there are no national parks in your state that include your selection. Redirecting you to the last page in "
+        )
+        .append(errorHeaderSpan)
+        .append(" seconds.");
       adventureDiv.append(errorHeader);
 
       var timer = setInterval(function () {
-
         counter--;
         errorHeaderSpan.text(counter);
         console.log(counter);
@@ -156,8 +163,7 @@ $(document).ready(function () {
           createButtons(question, adventureDiv, adventureArray);
         }
       }, 1000);
-    }
-    else {
+    } else {
       createParksPage();
     }
   }
@@ -196,8 +202,10 @@ $(document).ready(function () {
         standardHours: JSON.stringify(
           listOfParksArray[i].operatingHours[0].standardHours
         ),
-        // entranceFees: listOfParksArray[i].entranceFees[0].cost,
+        parkCode: listOfParksArray[i].parkCode,
+        entranceFees: listOfParksArray[i].entranceFees[0].cost,
         images: JSON.stringify(listOfParksArray[i].images),
+        id: "optionCard",
       });
 
       // Creates Card-Body Div
@@ -210,11 +218,8 @@ $(document).ready(function () {
       p.text(
         `${listOfParksArray[i].addresses[0].city}, ${listOfParksArray[i].addresses[0].stateCode}`
       );
-      var smallTextPrompt = $(
-        "<p class='card-text'><small class='text-muted'>Click card for park info</small></p>"
-      );
 
-      cardBodyDiv.append(h5, p, smallTextPrompt);
+      cardBodyDiv.append(h5, p);
       cardDiv.append(img, cardBodyDiv);
       colDiv.append(cardDiv);
       adventureDiv.append(colDiv);
@@ -288,7 +293,7 @@ $(document).ready(function () {
       // carouselPrevControl.append(prevIcon, prevWord);
       //TODO: in order to revert the multi image issue, change below to
       //TODO: i<1; i++)
-      for (var i = 0; i < imagesArray.length; i++) {
+      for (var i = 0; i < 1; i++) {
         // var carouselItem = $("<div class='carousel-item'>");
         // var imageEl = $("<img class='d-block w-100'>");
         var imageEl = $("<img>");
@@ -371,7 +376,6 @@ $(document).ready(function () {
 
     question = "Which topic would you like to explore?";
     createButtons(question, adventureDiv, adventureArray);
-
   });
 
   // Event Listener - User clicks Activity or Topic, Create list of Parks
@@ -380,6 +384,69 @@ $(document).ready(function () {
     createListOfParks(userChoice);
   });
 
+  //FIXME: FIXME: effffffff
+  function parkDetailsFunction(
+    name,
+    parkCode,
+    operatingHours,
+    standardHours,
+    images,
+    to
+  ) {
+    clearScreen();
+    var parkNameText = name;
+    //had to add park code so that localstorage could search by code it's hidden on page tho
+    var parkCodeText = parkCode;
+    // var parkNameText = $(this).children("img").attr("name");
+    var parkOperatingHours = operatingHours;
+    // var parkOperatingHours = $(this).children("img").attr("operatingHours");
+    parkName.text(parkNameText);
+    // parkCode.text(parkCodeText);
+    var newParaEl = $("<p>").text("Operating Detail: " + parkOperatingHours);
+    parkDetailInfo.append(newParaEl);
+    newParaEl = $("<p class='operating-hours'>").text(
+      "Standard Operating Hours"
+    );
+    parkDetailInfo.append(newParaEl);
+    parseStandardHours(standardHours);
+    parseParkImage(images);
+
+    //TODO: here's the favorite button for now
+    var favoriteBtn = $("<button>");
+    favoriteBtn.text("Favorite");
+    favoriteBtn.attr("id", "favoriteBtn");
+    favoriteBtn.attr("class", "btn btn-primary btn-sm");
+    parkDetailInfo.append(favoriteBtn);
+
+    mapsUrl += `from=${userAddress}&to=${to}`;
+    $.ajax({
+      url: mapsUrl,
+      method: "GET",
+    }).then(function (response) {
+      parkDetails.attr("style", "display:block");
+      // parkDetails.attr("id", "directions");
+      var orderedDirectionsList = $("<ol>");
+      parkDirectionsList.append(orderedDirectionsList);
+
+      for (var i = 0; i < response.route.legs[0].maneuvers.length; i++) {
+        // console.log(response.route.legs[0].maneuvers[i].narrative);
+
+        var newParaEl = $("<li>");
+        newParaEl.text(response.route.legs[0].maneuvers[i].narrative);
+
+        orderedDirectionsList.append(newParaEl);
+      }
+      var totalDistance = $("<p>").text(
+        `Total Distance: ${response.route.distance} miles`
+      );
+      var travelTime = $("<p>").text(
+        `Total time: ${response.route.formattedTime}`
+      );
+      parkDirectionsList.prepend(totalDistance, travelTime);
+    });
+
+    parkDetails.attr("style", "display:block");
+  }
   // Event Listener - User clicks one Park, Display Park Details
   adventureDiv.on("click", ".card", function () {
     //clearScreen();
@@ -388,10 +455,13 @@ $(document).ready(function () {
 
     // Fill in the selected park detail
     var parkNameText = $(this).attr("name");
+    //had to add park code so that localstorage could search by code
+    var parkCodeText = $(this).attr("parkCode");
     // var parkNameText = $(this).children("img").attr("name");
     var parkOperatingHours = $(this).attr("operatingHours");
     // var parkOperatingHours = $(this).children("img").attr("operatingHours");
     parkName.text(parkNameText);
+    parkCode.text(parkCodeText);
     var newParaEl = $("<p>").text("Operating Detail: " + parkOperatingHours);
     parkDetailInfo.append(newParaEl);
     newParaEl = $("<p class='operating-hours'>").text(
@@ -403,6 +473,14 @@ $(document).ready(function () {
 
     var mapsQueryUrl = "";
     mapsQueryUrl = mapsUrl + `from=${userAddress}&to=${$(this).attr("data-value")}`;
+    //TODO: here's the favorite button for now
+    var favoriteBtn = $("<button>");
+    favoriteBtn.text("Favorite");
+    favoriteBtn.attr("id", "favoriteBtn");
+    favoriteBtn.attr("class", "btn btn-primary btn-sm");
+    parkDetailInfo.append(favoriteBtn);
+
+    
     $.ajax({
       url: mapsQueryUrl,
       method: "GET",
@@ -433,6 +511,59 @@ $(document).ready(function () {
 
 
   });
+  //TODO: move this empty array and function call---empty array to be single source of truth for favorite parks
+  var favoriteParks = [];
+  getFavoriteList();
+  function getFavoriteList() {
+    var faves = JSON.parse(localStorage.getItem("parks"));
+    if (faves !== null) {
+      favoriteParks = faves;
+    }
+    for (i = 0; i < favoriteParks.length; i++) {
+      var listItem = $("<li>");
+      listItem.text(favoriteParks[i].park);
+      listItem.attr("parkCode", favoriteParks[i].parkCode);
+      listItem.attr("class", "favorite-list-item");
+      //FIXME: click even listener for the list items
+      listItem.on("click", function () {
+        // console.log($(this).attr("parkCode"));
+        $.ajax({
+          url: specificParkUrl + $(this).attr("parkCode"),
+          method: "GET",
+        }).then(function (response) {
+          // console.log(response);
+          // clearScreen();
+          //ClearScreen() didn't have below functionality
+          distanceDiv.addClass("displayNone");
+          // console.log(response.data[0]);
+          var data = response.data[0];
+          var address = data.addresses[0];
+          parkDetailsFunction(
+            data.fullName,
+            data.parkCode,
+            data.operatingHours[0].description,
+            JSON.stringify(data.operatingHours[0].standardHours),
+            JSON.stringify(data.images),
+            `${address.line1},  ${address.city}, ${address.stateCode} ${address.postalCode}`
+          );
+        });
+      });
+      favoriteParksListEL.append(listItem);
+    }
+  }
+
+  //event listener for add to favorites button
+  $(this).on("click", "#favoriteBtn", function () {
+    var nameOfPark = parkName.text();
+    var code = parkCode.text();
+    var faveObject = {
+      park: nameOfPark,
+      parkCode: code,
+    };
+
+    favoriteParks.push(faveObject);
+    localStorage.setItem("parks", JSON.stringify(favoriteParks));
+  });
 
   // Event Listener to return to main page
   $("#mainMenuBtn").on("click", function (event) {
@@ -445,7 +576,6 @@ $(document).ready(function () {
 
 
   });
-
 
   $(document).on("click", ".goBack", function (event) {
     event.preventDefault();
