@@ -23,7 +23,7 @@
   background: rgba(73, 66, 8, 0.6) !important;
   font-weight: bold;
   justify-content: center;
-  z-index: 0;
+  z-index: -1;
   font-size: 0.8em;
 }
 
@@ -91,6 +91,16 @@ body {
   background: linear-gradient(navy, white, red, blue);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+#optionCard {
+  transition: all 0.2s ease-in-out;
+}
+
+#optionCard:hover {
+  box-shadow: 3px 3px black;
+  transform: scale(1.03);
+  cursor: pointer;
 }
 
 #topicsBtn,

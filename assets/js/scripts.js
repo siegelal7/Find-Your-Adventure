@@ -183,6 +183,7 @@ $(document).ready(function () {
         parkCode: listOfParksArray[i].parkCode,
         entranceFees: listOfParksArray[i].entranceFees[0].cost,
         images: JSON.stringify(listOfParksArray[i].images),
+        id: "optionCard",
       });
 
       // Creates Card-Body Div
@@ -195,11 +196,8 @@ $(document).ready(function () {
       p.text(
         `${listOfParksArray[i].addresses[0].city}, ${listOfParksArray[i].addresses[0].stateCode}`
       );
-      var smallTextPrompt = $(
-        "<p class='card-text'><small class='text-muted'>Click card for park info</small></p>"
-      );
 
-      cardBodyDiv.append(h5, p, smallTextPrompt);
+      cardBodyDiv.append(h5, p);
       cardDiv.append(img, cardBodyDiv);
       colDiv.append(cardDiv);
       adventureDiv.append(colDiv);
