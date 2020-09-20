@@ -49,17 +49,16 @@ $(document).ready(function () {
    * FUNCTION DEFINITIONS
    */
 
-   // Function to display navbar home link only
-   function displayNavBarHomeLink(){
+  // Function to display navbar home link only
+  function displayNavBarHomeLink() {
     navMenu.attr("style", "display:block");
     navSearchPageOption.attr("style", "display:none");
-   }
+  }
 
-   //Functionc to  to hide park search
-   function hideParkSearch()
-   {
+  //Functionc to  to hide park search
+  function hideParkSearch() {
     $("#search-park-by-name").attr("style", "display:none");
-   }
+  }
 
   //Function to add go back button
   function addGobackBtn(divName, currentPage) {
@@ -168,8 +167,8 @@ $(document).ready(function () {
     var questionHeader = $("<h1>");
     questionHeader.text(question);
     questionHeader.attr({
-      "id": "questionHeader",
-      "class": "mb-5"
+      id: "questionHeader",
+      class: "mb-5",
     });
     div.append(questionHeader);
     div.attr("class", ".display");
@@ -215,10 +214,10 @@ $(document).ready(function () {
   // Function - Checks the List of Parks
   function noResultListOfParks() {
     if (listOfParksArray.length === 0) {
-      
-      $("#modal-body").text("There are no national parks in your state that include your selection.")
+      $("#modal-body").text(
+        "There are no national parks in your state that include your selection."
+      );
       $("#noParksModalCenter").modal("show");
-
     } else {
       createParksPage();
     }
@@ -551,13 +550,13 @@ $(document).ready(function () {
     // var parkOperatingHours = $(this).children("img").attr("operatingHours");
     parkName.text(parkNameText);
     // parkCode.text(parkCodeText);
-    var newParaEl = $("<p>").text(
-      "Current Operating Details: " + parkOperatingHours
-    );
+    var newParaEl = $("<p>");
+    newParaEl.text("Current Operating Details: " + parkOperatingHours);
+    newParaEl.attr("id", "opDetails");
     parkDetailInfo.append(newParaEl);
-    newParaEl = $("<p class='operating-hours'>").text(
-      "Standard Operating Hours"
-    );
+    newParaEl = $("<p class='operating-hours'>")
+      .attr("class", "bold")
+      .text("Standard Operating Hours");
     parkDetailInfo.append(newParaEl);
     parseStandardHours(standardHours);
     parseParkImage(images);
@@ -618,14 +617,18 @@ $(document).ready(function () {
 
     parkName.text(parkNameText);
     parkCode.text(parkCodeText);
-    var newParaEl = $("<p>").text("Current Operating Details");
-    var costParaEl = $("<p>").text("Entrance Fee: $" + cost);
+    var newParaEl = $("<p>")
+      .attr("class", "bold")
+      .text("Current Operating Details");
+    var costParaEl = $("<p>")
+      .attr("class", "bold")
+      .text("Entrance Fee: $" + cost);
     costParaEl.attr("style", "text-align: left");
-    newParaEl.attr("style", "text-decoration: underline");
+    // newParaEl.attr("style", "text-decoration: underline");
     parkDetailInfo.append(costParaEl, newParaEl, parkOperatingHours);
-    newParaEl = $("<p class='operating-hours'>").text(
-      "Standard Operating Hours"
-    );
+    newParaEl = $("<p class='operating-hours'>")
+      .attr("class", "bold")
+      .text("Standard Operating Hours");
     parkDetailInfo.append(newParaEl);
     parseStandardHours($(this).attr("standardHours"));
     parseParkImage($(this).attr("images"));
