@@ -681,20 +681,6 @@ $(document).ready(function () {
     getFavoriteList();
   });
 
-  // Event Listener to return to main page
-  $("#mainMenuBtn").on("click", function (event) {
-    event.preventDefault();
-
-    distanceDiv.attr("class", "display");
-    distanceDiv.attr("style", "display:block");
-
-    originalPage.attr("class", "displayNone");
-    originalPage.attr("style", "display:none");
-
-    navMenu.attr("style", "display:none");
-    $("#search-park-by-name").attr("style", "display:block");
-  });
-
   $(document).on("click", ".goBack", function (event) {
     event.preventDefault();
     if ($(this).attr("data-value") === "parkDetails") {
@@ -725,24 +711,24 @@ $(document).ready(function () {
 
   navMainPageOption.on("click", function (event) {
     event.preventDefault();
+    window.location.href = "./index.html";
+    // distanceDiv.addClass("display");
+    // distanceDiv.attr("style", "display:block");
 
-    distanceDiv.addClass("display");
-    distanceDiv.attr("style", "display:block");
+    // adventureDiv.attr("style", "display:none");
+    // adventureDivWrapper.children(".tobeDeleted").remove();
+    // adventureDiv.empty();
 
-    adventureDiv.attr("style", "display:none");
-    adventureDivWrapper.children(".tobeDeleted").remove();
-    adventureDiv.empty();
+    // originalPage.addClass(".displayNone");
+    // originalPage.attr("style", "display:none");
 
-    originalPage.addClass(".displayNone");
-    originalPage.attr("style", "display:none");
+    // parkDetails.attr("style", "display:none");
+    // parkDetailInfo.empty();
+    // parkDirectionsList.empty();
+    // parkDetails.children(".tobeDeleted").remove();
 
-    parkDetails.attr("style", "display:none");
-    parkDetailInfo.empty();
-    parkDirectionsList.empty();
-    parkDetails.children(".tobeDeleted").remove();
-
-    navMenu.attr("style", "display:none");
-    $("#search-park-by-name").attr("style", "display:block");
+    // navMenu.attr("style", "display:none");
+    // $("#search-park-by-name").attr("style", "display:block");
   });
 
   navSearchPageOption.on("click", function (event) {
