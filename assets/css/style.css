@@ -140,6 +140,13 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
+@media only screen and (max-width: 768px) {
+  .card-deck {
+    display: block;
+    width: 59em;
+  }
+}
+
 #optionCard {
   transition: all 0.2s ease-in-out;
 }
@@ -164,7 +171,7 @@ body {
 .goBack {
   background: #5c83fa !important;
   color: white !important;
-  margin-bottom: 30px!important;
+  margin-bottom: 30px !important;
 }
 
 #topicsBtn:hover,
