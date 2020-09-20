@@ -155,6 +155,10 @@ body {
   cursor: pointer;
 }
 
+#finalCard {
+  margin-bottom: 150px;
+}
+
 #questionHeader {
   background: rgba(151, 136, 131, 0.7);
 
