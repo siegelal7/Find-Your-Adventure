@@ -597,18 +597,11 @@ $(document).ready(function () {
 
     parkName.text(parkNameText);
     parkCode.text(parkCodeText);
-<<<<<<< HEAD
-    var newParaEl = $("<p>").text(
-      "Current Operating Details: " + parkOperatingHours
-    );
-    parkDetailInfo.append(newParaEl);
-=======
     var newParaEl = $("<p>").text("Current Operating Details");
     var costParaEl = $("<p>").text("Entrance Fee: $" + cost);
     costParaEl.attr("style", "text-align: left");
     newParaEl.attr("style", "text-decoration: underline");
     parkDetailInfo.append(costParaEl, newParaEl, parkOperatingHours);
->>>>>>> 18bca5b59da211159f1ba529a5fdd4da09aef2e0
     newParaEl = $("<p class='operating-hours'>").text(
       "Standard Operating Hours"
     );
