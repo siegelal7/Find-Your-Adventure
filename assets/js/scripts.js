@@ -95,8 +95,12 @@ $(document).ready(function () {
     }
     var header = $("<h3>");
     header.attr("id", "headerFaveList");
-    header.attr("style", "color:white; text-decoration:underline");
+    header.attr(
+      "style",
+      "color:white; text-decoration:underline;margin-bottom:15px"
+    );
     header.text("Favorite Parks:");
+
     $("#faveList").prepend(header);
     for (i = 0; i < favoriteParks.length; i++) {
       var listItem = $("<li>");
@@ -409,7 +413,17 @@ $(document).ready(function () {
     }).then(function (response) {
       if (response.data.length > 0) {
         clearScreen();
+        var aLink = $("<a>");
+        aLink.attr("id", "homeLink");
 
+        aLink.attr(
+          "style",
+          "margin-left:10px; font-size:1.1em; text-shadow: 1px 1px black;"
+        );
+        aLink.text("Home");
+        aLink.attr("href", "./index.html");
+
+        $(".navbar").append(aLink);
         for (i = 0; i < response.data.length; i++) {
           // Adds Class Card-Deck to Activity Div
           var results = response.data[i];
