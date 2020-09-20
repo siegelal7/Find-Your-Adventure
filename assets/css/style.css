@@ -17,8 +17,8 @@
   /* text-shadow: 1px 1px red; */
 }
 .navbar-nav li {
-  font-size: 1.06em;
-  /* font-weight: bold; */
+  
+  font-size: 1.2em;
   text-shadow: 1px 1px black;
 }
 
@@ -154,9 +154,9 @@ body {
 }
 
 .goBack {
-  background: #53cae0!important;
-  color: black!important;
-  /* text-shadow: 1px 1px #53cae0; */
+  background: #5c83fa!important;
+  color: white!important;
+  
 }
 
 #topicsBtn:hover,
