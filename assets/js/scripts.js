@@ -636,7 +636,9 @@ $(document).ready(function () {
     parseStandardHours($(this).attr("standardHours"));
     parseParkImage($(this).attr("images"));
 
-    var address = $("<p>").text("Address: " + $(this).attr("data-value"));
+    var address = $("<p>")
+      .attr("class", "bold")
+      .text("Address: " + $(this).attr("data-value"));
 
     var mapsQueryUrl = "";
     mapsQueryUrl =
@@ -670,7 +672,7 @@ $(document).ready(function () {
         orderedDirectionsList.append(newParaEl);
       }
       var totalDistance = $("<p>").text(
-        `Total Distance: ${response.route.distance} miles`
+        `Total Distance: ${response.route.distance.toFixed(1)} miles`
       );
       var travelTime = $("<p>").text(
         `Total Time: ${response.route.formattedTime}`
