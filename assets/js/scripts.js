@@ -55,6 +55,12 @@ $(document).ready(function () {
     navSearchPageOption.attr("style", "display:none");
    }
 
+   //Functionc to  to hide park search
+   function hideParkSearch()
+   {
+    $("#search-park-by-name").attr("style", "display:none");
+   }
+
   //Function to add go back button
   function addGobackBtn(divName, currentPage) {
     var newRow = $("<row>");
@@ -92,7 +98,7 @@ $(document).ready(function () {
     adventureDiv.empty();
   }
 
-  // Function - sets the array to localstorage value or leaves it blank if none; then populates list with faves
+  // Function - sets the array to local storage value or leaves it blank if none; then populates list with faves
   function getFavoriteList() {
     favoriteParksListEL.empty();
     var faves = JSON.parse(localStorage.getItem("parks"));
@@ -124,6 +130,7 @@ $(document).ready(function () {
           distanceDiv.addClass("displayNone");
           distanceDiv.attr("style", "display:none");
           $("#directionsDiv").attr("style", "display:none");
+          hideParkSearch();
 
           var data = response.data[0];
           var address = data.addresses[0];
