@@ -93,6 +93,11 @@ $(document).ready(function () {
     if (faves !== null) {
       favoriteParks = faves;
     }
+    var header = $("<h3>");
+    header.attr("id", "headerFaveList");
+    header.attr("style", "color:white; text-decoration:underline");
+    header.text("Favorite Parks:");
+    $("#faveList").prepend(header);
     for (i = 0; i < favoriteParks.length; i++) {
       var listItem = $("<li>");
       listItem.text(favoriteParks[i].park);
@@ -105,12 +110,11 @@ $(document).ready(function () {
           url: specificParkUrl + $(this).attr("parkCode"),
           method: "GET",
         }).then(function (response) {
-          // clearScreen();
           //ClearScreen() didn't have below functionality
           distanceDiv.addClass("displayNone");
           distanceDiv.attr("style", "display:none");
-          // $("#directionsDiv").attr("style", "display:none");
-          // console.log(response.data[0]);
+          $("#directionsDiv").attr("style", "display:none");
+
           var data = response.data[0];
           var address = data.addresses[0];
           parkDetailsFunction(

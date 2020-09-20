@@ -47,7 +47,10 @@
         <!-- </div> -->
       </div>
       <!-- Website Search Bar -->
-      <form class="form-inline my-2 my-lg-0 headerForm" id="search-park-by-name">
+      <form
+        class="form-inline my-2 my-lg-0 headerForm"
+        id="search-park-by-name"
+      >
         <input
           class="form-control mr-sm-2"
           type="search"
@@ -192,7 +195,7 @@
             </button>
           </form>
         </div>
-        <ul id="FavoriteParksList"></ul>
+        <div id="faveList"><ul id="FavoriteParksList"></ul></div>
       </div>
 
       <!-- Page - Choose Your Adventure -->
@@ -248,27 +251,48 @@
         </div>
       </div>
 
-
       <!-- Modal -->
-<div class="modal fade" id="noParksModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">No Parks Found!</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <div
+        class="modal fade"
+        id="noParksModalCenter"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">
+                No Parks Found!
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h5>
+                No parks found with the park name entered. Try your search with
+                different name or search by state option below.
+              </h5>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="modal-body">
-        <h5>No parks found with the park name entered. Try your search with different name or search by state option below.</h5>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        
-      </div>
-    </div>
-  </div>
-</div>
     </main>
 
     <!-- Footer -->
