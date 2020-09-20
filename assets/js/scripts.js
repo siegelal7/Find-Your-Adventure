@@ -79,6 +79,9 @@ $(document).ready(function () {
   // Function - Clears the Current Screen
   function clearScreen() {
     originalPage.attr("style", "display:none");
+    distanceDiv.attr("style", "display:none");
+    parkListDiv.attr("style", "display:none");
+    parkDetails.attr("style", "display:none");
     adventureDiv.empty();
   }
 
@@ -387,19 +390,17 @@ $(document).ready(function () {
   // FIXME: not working from the final results page for some reason
   searchBtn.on("click", function (event) {
     event.preventDefault();
-    // console.log("test");
+
     var term = $(this).siblings().val();
-    // console.log(term);
-    var url = `https://developer.nps.gov/api/v1/parks/?api_key=PtYiGrnXjG4FL7v9tOprJACeJgJV4KxlTarrmWXF&q=${term}`;
+    var searchURL = `https://developer.nps.gov/api/v1/parks/?api_key=PtYiGrnXjG4FL7v9tOprJACeJgJV4KxlTarrmWXF&q=${term}`;
+
     $.ajax({
-      url: url,
+      url: searchURL,
       method: "GET",
     }).then(function (response) {
-      distanceDiv.attr("style", "display:none");
+
       clearScreen();
-      parkListDiv.attr("style", "display:none");
-      parkDetails.attr("style", "display:none");
-      // parkListDiv.attr("style", "display:block");
+
       for (i = 0; i < response.data.length; i++) {
         // Adds Class Card-Deck to Activity Div
         var results = response.data[i];
@@ -533,7 +534,7 @@ $(document).ready(function () {
     // var parkOperatingHours = $(this).children("img").attr("operatingHours");
     parkName.text(parkNameText);
     // parkCode.text(parkCodeText);
-    var newParaEl = $("<p>").text("Operating Detail: " + parkOperatingHours);
+    var newParaEl = $("<p>").text("Operating Details: " + parkOperatingHours);
     parkDetailInfo.append(newParaEl);
     newParaEl = $("<p class='operating-hours'>").text(
       "Standard Operating Hours"
@@ -594,7 +595,7 @@ $(document).ready(function () {
 
     parkName.text(parkNameText);
     parkCode.text(parkCodeText);
-    var newParaEl = $("<p>").text("Operating Detail: " + parkOperatingHours);
+    var newParaEl = $("<p>").text("Operating Details: " + parkOperatingHours);
     parkDetailInfo.append(newParaEl);
     newParaEl = $("<p class='operating-hours'>").text(
       "Standard Operating Hours"
