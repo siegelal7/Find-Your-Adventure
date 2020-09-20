@@ -385,6 +385,7 @@ $(document).ready(function () {
       originalPage.attr("class", "display");
       originalPage.attr("style", "display:Block");
       navMenu.attr("style", "display:block");
+      $("#search-park-by-name").attr("style","display:none");
       userAddress = `${inputAddress.val()}, ${inputCity.val()}, ${inputState.val()} ${inputZip.val()}`;
 
       ajaxCallNPSbyState(inputState.val());
@@ -402,8 +403,11 @@ $(document).ready(function () {
       url: searchURL,
       method: "GET",
     }).then(function (response) {
+      
+    if(response.data.length >0)
+    {      
       clearScreen();
-
+      
       for (i = 0; i < response.data.length; i++) {
         // Adds Class Card-Deck to Activity Div
         var results = response.data[i];
@@ -455,6 +459,11 @@ $(document).ready(function () {
         colDiv.append(cardDiv);
         adventureDiv.append(colDiv);
       }
+    }
+    else
+    {
+      $("#noParksModalCenter").modal('show');
+    }
     });
   });
 
@@ -687,6 +696,7 @@ $(document).ready(function () {
     originalPage.attr("style", "display:none");
 
     navMenu.attr("style", "display:none");
+    $("#search-park-by-name").attr("style","display:block");
   });
 
   $(document).on("click", ".goBack", function (event) {
@@ -736,6 +746,7 @@ $(document).ready(function () {
     parkDetails.children(".tobeDeleted").remove();
 
     navMenu.attr("style", "display:none");
+    $("#search-park-by-name").attr("style","display:block");
   });
 
   navSearchPageOption.on("click", function (event) {
