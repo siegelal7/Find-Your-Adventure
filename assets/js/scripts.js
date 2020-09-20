@@ -548,7 +548,7 @@ $(document).ready(function () {
     favoriteBtn.text("Favorite");
     favoriteBtn.attr("id", "favoriteBtn");
     favoriteBtn.attr("class", "btn btn-primary btn-sm");
-    parkDetailInfo.append(favoriteBtn);
+    parkDetailInfo.prepend(favoriteBtn);
     addGobackBtn(parkDetails, "parkDetailsMainMenu");
 
     mapsUrl += `from=${userAddress}&to=${to}`;
@@ -557,8 +557,8 @@ $(document).ready(function () {
       method: "GET",
     }).then(function (response) {
       parkDetails.attr({
-        "style": "display:block",
-        "class": "mb-5"
+        style: "display:block",
+        class: "mb-5",
       });
       var orderedDirectionsList = $("<ol>");
       parkDirectionsList.append(orderedDirectionsList);
@@ -613,7 +613,7 @@ $(document).ready(function () {
     favoriteBtn.text("Favorite");
     favoriteBtn.attr("id", "favoriteBtn");
     favoriteBtn.attr("class", "btn btn-primary btn-sm");
-    parkDetailInfo.append(favoriteBtn);
+    parkDetailInfo.prepend(favoriteBtn);
     addGobackBtn(parkDetails, "parkDetails");
 
     $.ajax({
@@ -621,8 +621,8 @@ $(document).ready(function () {
       method: "GET",
     }).then(function (response) {
       parkDetails.attr({
-        "style": "display:block",
-        "class": "mb-5"
+        style: "display:block",
+        class: "mb-5",
       });
       var orderedDirectionsList = $("<ol>");
       parkDirectionsList.append(orderedDirectionsList);
