@@ -141,7 +141,7 @@ $(document).ready(function () {
           method: "GET",
         }).then(function (response) {
           //ClearScreen() didn't have below functionality
-          distanceDiv.addClass("displayNone");
+          // distanceDiv.addClass("displayNone");
           distanceDiv.attr("style", "display:none");
           $("#directionsDiv").attr("style", "display:none");
           hideParkSearch();
@@ -399,7 +399,7 @@ $(document).ready(function () {
       validationAlert.attr("style", "display:block");
     } else {
       validationAlert.attr("style", "display:none");
-      distanceDiv.attr("class", "displayNone");
+      // distanceDiv.attr("class", "displayNone");
       distanceDiv.attr("style", "display:none");
       originalPage.attr("class", "display");
       originalPage.attr("style", "display:Block");
@@ -718,16 +718,17 @@ $(document).ready(function () {
     event.preventDefault();
     if ($(this).attr("data-value") === "parkDetails") {
       adventureDiv.attr("style", "display:");
-      parkDetails.attr("class", "displayNone");
+      adventureDivWrapper.children(".goBackBtnRow").attr("style", "display:block");
+      // parkDetails.attr("class", "displayNone");
       parkDetails.attr("style", "display:None");
       parkDetailInfo.empty();
       parkDirectionsList.empty();
       parkDetails.children(".goBackBtnRow").remove();
-      addGobackBtn(adventureDiv, "parkList");
+      // addGobackBtn(adventureDiv, "parkList");
     } else if ($(this).attr("data-value") === "parkDetailsMainMenu") {
-      distanceDiv.addClass("display");
-      distanceDiv.attr("style", "display:block");
-      parkDetails.addClass("displayNone");
+      // distanceDiv.addClass("display");
+      distanceDiv.attr("style", "display:");
+      // parkDetails.addClass("displayNone");
       parkDetails.attr("style", "display:none");
       parkDetailInfo.empty();
       parkDirectionsList.empty();
@@ -740,7 +741,7 @@ $(document).ready(function () {
 
     } else {
       adventureDiv.attr("style", "display:none");
-      originalPage.addClass(".display");
+      // originalPage.addClass(".display");
 
       originalPage.attr("style", "display:block");
       adventureDivWrapper.children(".goBackBtnRow").remove();
@@ -758,14 +759,14 @@ $(document).ready(function () {
   navSearchPageOption.on("click", function (event) {
     event.preventDefault();
 
-    distanceDiv.addClass("displayNone");
+    // distanceDiv.addClass("displayNone");
     distanceDiv.attr("style", "display:none");
 
     adventureDiv.attr("style", "display:none");
     adventureDivWrapper.children(".goBackBtnRow").remove();
     adventureDiv.empty();
 
-    originalPage.addClass(".display");
+    // originalPage.addClass(".display");
     originalPage.attr("style", "display:block");
 
     parkDetails.attr("style", "display:none");
