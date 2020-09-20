@@ -158,7 +158,10 @@ $(document).ready(function () {
 
     var questionHeader = $("<h1>");
     questionHeader.text(question);
-    questionHeader.attr("id", "questionHeader");
+    questionHeader.attr({
+      "id": "questionHeader",
+      "class": "mb-5"
+    });
     div.append(questionHeader);
     div.attr("class", ".display");
 
