@@ -110,9 +110,9 @@ $(document).ready(function () {
     header.attr("id", "headerFaveList");
     header.attr(
       "style",
-      "color:white; text-decoration:underline;margin-bottom:15px"
+      "color:#f2be79; text-decoration:underline;margin-bottom:15px"
     );
-    header.text("Favorite Parks:");
+    header.text("Favorite Parks");
 
     $("#faveList").prepend(header);
     for (i = 0; i < favoriteParks.length; i++) {
