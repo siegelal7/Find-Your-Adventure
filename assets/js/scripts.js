@@ -49,10 +49,16 @@ $(document).ready(function () {
    * FUNCTION DEFINITIONS
    */
 
+   // Function to display navbar home link only
+   function displayNavBarHomeLink(){
+    navMenu.attr("style", "display:block");
+    navSearchPageOption.attr("style", "display:none");
+   }
+
   //Function to add go back button
   function addGobackBtn(divName, currentPage) {
     var newRow = $("<row>");
-    newRow.addClass("tobeDeleted");
+    newRow.addClass("goBackBtnRow");
     var newDiv = $("<div>");
     newDiv.addClass("col text-center");
 
@@ -65,7 +71,7 @@ $(document).ready(function () {
     newRow.append(newDiv);
 
     if (currentPage === "parkList") {
-      adventureDivWrapper.children(".tobeDeleted").remove();
+      adventureDivWrapper.children(".goBackBtnRow").remove();
       adventureDivWrapper.prepend(newRow);
     } else if (
       currentPage === "parkDetails" ||
@@ -416,17 +422,10 @@ $(document).ready(function () {
     }).then(function (response) {
       if (response.data.length > 0) {
         clearScreen();
-        var aLink = $("<a>");
-        aLink.attr("id", "homeLink");
 
-        aLink.attr(
-          "style",
-          "margin-left:10px; font-size:1.1em; text-shadow: 1px 1px black;"
-        );
-        aLink.text("Home");
-        aLink.attr("href", "./index.html");
+        // display nav bar home link only
+        displayNavBarHomeLink();
 
-        $(".navbar").append(aLink);
         for (i = 0; i < response.data.length; i++) {
           // Adds Class Card-Deck to Activity Div
           var results = response.data[i];
@@ -619,11 +618,11 @@ $(document).ready(function () {
   adventureDiv.on("click", ".card", function () {
     //clearScreen();
     adventureDiv.attr("style", "display:none");
-    adventureDivWrapper.children(".tobeDeleted").attr("style", "display:none");
+    adventureDivWrapper.children(".goBackBtnRow").attr("style", "display:none");
 
     // Fill in the selected park detail
     var parkNameText = $(this).attr("name");
-    //had to add park code so that localstorage could search by code
+    //had to add park code so that local storage could search by code
     var parkCodeText = $(this).attr("parkCode");
     var parkOperatingHours = $(this).attr("operatingHours");
     var cost = parseFloat($(this).attr("entranceFees"));
@@ -710,7 +709,7 @@ $(document).ready(function () {
       parkDetails.attr("style", "display:None");
       parkDetailInfo.empty();
       parkDirectionsList.empty();
-      parkDetails.children(".tobeDeleted").remove();
+      parkDetails.children(".goBackBtnRow").remove();
       addGobackBtn(adventureDiv, "parkList");
     } else if ($(this).attr("data-value") === "parkDetailsMainMenu") {
       distanceDiv.addClass("display");
@@ -719,13 +718,13 @@ $(document).ready(function () {
       parkDetails.attr("style", "display:none");
       parkDetailInfo.empty();
       parkDirectionsList.empty();
-      parkDetails.children(".tobeDeleted").remove();
+      parkDetails.children(".goBackBtnRow").remove();
     } else {
       adventureDiv.attr("style", "display:none");
       originalPage.addClass(".display");
 
       originalPage.attr("style", "display:block");
-      adventureDivWrapper.children(".tobeDeleted").remove();
+      adventureDivWrapper.children(".goBackBtnRow").remove();
       adventureDiv.empty();
     }
   });
@@ -737,7 +736,7 @@ $(document).ready(function () {
     // distanceDiv.attr("style", "display:block");
 
     // adventureDiv.attr("style", "display:none");
-    // adventureDivWrapper.children(".tobeDeleted").remove();
+    // adventureDivWrapper.children(".goBackBtnRow").remove();
     // adventureDiv.empty();
 
     // originalPage.addClass(".displayNone");
@@ -746,7 +745,7 @@ $(document).ready(function () {
     // parkDetails.attr("style", "display:none");
     // parkDetailInfo.empty();
     // parkDirectionsList.empty();
-    // parkDetails.children(".tobeDeleted").remove();
+    // parkDetails.children(".goBackBtnRow").remove();
 
     // navMenu.attr("style", "display:none");
     // $("#search-park-by-name").attr("style", "display:block");
@@ -759,7 +758,7 @@ $(document).ready(function () {
     distanceDiv.attr("style", "display:none");
 
     adventureDiv.attr("style", "display:none");
-    adventureDivWrapper.children(".tobeDeleted").remove();
+    adventureDivWrapper.children(".goBackBtnRow").remove();
     adventureDiv.empty();
 
     originalPage.addClass(".display");
@@ -768,7 +767,7 @@ $(document).ready(function () {
     parkDetails.attr("style", "display:none");
     parkDetailInfo.empty();
     parkDirectionsList.empty();
-    parkDetails.children(".tobeDeleted").remove();
+    parkDetails.children(".goBackBtnRow").remove();
   });
 
   // Event handler to clear the alert (which is display when no state is selected)
