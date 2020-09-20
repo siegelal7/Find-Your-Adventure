@@ -95,8 +95,12 @@ $(document).ready(function () {
     }
     var header = $("<h3>");
     header.attr("id", "headerFaveList");
-    header.attr("style", "color:white; text-decoration:underline");
+    header.attr(
+      "style",
+      "color:white; text-decoration:underline;margin-bottom:15px"
+    );
     header.text("Favorite Parks:");
+
     $("#faveList").prepend(header);
     for (i = 0; i < favoriteParks.length; i++) {
       var listItem = $("<li>");
