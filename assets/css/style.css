@@ -9,10 +9,12 @@
 }
 
 .head {
+  color: gold !important;
+  text-shadow: 1px 1px navy;
   z-index: 1;
   background: #53cae0 !important;
   margin-bottom: 2em;
-  text-shadow: 1px 1px red;
+  /* text-shadow: 1px 1px red; */
 }
 
 #navbarSupportedContent {
@@ -42,10 +44,18 @@ body {
   margin: 0;
 }
 .headerForm {
-  position: absolute;
-  top: 2;
-  left: 2%;
+  margin-left: 1%;
+  float: right !important;
 }
+
+/* @media only screen and (max-width: 936px) {
+  .headerForm {
+    position: relative;
+    top: 50em;
+    left: 0;
+  }
+} */
+
 .container {
   z-index: 2;
   color: black;
@@ -71,7 +81,8 @@ body {
 }
 .favorite-list-item {
   width: fit-content;
-  color: white;
+  color: gold;
+  text-shadow: 1px 2px navy;
   font-size: 1em;
   text-align: left;
 }
@@ -150,8 +161,9 @@ body {
 }
 
 form {
-  color: white !important;
+  color: gold !important;
   font-size: 1em;
+  text-shadow: 2px 2px slateblue;
 }
 
 #park-detail-img {
