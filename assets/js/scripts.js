@@ -756,4 +756,13 @@ $(document).ready(function () {
     parkDirectionsList.empty();
     parkDetails.children(".tobeDeleted").remove();
   });
+
+
+  // Event handler to clear the alert (which is display when no state is selected)
+  $("#inputState").on("change", function(){
+      
+      if (inputState.val() !== "none") {
+        validationAlert.attr("style", "display:none");
+      }
+  });
 });
