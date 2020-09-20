@@ -49,6 +49,7 @@ $(document).ready(function () {
    * FUNCTION DEFINITIONS
    */
 
+  //Function to add go back button
   function addGobackBtn(divName, currentPage) {
     var newRow = $("<row>");
     newRow.addClass("tobeDeleted");
@@ -87,10 +88,20 @@ $(document).ready(function () {
 
   // Function - sets the array to localstorage value or leaves it blank if none; then populates list with faves
   function getFavoriteList() {
+    favoriteParksListEL.empty();
     var faves = JSON.parse(localStorage.getItem("parks"));
     if (faves !== null) {
       favoriteParks = faves;
     }
+    var header = $("<h3>");
+    header.attr("id", "headerFaveList");
+    header.attr(
+      "style",
+      "color:white; text-decoration:underline;margin-bottom:15px"
+    );
+    header.text("Favorite Parks:");
+
+    $("#faveList").prepend(header);
     for (i = 0; i < favoriteParks.length; i++) {
       var listItem = $("<li>");
       listItem.text(favoriteParks[i].park);
@@ -103,12 +114,11 @@ $(document).ready(function () {
           url: specificParkUrl + $(this).attr("parkCode"),
           method: "GET",
         }).then(function (response) {
-          // clearScreen();
           //ClearScreen() didn't have below functionality
           distanceDiv.addClass("displayNone");
           distanceDiv.attr("style", "display:none");
-          // $("#directionsDiv").attr("style", "display:none");
-          // console.log(response.data[0]);
+          $("#directionsDiv").attr("style", "display:none");
+
           var data = response.data[0];
           var address = data.addresses[0];
           parkDetailsFunction(
@@ -142,6 +152,7 @@ $(document).ready(function () {
 
     var questionHeader = $("<h1>");
     questionHeader.text(question);
+    questionHeader.attr("id", "questionHeader");
     div.append(questionHeader);
     div.attr("class", ".display");
 
@@ -190,7 +201,7 @@ $(document).ready(function () {
 
       var counter = 5;
       var errorHeader = $("<h1>");
-      errorHeader.attr("style", "background-color: transparent");
+      errorHeader.attr("style", "background-color: transparent; color:white");
       var errorHeaderSpan = $("<span>" + counter + "</span>.");
       errorHeader
         .text(
@@ -376,11 +387,13 @@ $(document).ready(function () {
     if (inputState.val() == "none") {
       validationAlert.attr("style", "display:block");
     } else {
+      validationAlert.attr("style", "display:none");
       distanceDiv.attr("class", "displayNone");
       distanceDiv.attr("style", "display:none");
       originalPage.attr("class", "display");
       originalPage.attr("style", "display:Block");
       navMenu.attr("style", "display:block");
+      $("#search-park-by-name").attr("style", "display:none");
       userAddress = `${inputAddress.val()}, ${inputCity.val()}, ${inputState.val()} ${inputZip.val()}`;
 
       ajaxCallNPSbyState(inputState.val());
@@ -398,59 +411,72 @@ $(document).ready(function () {
       url: searchURL,
       method: "GET",
     }).then(function (response) {
+      if (response.data.length > 0) {
+        clearScreen();
+        var aLink = $("<a>");
+        aLink.attr("id", "homeLink");
 
-      clearScreen();
-
-      for (i = 0; i < response.data.length; i++) {
-        // Adds Class Card-Deck to Activity Div
-        var results = response.data[i];
-        adventureDiv.attr("class", "card-deck row row-cols-3 mt-5");
-        var colDiv = $("<div class='col mb-4'></div>");
-        var cardDiv = $("<div class='card'></div>");
-
-        var img = $(
-          "<img class='card-img-top park-image' alt='park-image' style='height: 210px'/>"
+        aLink.attr(
+          "style",
+          "margin-left:10px; font-size:1.1em; text-shadow: 1px 1px black;"
         );
-        if (results.images[0] != undefined) {
-          img.attr("src", results.images[0].url);
-        } else {
-          img.attr(
-            "src",
-            "https://files.tripstodiscover.com/files/2018/08/32533575_1785635178193287_5065019941074239488_o.jpg"
+        aLink.text("Home");
+        aLink.attr("href", "./index.html");
+
+        $(".navbar").append(aLink);
+        for (i = 0; i < response.data.length; i++) {
+          // Adds Class Card-Deck to Activity Div
+          var results = response.data[i];
+          adventureDiv.attr("class", "card-deck row row-cols-3 mt-5");
+          var colDiv = $("<div class='col mb-4'></div>");
+          var cardDiv = $("<div class='card'></div>");
+
+          var img = $(
+            "<img class='card-img-top park-image' alt='park-image' style='height: 210px'/>"
           );
+          if (results.images[0] != undefined) {
+            img.attr("src", results.images[0].url);
+          } else {
+            img.attr(
+              "src",
+              "https://files.tripstodiscover.com/files/2018/08/32533575_1785635178193287_5065019941074239488_o.jpg"
+            );
+          }
+          cardDiv.attr(
+            "data-value",
+            `${results.addresses[0].line1},  ${results.addresses[0].city}, ${results.addresses[0].stateCode} ${results.addresses[0].postalCode}`
+          );
+
+          cardDiv.attr({
+            name: results.fullName,
+            operatingHours: results.operatingHours[0].description,
+            standardHours: JSON.stringify(
+              results.operatingHours[0].standardHours
+            ),
+            parkCode: results.parkCode,
+            entranceFees: results.entranceFees[0].cost,
+            images: JSON.stringify(results.images),
+            id: "optionCard",
+          });
+
+          // Creates Card-Body Div
+          var cardBodyDiv = $("<div class='card-body'></div>");
+          // Creates Card Header
+          var h5 = $("<h5 class='card-title'></h5>");
+          h5.text(results.fullName);
+          // Creates Card Paragraph
+          var p = $("<p class='card-text'></p>");
+          p.text(
+            `${results.addresses[0].city}, ${results.addresses[0].stateCode}`
+          );
+
+          cardBodyDiv.append(h5, p);
+          cardDiv.append(img, cardBodyDiv);
+          colDiv.append(cardDiv);
+          adventureDiv.append(colDiv);
         }
-        cardDiv.attr(
-          "data-value",
-          `${results.addresses[0].line1},  ${results.addresses[0].city}, ${results.addresses[0].stateCode} ${results.addresses[0].postalCode}`
-        );
-
-        cardDiv.attr({
-          name: results.fullName,
-          operatingHours: results.operatingHours[0].description,
-          standardHours: JSON.stringify(
-            results.operatingHours[0].standardHours
-          ),
-          parkCode: results.parkCode,
-          entranceFees: results.entranceFees[0].cost,
-          images: JSON.stringify(results.images),
-          id: "optionCard",
-        });
-
-        // Creates Card-Body Div
-        var cardBodyDiv = $("<div class='card-body'></div>");
-        // Creates Card Header
-        var h5 = $("<h5 class='card-title'></h5>");
-        h5.text(results.fullName);
-        // Creates Card Paragraph
-        var p = $("<p class='card-text'></p>");
-        p.text(
-          `${results.addresses[0].city}, ${results.addresses[0].stateCode}`
-        );
-
-        cardBodyDiv.append(h5, p);
-        cardDiv.append(img, cardBodyDiv);
-        colDiv.append(cardDiv);
-        adventureDiv.append(colDiv);
+      } else {
+        $("#noParksModalCenter").modal("show");
       }
     });
   });
@@ -534,7 +560,9 @@ $(document).ready(function () {
     // var parkOperatingHours = $(this).children("img").attr("operatingHours");
     parkName.text(parkNameText);
     // parkCode.text(parkCodeText);
-    var newParaEl = $("<p>").text("Current Operating Details: " + parkOperatingHours);
+    var newParaEl = $("<p>").text(
+      "Current Operating Details: " + parkOperatingHours
+    );
     parkDetailInfo.append(newParaEl);
     newParaEl = $("<p class='operating-hours'>").text(
       "Standard Operating Hours"
@@ -545,10 +573,13 @@ $(document).ready(function () {
 
     // Favorite button
     var favoriteBtn = $("<button>");
-    favoriteBtn.text("Favorite");
+    favoriteBtn.append(
+      "<svg width='1.6em' height='1.6em' viewBox='0 0 16 16' class='bi bi-star' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288l1.847-3.658 1.846 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.564.564 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z'/></svg>"
+    );
     favoriteBtn.attr("id", "favoriteBtn");
-    favoriteBtn.attr("class", "btn btn-primary btn-sm");
-    parkDetailInfo.prepend(favoriteBtn);
+    favoriteBtn.attr("class", "btn btn-primary btn-sm mr-3");
+    parkName.prepend(favoriteBtn);
+    //go back button
     addGobackBtn(parkDetails, "parkDetailsMainMenu");
 
     mapsUrl += `from=${userAddress}&to=${to}`;
@@ -616,7 +647,9 @@ $(document).ready(function () {
     //TODO: here's the favorite button for now
 
     var favoriteBtn = $("<button>");
-    favoriteBtn.append("<svg width='1.6em' height='1.6em' viewBox='0 0 16 16' class='bi bi-star' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288l1.847-3.658 1.846 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.564.564 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z'/></svg>");
+    favoriteBtn.append(
+      "<svg width='1.6em' height='1.6em' viewBox='0 0 16 16' class='bi bi-star' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288l1.847-3.658 1.846 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.564.564 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z'/></svg>"
+    );
     favoriteBtn.attr("id", "favoriteBtn");
     favoriteBtn.attr("class", "btn btn-primary btn-sm mr-3");
     parkName.prepend(favoriteBtn);
@@ -657,25 +690,13 @@ $(document).ready(function () {
       park: nameOfPark,
       parkCode: code,
     };
-    //FIXME: this if statement isn't working properly
-    if (favoriteParks.includes(faveObject) === false) {
+    // found this function here (answer #3): https://stackoverflow.com/questions/22844560/check-if-object-value-exists-within-a-javascript-array-of-objects-and-if-not-add
+    const checkArrayForObj = (obj) => obj.park === faveObject.park;
+    if (favoriteParks.some(checkArrayForObj) == false) {
       favoriteParks.push(faveObject);
     }
-
     localStorage.setItem("parks", JSON.stringify(favoriteParks));
-  });
-
-  // Event Listener to return to main page
-  $("#mainMenuBtn").on("click", function (event) {
-    event.preventDefault();
-
-    distanceDiv.attr("class", "display");
-    distanceDiv.attr("style", "display:block");
-
-    originalPage.attr("class", "displayNone");
-    originalPage.attr("style", "display:none");
-
-    navMenu.attr("style", "display:none");
+    getFavoriteList();
   });
 
   $(document).on("click", ".goBack", function (event) {
@@ -708,23 +729,24 @@ $(document).ready(function () {
 
   navMainPageOption.on("click", function (event) {
     event.preventDefault();
+    window.location.href = "./index.html";
+    // distanceDiv.addClass("display");
+    // distanceDiv.attr("style", "display:block");
 
-    distanceDiv.addClass("display");
-    distanceDiv.attr("style", "display:block");
+    // adventureDiv.attr("style", "display:none");
+    // adventureDivWrapper.children(".tobeDeleted").remove();
+    // adventureDiv.empty();
 
-    adventureDiv.attr("style", "display:none");
-    adventureDivWrapper.children(".tobeDeleted").remove();
-    adventureDiv.empty();
+    // originalPage.addClass(".displayNone");
+    // originalPage.attr("style", "display:none");
 
-    originalPage.addClass(".displayNone");
-    originalPage.attr("style", "display:none");
+    // parkDetails.attr("style", "display:none");
+    // parkDetailInfo.empty();
+    // parkDirectionsList.empty();
+    // parkDetails.children(".tobeDeleted").remove();
 
-    parkDetails.attr("style", "display:none");
-    parkDetailInfo.empty();
-    parkDirectionsList.empty();
-    parkDetails.children(".tobeDeleted").remove();
-
-    navMenu.attr("style", "display:none");
+    // navMenu.attr("style", "display:none");
+    // $("#search-park-by-name").attr("style", "display:block");
   });
 
   navSearchPageOption.on("click", function (event) {
@@ -744,5 +766,12 @@ $(document).ready(function () {
     parkDetailInfo.empty();
     parkDirectionsList.empty();
     parkDetails.children(".tobeDeleted").remove();
+  });
+
+  // Event handler to clear the alert (which is display when no state is selected)
+  $("#inputState").on("change", function () {
+    if (inputState.val() !== "none") {
+      validationAlert.attr("style", "display:none");
+    }
   });
 });
