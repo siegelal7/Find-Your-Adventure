@@ -109,7 +109,7 @@ $(document).ready(function () {
           //ClearScreen() didn't have below functionality
           distanceDiv.addClass("displayNone");
           distanceDiv.attr("style", "display:none");
-          // $("#directionsDiv").attr("style", "display:none");
+          $("#directionsDiv").attr("style", "display:none");
           // console.log(response.data[0]);
           var data = response.data[0];
           var address = data.addresses[0];
