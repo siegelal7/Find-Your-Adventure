@@ -551,11 +551,13 @@ $(document).ready(function () {
     parkName.text(parkNameText);
     // parkCode.text(parkCodeText);
     var newParaEl = $("<p>");
-    newParaEl.text("Current Operating Details: " + parkOperatingHours);
+    newParaEl.text("Current Operating Details");
     newParaEl.attr("id", "opDetails");
-    parkDetailInfo.append(newParaEl);
+    newParaEl.attr("class", "bold");
+    parkDetailInfo.append(newParaEl, parkOperatingHours);
     newParaEl = $("<p class='operating-hours'>")
       .attr("class", "bold")
+      .attr("id", "opHours")
       .text("Standard Operating Hours");
     parkDetailInfo.append(newParaEl);
     parseStandardHours(standardHours);
@@ -613,21 +615,22 @@ $(document).ready(function () {
     //had to add park code so that local storage could search by code
     var parkCodeText = $(this).attr("parkCode");
     var parkOperatingHours = $(this).attr("operatingHours");
-    var cost = parseFloat($(this).attr("entranceFees"));
 
     parkName.text(parkNameText);
     parkCode.text(parkCodeText);
+    var cost = parseFloat($(this).attr("entranceFees"));
     var newParaEl = $("<p>")
       .attr("class", "bold")
       .text("Current Operating Details");
     var costParaEl = $("<p>")
-      .attr("class", "bold")
+      .attr("class", "bold mt-4")
       .text("Entrance Fee: $" + cost);
     costParaEl.attr("style", "text-align: left");
     // newParaEl.attr("style", "text-decoration: underline");
-    parkDetailInfo.append(costParaEl, newParaEl, parkOperatingHours);
+    parkDetailInfo.append(newParaEl, parkOperatingHours, costParaEl);
     newParaEl = $("<p class='operating-hours'>")
       .attr("class", "bold")
+      .attr("id", "opHours")
       .text("Standard Operating Hours");
     parkDetailInfo.append(newParaEl);
     parseStandardHours($(this).attr("standardHours"));
