@@ -379,6 +379,7 @@ $(document).ready(function () {
     if (inputState.val() == "none") {
       validationAlert.attr("style", "display:block");
     } else {
+      validationAlert.attr("style", "display:none");
       distanceDiv.attr("class", "displayNone");
       distanceDiv.attr("style", "display:none");
       originalPage.attr("class", "display");
