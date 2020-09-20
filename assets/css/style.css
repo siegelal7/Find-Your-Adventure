@@ -14,6 +14,7 @@
   z-index: 1;
   background: rgba(151, 136, 131, 0.8) !important;
   margin-bottom: 2em;
+  width: 100vw;
   /* text-shadow: 1px 1px red; */
 }
 .navbar-nav li {
@@ -67,14 +68,6 @@ body {
   margin-left: 1%;
   /* float: right !important; */
 }
-
-/* @media only screen and (max-width: 936px) {
-  .headerForm {
-    position: relative;
-    top: 50em;
-    left: 0;
-  }
-} */
 
 .container {
   z-index: 2;
@@ -142,10 +135,18 @@ body {
 
 @media only screen and (max-width: 768px) {
   .card-deck {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(1000px, 1fr));
+    grid-gap: 0.5rem;
+  }
+}
+
+/* @media only screen and (max-width: 768px) {
+  .card-deck {
     display: inline-block;
     width: 166%;
   }
-}
+} */
 
 #optionCard {
   transition: all 0.2s ease-in-out;
