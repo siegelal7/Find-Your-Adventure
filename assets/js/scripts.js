@@ -110,9 +110,9 @@ $(document).ready(function () {
     header.attr("id", "headerFaveList");
     header.attr(
       "style",
-      "color:white; text-decoration:underline;margin-bottom:15px"
+      "color:#f2be79; text-decoration:underline;margin-bottom:15px"
     );
-    header.text("Favorite Parks:");
+    header.text("Favorite Parks");
 
     $("#faveList").prepend(header);
     for (i = 0; i < favoriteParks.length; i++) {
@@ -626,20 +626,12 @@ $(document).ready(function () {
       .attr("class", "bold mt-4")
       .text("Entrance Fee: $" + cost);
     costParaEl.attr("style", "text-align: left");
-<<<<<<< HEAD
-    newParaEl.attr("style", "text-decoration: underline");
-    parkDetailInfo.append(newParaEl, parkOperatingHours, costParaEl);
-    newParaEl = $("<p class='operating-hours'>").text(
-      "Standard Operating Hours"
-    );
-=======
     // newParaEl.attr("style", "text-decoration: underline");
     parkDetailInfo.append(newParaEl, parkOperatingHours, costParaEl);
     newParaEl = $("<p class='operating-hours'>")
       .attr("class", "bold")
       .attr("id", "opHours")
       .text("Standard Operating Hours");
->>>>>>> 842f01b51f682d6a00bdf072f510cdc73a66b685
     parkDetailInfo.append(newParaEl);
     parseStandardHours($(this).attr("standardHours"));
     parseParkImage($(this).attr("images"));

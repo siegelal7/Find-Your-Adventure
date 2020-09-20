@@ -98,15 +98,16 @@ body {
   text-shadow: 0px 0px black;
 }
 #faveList {
-  margin-top: 40px;
+  margin-top: 100px;
   background: rgba(151, 136, 131, 0.8);
 }
+
 #favoriteParksList {
   width: fit-content;
 }
 .favorite-list-item {
   width: fit-content;
-  color: white;
+  color: #f2be79;
   /* text-shadow: 1px 2px navy; */
   transition: all 0.2s ease-in-out;
   font-size: 1.3em;
