@@ -26,6 +26,13 @@
   display: none;
 }
 
+button {
+  background-color: #3c6e4b!important;
+  border-color: white!important;
+  color: white!important;
+  border-width: 2px!important;
+}
+
 footer {
   opacity: 85%;
   z-index: -1 !important;
@@ -145,14 +152,11 @@ body {
   color: white;
   text-shadow: 1px 2px rgb(151, 136, 131);
 }
-#topicsBtn,
-#activityBtn,
-#mainMenuBtn,
-.goBack,
-.btn {
-  background: #53cae0;
-  color: black;
-  text-shadow: 1px 1px #53cae0;
+
+.goBack {
+  background: #53cae0!important;
+  color: black!important;
+  /* text-shadow: 1px 1px #53cae0; */
 }
 
 #topicsBtn:hover,
@@ -160,9 +164,8 @@ body {
 #mainMenuBtn:hover,
 .goBack:hover,
 .btn:hover {
-  background: navy;
-  text-shadow: 1px 1px #53cae0;
-  color: white;
+  background: navy!important;
+  color: white!important;
 }
 
 #mainMenuBtn {
@@ -182,7 +185,7 @@ body {
 form {
   color: white !important;
   font-size: 1.2em;
-  text-shadow: 2px 2px navy;
+  text-shadow: 2px 2px black;
 }
 
 #park-detail-img {
