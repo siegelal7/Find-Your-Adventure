@@ -60,18 +60,15 @@ $(document).ready(function () {
     $("#search-park-by-name").attr("style", "display:none");
   }
 
-
   //Function to display park search
   function showParkSearch() {
     $("#search-park-by-name").attr("style", "display:block");
   }
 
-
   // Function to display navbar home link only
   function hideNavBarHomeAndTopicActivityLink() {
     navMenu.attr("style", "display:none");
   }
-
 
   //Function to add go back button
   function addGobackBtn(divName, currentPage) {
@@ -478,6 +475,7 @@ $(document).ready(function () {
           cardDiv.append(img, cardBodyDiv);
           colDiv.append(cardDiv);
           adventureDiv.append(colDiv);
+          $("#directionsDiv").attr("style", "display:none");
         }
       } else {
         $("#noParksModalCenter").modal("show");
@@ -712,13 +710,14 @@ $(document).ready(function () {
     getFavoriteList();
   });
 
-
   //Event handler on  the back arrow - to navigate across  the page
   $(document).on("click", ".goBack", function (event) {
     event.preventDefault();
     if ($(this).attr("data-value") === "parkDetails") {
       adventureDiv.attr("style", "display:");
-      adventureDivWrapper.children(".goBackBtnRow").attr("style", "display:block");
+      adventureDivWrapper
+        .children(".goBackBtnRow")
+        .attr("style", "display:block");
       // parkDetails.attr("class", "displayNone");
       parkDetails.attr("style", "display:None");
       parkDetailInfo.empty();
@@ -736,9 +735,8 @@ $(document).ready(function () {
 
       // hide home/topic-activities
       hideNavBarHomeAndTopicActivityLink();
-      // show park  search 
+      // show park  search
       showParkSearch();
-
     } else {
       adventureDiv.attr("style", "display:none");
       // originalPage.addClass(".display");
