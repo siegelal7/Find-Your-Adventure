@@ -17,9 +17,16 @@
   /* text-shadow: 1px 1px red; */
 }
 .navbar-nav li {
-  
   font-size: 1.2em;
   text-shadow: 1px 1px black;
+}
+.bold {
+  font-weight: bold;
+}
+
+#opHours {
+  margin-top: 30px;
+  text-align: left;
 }
 
 #navbarSupportedContent {
@@ -90,7 +97,10 @@ body {
   color: black;
   text-shadow: 0px 0px black;
 }
-
+#faveList {
+  margin-top: 40px;
+  background: rgba(151, 136, 131, 0.8);
+}
 #favoriteParksList {
   width: fit-content;
 }
@@ -152,8 +162,8 @@ body {
 }
 
 .goBack {
-  background: #5c83fa!important;
-  color: white!important;
+  background: #5c83fa !important;
+  color: white !important;
 }
 
 #topicsBtn:hover,
