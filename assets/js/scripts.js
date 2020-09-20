@@ -55,10 +55,23 @@ $(document).ready(function () {
     navSearchPageOption.attr("style", "display:none");
   }
 
-  //Functionc to  to hide park search
+  //Function to  to hide park search
   function hideParkSearch() {
     $("#search-park-by-name").attr("style", "display:none");
   }
+
+
+  //Function to display park search
+  function showParkSearch() {
+    $("#search-park-by-name").attr("style", "display:block");
+  }
+
+
+  // Function to display navbar home link only
+  function hideNavBarHomeAndTopicActivityLink() {
+    navMenu.attr("style", "display:none");
+  }
+
 
   //Function to add go back button
   function addGobackBtn(divName, currentPage) {
@@ -682,7 +695,7 @@ $(document).ready(function () {
     });
   });
 
-  //event listener for add to favorites button
+  //Event listener for add to favorites button
   $(this).on("click", "#favoriteBtn", function () {
     var nameOfPark = parkName.text();
     var code = parkCode.text();
@@ -699,6 +712,8 @@ $(document).ready(function () {
     getFavoriteList();
   });
 
+
+  //Event handler on  the back arrow - to navigate across  the page
   $(document).on("click", ".goBack", function (event) {
     event.preventDefault();
     if ($(this).attr("data-value") === "parkDetails") {
@@ -717,6 +732,12 @@ $(document).ready(function () {
       parkDetailInfo.empty();
       parkDirectionsList.empty();
       parkDetails.children(".goBackBtnRow").remove();
+
+      // hide home/topic-activities
+      hideNavBarHomeAndTopicActivityLink();
+      // show park  search 
+      showParkSearch();
+
     } else {
       adventureDiv.attr("style", "display:none");
       originalPage.addClass(".display");
@@ -727,11 +748,13 @@ $(document).ready(function () {
     }
   });
 
+  //Nav bar options event handler - home page
   navMainPageOption.on("click", function (event) {
     event.preventDefault();
     window.location.href = "./index.html";
   });
 
+  //Nav bar options event handler - topic and Activities page
   navSearchPageOption.on("click", function (event) {
     event.preventDefault();
 
