@@ -206,34 +206,9 @@ $(document).ready(function () {
   // Function - Checks the List of Parks
   function noResultListOfParks() {
     if (listOfParksArray.length === 0) {
-      //adventureDiv.empty();
       
       $("#modal-body").text("There are no national parks in your state that include your selection.")
       $("#noParksModalCenter").modal("show");
-      // var counter = 5;
-      // var errorHeader = $("<h1>");
-      // errorHeader.attr("style", "background-color: transparent; color:white");
-      // var errorHeaderSpan = $("<span>" + counter + "</span>.");
-      // errorHeader
-      //   .text(
-      //     "Sadly there are no national parks in your state that include your selection. Redirecting you to the last page in "
-      //   )
-      //   .append(errorHeaderSpan)
-      //   .append(" seconds.");
-      // adventureDiv.append(errorHeader);
-
-      // var timer = setInterval(function () {
-      //   counter--;
-      //   errorHeaderSpan.text(counter);
-      //   console.log(counter);
-
-      //   if (counter === 0) {
-      //     clearInterval(timer);
-      //     createButtons(question, adventureDiv, adventureArray);
-      //   }
-      // }, 1000);
-
-
 
     } else {
       createParksPage();
