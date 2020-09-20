@@ -49,6 +49,7 @@ $(document).ready(function () {
    * FUNCTION DEFINITIONS
    */
 
+   //Function to add go back button
   function addGobackBtn(divName, currentPage) {
     var newRow = $("<row>");
     newRow.addClass("tobeDeleted");
@@ -87,6 +88,7 @@ $(document).ready(function () {
 
   // Function - sets the array to localstorage value or leaves it blank if none; then populates list with faves
   function getFavoriteList() {
+    favoriteParksListEL.empty();
     var faves = JSON.parse(localStorage.getItem("parks"));
     if (faves !== null) {
       favoriteParks = faves;
@@ -663,6 +665,7 @@ $(document).ready(function () {
     }
 
     localStorage.setItem("parks", JSON.stringify(favoriteParks));
+    getFavoriteList();
   });
 
   // Event Listener to return to main page
