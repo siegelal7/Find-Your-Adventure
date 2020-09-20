@@ -193,7 +193,7 @@ $(document).ready(function () {
 
       var counter = 5;
       var errorHeader = $("<h1>");
-      errorHeader.attr("style", "background-color: transparent");
+      errorHeader.attr("style", "background-color: transparent; color:white");
       var errorHeaderSpan = $("<span>" + counter + "</span>.");
       errorHeader
         .text(
@@ -385,7 +385,7 @@ $(document).ready(function () {
       originalPage.attr("class", "display");
       originalPage.attr("style", "display:Block");
       navMenu.attr("style", "display:block");
-      $("#search-park-by-name").attr("style","display:none");
+      $("#search-park-by-name").attr("style", "display:none");
       userAddress = `${inputAddress.val()}, ${inputCity.val()}, ${inputState.val()} ${inputZip.val()}`;
 
       ajaxCallNPSbyState(inputState.val());
@@ -403,67 +403,63 @@ $(document).ready(function () {
       url: searchURL,
       method: "GET",
     }).then(function (response) {
-      
-    if(response.data.length >0)
-    {      
-      clearScreen();
-      
-      for (i = 0; i < response.data.length; i++) {
-        // Adds Class Card-Deck to Activity Div
-        var results = response.data[i];
-        adventureDiv.attr("class", "card-deck row row-cols-3 mt-5");
-        var colDiv = $("<div class='col mb-4'></div>");
-        var cardDiv = $("<div class='card'></div>");
+      if (response.data.length > 0) {
+        clearScreen();
 
-        var img = $(
-          "<img class='card-img-top park-image' alt='park-image' style='height: 210px'/>"
-        );
-        if (results.images[0] != undefined) {
-          img.attr("src", results.images[0].url);
-        } else {
-          img.attr(
-            "src",
-            "https://files.tripstodiscover.com/files/2018/08/32533575_1785635178193287_5065019941074239488_o.jpg"
+        for (i = 0; i < response.data.length; i++) {
+          // Adds Class Card-Deck to Activity Div
+          var results = response.data[i];
+          adventureDiv.attr("class", "card-deck row row-cols-3 mt-5");
+          var colDiv = $("<div class='col mb-4'></div>");
+          var cardDiv = $("<div class='card'></div>");
+
+          var img = $(
+            "<img class='card-img-top park-image' alt='park-image' style='height: 210px'/>"
           );
+          if (results.images[0] != undefined) {
+            img.attr("src", results.images[0].url);
+          } else {
+            img.attr(
+              "src",
+              "https://files.tripstodiscover.com/files/2018/08/32533575_1785635178193287_5065019941074239488_o.jpg"
+            );
+          }
+          cardDiv.attr(
+            "data-value",
+            `${results.addresses[0].line1},  ${results.addresses[0].city}, ${results.addresses[0].stateCode} ${results.addresses[0].postalCode}`
+          );
+
+          cardDiv.attr({
+            name: results.fullName,
+            operatingHours: results.operatingHours[0].description,
+            standardHours: JSON.stringify(
+              results.operatingHours[0].standardHours
+            ),
+            parkCode: results.parkCode,
+            entranceFees: results.entranceFees[0].cost,
+            images: JSON.stringify(results.images),
+            id: "optionCard",
+          });
+
+          // Creates Card-Body Div
+          var cardBodyDiv = $("<div class='card-body'></div>");
+          // Creates Card Header
+          var h5 = $("<h5 class='card-title'></h5>");
+          h5.text(results.fullName);
+          // Creates Card Paragraph
+          var p = $("<p class='card-text'></p>");
+          p.text(
+            `${results.addresses[0].city}, ${results.addresses[0].stateCode}`
+          );
+
+          cardBodyDiv.append(h5, p);
+          cardDiv.append(img, cardBodyDiv);
+          colDiv.append(cardDiv);
+          adventureDiv.append(colDiv);
         }
-        cardDiv.attr(
-          "data-value",
-          `${results.addresses[0].line1},  ${results.addresses[0].city}, ${results.addresses[0].stateCode} ${results.addresses[0].postalCode}`
-        );
-
-        cardDiv.attr({
-          name: results.fullName,
-          operatingHours: results.operatingHours[0].description,
-          standardHours: JSON.stringify(
-            results.operatingHours[0].standardHours
-          ),
-          parkCode: results.parkCode,
-          entranceFees: results.entranceFees[0].cost,
-          images: JSON.stringify(results.images),
-          id: "optionCard",
-        });
-
-        // Creates Card-Body Div
-        var cardBodyDiv = $("<div class='card-body'></div>");
-        // Creates Card Header
-        var h5 = $("<h5 class='card-title'></h5>");
-        h5.text(results.fullName);
-        // Creates Card Paragraph
-        var p = $("<p class='card-text'></p>");
-        p.text(
-          `${results.addresses[0].city}, ${results.addresses[0].stateCode}`
-        );
-
-        cardBodyDiv.append(h5, p);
-        cardDiv.append(img, cardBodyDiv);
-        colDiv.append(cardDiv);
-        adventureDiv.append(colDiv);
+      } else {
+        $("#noParksModalCenter").modal("show");
       }
-    }
-    else
-    {
-      $("#noParksModalCenter").modal('show');
-    }
     });
   });
 
@@ -685,20 +681,6 @@ $(document).ready(function () {
     getFavoriteList();
   });
 
-  // Event Listener to return to main page
-  $("#mainMenuBtn").on("click", function (event) {
-    event.preventDefault();
-
-    distanceDiv.attr("class", "display");
-    distanceDiv.attr("style", "display:block");
-
-    originalPage.attr("class", "displayNone");
-    originalPage.attr("style", "display:none");
-
-    navMenu.attr("style", "display:none");
-    $("#search-park-by-name").attr("style","display:block");
-  });
-
   $(document).on("click", ".goBack", function (event) {
     event.preventDefault();
     if ($(this).attr("data-value") === "parkDetails") {
@@ -729,24 +711,24 @@ $(document).ready(function () {
 
   navMainPageOption.on("click", function (event) {
     event.preventDefault();
+    window.location.href = "./index.html";
+    // distanceDiv.addClass("display");
+    // distanceDiv.attr("style", "display:block");
 
-    distanceDiv.addClass("display");
-    distanceDiv.attr("style", "display:block");
+    // adventureDiv.attr("style", "display:none");
+    // adventureDivWrapper.children(".tobeDeleted").remove();
+    // adventureDiv.empty();
 
-    adventureDiv.attr("style", "display:none");
-    adventureDivWrapper.children(".tobeDeleted").remove();
-    adventureDiv.empty();
+    // originalPage.addClass(".displayNone");
+    // originalPage.attr("style", "display:none");
 
-    originalPage.addClass(".displayNone");
-    originalPage.attr("style", "display:none");
+    // parkDetails.attr("style", "display:none");
+    // parkDetailInfo.empty();
+    // parkDirectionsList.empty();
+    // parkDetails.children(".tobeDeleted").remove();
 
-    parkDetails.attr("style", "display:none");
-    parkDetailInfo.empty();
-    parkDirectionsList.empty();
-    parkDetails.children(".tobeDeleted").remove();
-
-    navMenu.attr("style", "display:none");
-    $("#search-park-by-name").attr("style","display:block");
+    // navMenu.attr("style", "display:none");
+    // $("#search-park-by-name").attr("style", "display:block");
   });
 
   navSearchPageOption.on("click", function (event) {
@@ -768,12 +750,10 @@ $(document).ready(function () {
     parkDetails.children(".tobeDeleted").remove();
   });
 
-
   // Event handler to clear the alert (which is display when no state is selected)
-  $("#inputState").on("change", function(){
-      
-      if (inputState.val() !== "none") {
-        validationAlert.attr("style", "display:none");
-      }
+  $("#inputState").on("change", function () {
+    if (inputState.val() !== "none") {
+      validationAlert.attr("style", "display:none");
+    }
   });
 });
