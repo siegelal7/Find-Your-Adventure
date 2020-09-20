@@ -38,14 +38,14 @@ footer {
 
 body {
   height: 100%;
-  font-size: 1.1em;
+  font-size: 1em;
   background: url("http://www.gafollowers.com/wp-content/uploads/2015/02/amicalola_falls_1_by_rctfan2-d48hqox.jpg")
     no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  font-size: 1.1em;
+
   margin: 0;
 }
 .headerForm {
@@ -180,7 +180,7 @@ body {
 
 form {
   color: white !important;
-  font-size: 1.3em;
+  font-size: 1.2em;
   text-shadow: 2px 2px navy;
 }
 
