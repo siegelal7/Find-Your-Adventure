@@ -413,7 +413,18 @@ $(document).ready(function () {
     }).then(function (response) {
       if (response.data.length > 0) {
         clearScreen();
-
+        var btn = $("<button>");
+        btn.attr("id", "homeBtn");
+        btn.attr("type", "button");
+        btn.attr("data-value", "Home");
+        btn.attr("style", "margin-left:5px");
+        btn.text("Home");
+        btn.attr("class", "btn btn-primary");
+        btn.on("click", function (event) {
+          event.preventDefault();
+          window.location.href = "./index.html";
+        });
+        $(".navbar").append(btn);
         for (i = 0; i < response.data.length; i++) {
           // Adds Class Card-Deck to Activity Div
           var results = response.data[i];
