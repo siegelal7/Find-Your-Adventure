@@ -622,7 +622,7 @@ $(document).ready(function () {
     var costParaEl = $("<p>").text("Entrance Fee: $" + cost);
     costParaEl.attr("style", "text-align: left");
     newParaEl.attr("style", "text-decoration: underline");
-    parkDetailInfo.append(costParaEl, newParaEl, parkOperatingHours);
+    parkDetailInfo.append(newParaEl, parkOperatingHours, costParaEl);
     newParaEl = $("<p class='operating-hours'>").text(
       "Standard Operating Hours"
     );

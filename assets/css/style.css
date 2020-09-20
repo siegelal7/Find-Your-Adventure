@@ -114,10 +114,6 @@ body {
   font-weight: normal;
 }
 
-#park-name {
-  font-weight: bold;
-}
-
 #directions-list {
   z-index: 2;
 }
@@ -206,4 +202,8 @@ form {
   justify-content: left;
   float: left;
   font-weight: normal;
+}
+
+#bold {
+  font-weight: bold;
 }
