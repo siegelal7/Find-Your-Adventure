@@ -27,10 +27,10 @@
 }
 
 button {
-  background-color: #3c6e4b!important;
-  border-color: white!important;
-  color: white!important;
-  border-width: 2px!important;
+  background-color: #3c6e4b !important;
+  border-color: white !important;
+  color: white !important;
+  border-width: 2px !important;
 }
 
 footer {
@@ -98,13 +98,15 @@ body {
   width: fit-content;
   color: white;
   /* text-shadow: 1px 2px navy; */
+  transition: all 0.2s ease-in-out;
   font-size: 1.3em;
   text-align: left;
 }
 .favorite-list-item:hover {
   color: red;
-  font-size: 1em;
+  /* font-size: 1em; */
   cursor: pointer;
+  transform: scale(1.03);
 }
 
 #park-details {
@@ -154,8 +156,8 @@ body {
 }
 
 .goBack {
-  background: #53cae0!important;
-  color: black!important;
+  background: #53cae0 !important;
+  color: black !important;
   /* text-shadow: 1px 1px #53cae0; */
 }
 
@@ -164,8 +166,8 @@ body {
 #mainMenuBtn:hover,
 .goBack:hover,
 .btn:hover {
-  background: navy!important;
-  color: white!important;
+  background: navy !important;
+  color: white !important;
 }
 
 #mainMenuBtn {
