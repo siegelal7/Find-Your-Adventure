@@ -17,6 +17,11 @@ In this day and age,
 
 1.
 
+## Links
+
+- Website: https://siegelal7.github.io/Find-Your-Adventure/
+- GitHub Repository: https://github.com/siegelal7/Find-Your-Adventure
+
 ## Design Elements
 
 ### _JavaScript_
@@ -71,11 +76,6 @@ In this day and age,
 ## App Preview
 
 ![Screenshot](picture.png)
-
-## Links
-
-- Website: https://siegelal7.github.io/Find-Your-Adventure/
-- GitHub Repository: https://github.com/siegelal7/Find-Your-Adventure
 
 ## Credits
 

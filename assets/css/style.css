@@ -129,11 +129,6 @@ body {
   z-index: 2;
 }
 
-#originalPage {
-  /* text-align: center; */
-  margin-top: 5em;
-}
-
 #landingPageHeader {
   color: white;
   background: rgba(151, 136, 131, 0.7);
@@ -169,6 +164,7 @@ body {
 .goBack {
   background: #5c83fa !important;
   color: white !important;
+  margin-bottom: 30px!important;
 }
 
 #topicsBtn:hover,

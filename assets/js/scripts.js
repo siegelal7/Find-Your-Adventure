@@ -168,10 +168,12 @@ $(document).ready(function () {
     questionHeader.text(question);
     questionHeader.attr({
       id: "questionHeader",
-      class: "mb-5",
+      class: "mb-4",
     });
     div.append(questionHeader);
     div.attr("class", ".display");
+
+    addGobackBtn(div, "adventuresList");
 
     for (i = 0; i < array.length; i++) {
       var option = $("<button>");
@@ -183,7 +185,6 @@ $(document).ready(function () {
       option.text(array[i]);
       div.append(option);
     }
-    addGobackBtn(div, "adventuresList");
     navMenu.attr("style", "display:block");
     navSearchPageOption.removeClass("disabled");
     div.attr("style", "display:");
@@ -231,7 +232,7 @@ $(document).ready(function () {
 
     for (i = 0; i < listOfParksArray.length; i++) {
       // Adds Class Card-Deck to Activity Div
-      adventureDiv.attr("class", "card-deck row row-cols-3 mt-5 mb-5");
+      adventureDiv.attr("class", "card-deck row row-cols-3 mb-5");
       var colDiv = $("<div class='col mb-4'></div>");
       var cardDiv = $("<div class='card'></div>");
 
@@ -477,21 +478,21 @@ $(document).ready(function () {
   activityBtn.on("click", function () {
     userAdventure = $(this).attr("data-value");
     adventureArray = [
+      "Astronomy",
+      "Biking",
+      "Boating",
       "Camping",
       "Fishing",
-      "Biking",
-      "Shopping",
-      "Guided Tours",
-      "Wildlife Watching",
-      "Hiking",
-      "Playground",
-      "Junior Ranger Program",
       "Food",
-      "Astronomy",
-      "Boating",
+      "Guided Tours",
+      "Hiking",
+      "Junior Ranger Program",
       "Living History",
+      "Playground",
       "Skiing",
       "Swimming",
+      "Shopping",
+      "Wildlife Watching",
     ];
 
     question = "Which of the following activities most interests you?";
