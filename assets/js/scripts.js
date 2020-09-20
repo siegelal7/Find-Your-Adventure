@@ -593,19 +593,30 @@ $(document).ready(function () {
     //had to add park code so that localstorage could search by code
     var parkCodeText = $(this).attr("parkCode");
     var parkOperatingHours = $(this).attr("operatingHours");
+    var cost = parseFloat($(this).attr("entranceFees"));
 
     parkName.text(parkNameText);
     parkCode.text(parkCodeText);
+<<<<<<< HEAD
     var newParaEl = $("<p>").text(
       "Current Operating Details: " + parkOperatingHours
     );
     parkDetailInfo.append(newParaEl);
+=======
+    var newParaEl = $("<p>").text("Current Operating Details");
+    var costParaEl = $("<p>").text("Entrance Fee: $" + cost);
+    costParaEl.attr("style", "text-align: left");
+    newParaEl.attr("style", "text-decoration: underline");
+    parkDetailInfo.append(costParaEl, newParaEl, parkOperatingHours);
+>>>>>>> 18bca5b59da211159f1ba529a5fdd4da09aef2e0
     newParaEl = $("<p class='operating-hours'>").text(
       "Standard Operating Hours"
     );
     parkDetailInfo.append(newParaEl);
     parseStandardHours($(this).attr("standardHours"));
     parseParkImage($(this).attr("images"));
+
+    var address = $("<p>").text("Address: " + $(this).attr("data-value"));
 
     var mapsQueryUrl = "";
     mapsQueryUrl =
@@ -642,9 +653,9 @@ $(document).ready(function () {
         `Total Distance: ${response.route.distance} miles`
       );
       var travelTime = $("<p>").text(
-        `Total time: ${response.route.formattedTime}`
+        `Total Time: ${response.route.formattedTime}`
       );
-      parkDirectionsList.prepend(totalDistance, travelTime);
+      parkDirectionsList.prepend(address, totalDistance, travelTime);
     });
   });
 
