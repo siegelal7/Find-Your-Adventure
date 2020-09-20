@@ -418,7 +418,7 @@ $(document).ready(function () {
 
         aLink.attr(
           "style",
-          "margin-left:10px; font-size:1.07em; text-shadow: 1px 1px black;"
+          "margin-left:10px; font-size:1.1em; text-shadow: 1px 1px black;"
         );
         aLink.text("Home");
         aLink.attr("href", "./index.html");
