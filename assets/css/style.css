@@ -142,8 +142,8 @@ body {
 
 @media only screen and (max-width: 768px) {
   .card-deck {
-    display: block;
-    width: 59em;
+    display: inline-block;
+    width: 166%;
   }
 }
 
