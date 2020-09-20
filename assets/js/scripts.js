@@ -79,6 +79,9 @@ $(document).ready(function () {
   // Function - Clears the Current Screen
   function clearScreen() {
     originalPage.attr("style", "display:none");
+    distanceDiv.attr("style", "display:none");
+    parkListDiv.attr("style", "display:none");
+    parkDetails.attr("style", "display:none");
     adventureDiv.empty();
   }
 
@@ -387,19 +390,17 @@ $(document).ready(function () {
   // FIXME: not working from the final results page for some reason
   searchBtn.on("click", function (event) {
     event.preventDefault();
-    // console.log("test");
+
     var term = $(this).siblings().val();
-    // console.log(term);
-    var url = `https://developer.nps.gov/api/v1/parks/?api_key=PtYiGrnXjG4FL7v9tOprJACeJgJV4KxlTarrmWXF&q=${term}`;
+    var searchURL = `https://developer.nps.gov/api/v1/parks/?api_key=PtYiGrnXjG4FL7v9tOprJACeJgJV4KxlTarrmWXF&q=${term}`;
+
     $.ajax({
-      url: url,
+      url: searchURL,
       method: "GET",
     }).then(function (response) {
-      distanceDiv.attr("style", "display:none");
+
       clearScreen();
-      parkListDiv.attr("style", "display:none");
-      parkDetails.attr("style", "display:none");
-      // parkListDiv.attr("style", "display:block");
+
       for (i = 0; i < response.data.length; i++) {
         // Adds Class Card-Deck to Activity Div
         var results = response.data[i];
@@ -533,7 +534,7 @@ $(document).ready(function () {
     // var parkOperatingHours = $(this).children("img").attr("operatingHours");
     parkName.text(parkNameText);
     // parkCode.text(parkCodeText);
-    var newParaEl = $("<p>").text("Operating Detail: " + parkOperatingHours);
+    var newParaEl = $("<p>").text("Current Operating Details: " + parkOperatingHours);
     parkDetailInfo.append(newParaEl);
     newParaEl = $("<p class='operating-hours'>").text(
       "Standard Operating Hours"
@@ -594,7 +595,7 @@ $(document).ready(function () {
 
     parkName.text(parkNameText);
     parkCode.text(parkCodeText);
-    var newParaEl = $("<p>").text("Operating Detail: " + parkOperatingHours);
+    var newParaEl = $("<p>").text("Current Operating Details: " + parkOperatingHours);
     parkDetailInfo.append(newParaEl);
     newParaEl = $("<p class='operating-hours'>").text(
       "Standard Operating Hours"
@@ -609,10 +610,10 @@ $(document).ready(function () {
     //TODO: here's the favorite button for now
 
     var favoriteBtn = $("<button>");
-    favoriteBtn.text("Favorite");
+    favoriteBtn.append("<svg width='1.6em' height='1.6em' viewBox='0 0 16 16' class='bi bi-star' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288l1.847-3.658 1.846 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.564.564 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z'/></svg>");
     favoriteBtn.attr("id", "favoriteBtn");
-    favoriteBtn.attr("class", "btn btn-primary btn-sm");
-    parkDetailInfo.prepend(favoriteBtn);
+    favoriteBtn.attr("class", "btn btn-primary btn-sm mr-3");
+    parkName.prepend(favoriteBtn);
     addGobackBtn(parkDetails, "parkDetails");
 
     $.ajax({
