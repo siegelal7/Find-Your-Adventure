@@ -54,7 +54,7 @@
         <input
           class="form-control mr-sm-2"
           type="search"
-          placeholder="Search parks by name"
+          placeholder="Search Parks by Name"
           aria-label="Search"
         />
         <button class="btn btn-outline-primary" type="submit" id="searchBtn">
@@ -84,13 +84,13 @@
             <!-- Form - City -->
             <div class="form-row">
               <div class="form-group col-sm-6">
-                <label for="inputCity">City (optional)</label>
+                <label for="inputCity">City</label>
                 <input type="text" class="form-control" id="inputCity" />
               </div>
 
               <!-- Form - State Options -->
               <div class="form-group col-sm-4">
-                <label for="inputState">State (required)</label>
+                <label for="inputState">State</label>
                 <select
                   name="state"
                   id="inputState"
@@ -157,13 +157,13 @@
                   id="validationAlert"
                   style="display: none"
                 >
-                  Please enter a state!
+                  Please choose a State
                 </div>
               </div>
 
               <!-- Form - Zip Code -->
               <div class="form-group col-sm-2">
-                <label for="inputZip">Zip (optional)</label>
+                <label for="inputZip">Zip</label>
                 <input type="text" class="form-control" id="inputZip" />
               </div>
             </div>
@@ -200,9 +200,9 @@
 
       <!-- Page - Choose Your Adventure -->
       <div id="originalPage" class="displayNone">
-        <h1 id="landingPageHeader">
+        <h1 id="landingPageHeader" class= "mb-5">
           How do you wish to choose your
-          <span id="adventure">adventure!</span>
+          <span id="adventure">adventure?</span>
         </h1>
         <button
           id="topicsBtn"
@@ -264,7 +264,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLongTitle">
-                No Parks Found!
+                No Parks Found.
               </h5>
               <button
                 type="button"
@@ -277,8 +277,8 @@
             </div>
             <div class="modal-body">
               <h5>
-                No parks found with the park name entered. Try your search with
-                different name or search by state option below.
+                No parks found with the park name you entered. Try your search with
+                a different name or search by the state option below.
               </h5>
             </div>
             <div class="modal-footer">
