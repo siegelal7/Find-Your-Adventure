@@ -1,6 +1,6 @@
-# Find-Your-Paradise
+# Find-Your-Adventure
 
-Thank you very much for taking the time to view our web-app! We hope you are able to swiftly navigate through the interface and get to your National Park of choice as soon as possible! Make sure you plan your gear, supplies, and clothing according to the conditions at the specific park, especially for longer trips. Have a great time and enjoy your adventures!!
+Thank you very much for taking the time to view our web-app! We hope you are able to swiftly navigate through the interface and get to your National Park Site of choice as soon as possible! Make sure you pack your gear, supplies, and clothing according to the conditions at the specific park site, especially for longer trips. Have a great time and enjoy your adventure!
 
 ## Table of Contents
 
@@ -12,8 +12,7 @@ Thank you very much for taking the time to view our web-app! We hope you are abl
 
 ## Description
 
-This is an app that will display a list of national parks based on the user’s location and preferences, including all of the information the user needs to know about the park.
-In this day and age,
+This is a one stop shop website that gives you everything you need to know about a national park site in one place, based on your preferences. We want to help users like you spend your precious time at one of America’s national park site, not online trying to get there. 
 
 ### _Usage_
 
@@ -48,7 +47,7 @@ In this day and age,
 
 ## Design Elements
 
-We chose to design our web-app using only one url and using DOM manipulation and event listeners to change the content on demand.
+We chose to design our web-app using only one url and using DOM manipulation and event listeners to change the content as needed.
 
 ### _JavaScript_
 
@@ -65,9 +64,9 @@ We chose to design our web-app using only one url and using DOM manipulation and
 - Sequential Order
 - Objects
 - Arrays
-- Methods
 - Global and Local Variables
 - Functions
+- Methods
 - Event Listeners
 - if...else Statements
 - for Loops
@@ -77,26 +76,41 @@ We chose to design our web-app using only one url and using DOM manipulation and
 
 - Grid System
 - Navbar
-- Cards
-- Form
+- Carousel
+- Card Decks and Cards
+- Forms
+- Buttons
+- Alignment
 - Sizing
 - Spacing
+- Icons
 
 ### _HTML_
 
 - Logical Structure
 - Sequential Order
-- Bootstrap CSS Link
-- CSS File Link
-- JavaScript File Link
+- Links to Bootstrap, jQuery, JavaScript, and CSS Files
 - Concise Descriptive Title
 - Semantic Elements
 - ids, Classes, and Elements
+- Modals
+- Forms
+- Dropdown List
 - Buttons
 - Comments
 
 ### _CSS_
-
+- Background Image
+- Animation
+- Hover
+- Z-Index
+- Float
+- Alignment
+- Padding and Margin
+- Opacity
+- Font and Text
+- Colors
+- Height and Width
 - Comments
 
 ## App Preview
@@ -129,6 +143,22 @@ We chose to design our web-app using only one url and using DOM manipulation and
 
 ![Screenshot](assets/images/FindYourAdventure6.png)
 ![Screenshot](assets/images/FindYourAdventure7.png)
+
+## Future Development Ideas
+
+- Include U.S. Territories in the database.
+- Add descriptions to the website to help the user navigate the pages.
+- Add more details to the description page of each national park site.
+- A separate page for the user’s favorite parks.
+- Use the National Park Service API to dynamically populate the topics and activities.
+- The ability to... 
+    - Search for multiple criteria at one time.
+    - Search for a national park site based on distance preference.
+    - Clear the favorites page with a clear button.
+    - Email or text the directions to the user’s mobile device.
+- Create a trip to a national park site.
+- Share the trip with others through social media.
+- An assessment to help the user figure out his/her national park site preferences.
 
 ## Credits
 

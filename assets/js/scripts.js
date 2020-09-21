@@ -19,15 +19,12 @@ $(document).ready(function () {
   /**
    * DOM ELEMENTS
    **/
-  var landingPageHeader = $("#landingPageHeader");
   var topicsBtn = $("#topicsBtn");
-  var distanceBtn = $("#distanceBtn");
   var activityBtn = $("#activityBtn");
   var adventureDiv = $("#adventureDiv");
   var adventureDivWrapper = $("#adventureDivWrapper");
   var distanceDiv = $("#distanceDiv");
   var parkListDiv = $("#parkListDiv");
-  var container = $("#container");
   var originalPage = $("#originalPage");
   var addressSubmit = $("#addressSubmit");
   var inputAddress = $("#inputAddress");
@@ -130,6 +127,7 @@ $(document).ready(function () {
       listItem.text(favoriteParks[i].park);
       listItem.attr("parkCode", favoriteParks[i].parkCode);
       listItem.attr("class", "favorite-list-item");
+
       // click event listener for the list items
       listItem.on("click", function () {
         $.ajax({
@@ -382,8 +380,8 @@ $(document).ready(function () {
   /**
    * FUNCTION CALLS
    */
-
   getFavoriteList();
+
   /**
    * EVENT HANDLERS
    */
@@ -391,6 +389,7 @@ $(document).ready(function () {
   // Event Listener - User clicks Address Submit, Address is stored, Call AJAX
   addressSubmit.on("click", function (event) {
     event.preventDefault();
+
     // Form validation in case the user doesn't enter a state on form
     if (inputState.val() == "none") {
       validationAlert.attr("style", "display:block");
@@ -407,7 +406,7 @@ $(document).ready(function () {
     }
   });
 
-  // event listener for the search form on the navbar
+  // Event Listener for the search form on the navbar
   searchBtn.on("click", function (event) {
     event.preventDefault();
 
@@ -421,7 +420,7 @@ $(document).ready(function () {
       if (response.data.length > 0) {
         clearScreen();
 
-        // display nav bar home link only
+        // Display nav bar home link only
         displayNavBarHomeLink();
 
         for (i = 0; i < response.data.length; i++) {
@@ -482,8 +481,6 @@ $(document).ready(function () {
     });
   });
 
-  // ACTIVITY BUTTON SECTION START!
-
   // Event Listener - User clicks Activity Button, Populate the Screen with Activities
   activityBtn.on("click", function () {
     userAdventure = $(this).attr("data-value");
@@ -539,7 +536,7 @@ $(document).ready(function () {
     createListOfParks(userChoice);
   });
 
-  // created the function inside of the click event so that it had access to local variables
+  // Created the function inside of the click event so that it had access to local variables
   function parkDetailsFunction(
     name,
     parkCode,
@@ -554,7 +551,7 @@ $(document).ready(function () {
     navSearchPageOption.addClass("disabled");
 
     var parkNameText = name;
-    //had to add park code so that localstorage could search by code it's hidden on page tho
+    //Had to add park code so that local storage could search by code it's hidden on page though
     var parkCodeText = parkCode;
     var parkOperatingHours = operatingHours;
     parkName.text(parkNameText);
@@ -579,7 +576,7 @@ $(document).ready(function () {
     favoriteBtn.attr("id", "favoriteBtn");
     favoriteBtn.attr("class", "btn btn-primary btn-sm mr-3");
     parkName.prepend(favoriteBtn);
-    //go back button
+    //Go back button
     addGobackBtn(parkDetails, "parkDetailsMainMenu");
 
     mapsUrl += `from=${userAddress}&to=${to}`;
@@ -618,7 +615,7 @@ $(document).ready(function () {
 
     // Fill in the selected park detail
     var parkNameText = $(this).attr("name");
-    //had to add park code so that local storage could search by code
+    //Had to add park code so that local storage could search by code
     var parkCodeText = $(this).attr("parkCode");
     var parkOperatingHours = $(this).attr("operatingHours");
 
@@ -632,7 +629,6 @@ $(document).ready(function () {
       .attr("class", "bold mt-4")
       .text("Entrance Fee: $" + cost);
     costParaEl.attr("style", "text-align: left");
-    // newParaEl.attr("style", "text-decoration: underline");
     parkDetailInfo.append(newParaEl, parkOperatingHours, costParaEl);
     newParaEl = $("<p class='operating-hours'>")
       .attr("class", "bold")
@@ -650,7 +646,7 @@ $(document).ready(function () {
     mapsQueryUrl =
       mapsUrl + `from=${userAddress}&to=${$(this).attr("data-value")}`;
 
-    // here's the favorite button for now
+    // Here's the favorite button for now
     var favoriteBtn = $("<button>");
     favoriteBtn.append(
       "<svg width='1.6em' height='1.6em' viewBox='0 0 16 16' class='bi bi-star' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288l1.847-3.658 1.846 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.564.564 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z'/></svg>"
@@ -659,6 +655,7 @@ $(document).ready(function () {
     favoriteBtn.attr("class", "btn btn-primary btn-sm mr-3");
     parkName.prepend(favoriteBtn);
     addGobackBtn(parkDetails, "parkDetails");
+    
     //MAPQUEST API call
     $.ajax({
       url: mapsQueryUrl,
@@ -695,7 +692,7 @@ $(document).ready(function () {
       park: nameOfPark,
       parkCode: code,
     };
-    // found this function here (answer #3): https://stackoverflow.com/questions/22844560/check-if-object-value-exists-within-a-javascript-array-of-objects-and-if-not-add
+    // Found this function here (answer #3): https://stackoverflow.com/questions/22844560/check-if-object-value-exists-within-a-javascript-array-of-objects-and-if-not-add
     const checkArrayForObj = (obj) => obj.park === faveObject.park;
     if (favoriteParks.some(checkArrayForObj) == false) {
       favoriteParks.push(faveObject);
@@ -716,23 +713,19 @@ $(document).ready(function () {
       parkDetailInfo.empty();
       parkDirectionsList.empty();
       parkDetails.children(".goBackBtnRow").remove();
-      // addGobackBtn(adventureDiv, "parkList");
     } else if ($(this).attr("data-value") === "parkDetailsMainMenu") {
-      // distanceDiv.addClass("display");
       distanceDiv.attr("style", "display:");
-      // parkDetails.addClass("displayNone");
       parkDetails.attr("style", "display:none");
       parkDetailInfo.empty();
       parkDirectionsList.empty();
       parkDetails.children(".goBackBtnRow").remove();
 
-      // hide home/topic-activities
+      // Hide home/topic-activities
       hideNavBarHomeAndTopicActivityLink();
-      // show park  search
+      // Show park  search
       showParkSearch();
     } else {
       adventureDiv.attr("style", "display:none");
-      // originalPage.addClass(".display");
 
       originalPage.attr("style", "display:block");
       adventureDivWrapper.children(".goBackBtnRow").remove();
@@ -750,14 +743,12 @@ $(document).ready(function () {
   navSearchPageOption.on("click", function (event) {
     event.preventDefault();
 
-    // distanceDiv.addClass("displayNone");
     distanceDiv.attr("style", "display:none");
 
     adventureDiv.attr("style", "display:none");
     adventureDivWrapper.children(".goBackBtnRow").remove();
     adventureDiv.empty();
 
-    // originalPage.addClass(".display");
     originalPage.attr("style", "display:block");
 
     parkDetails.attr("style", "display:none");
