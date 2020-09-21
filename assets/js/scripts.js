@@ -130,15 +130,13 @@ $(document).ready(function () {
       listItem.text(favoriteParks[i].park);
       listItem.attr("parkCode", favoriteParks[i].parkCode);
       listItem.attr("class", "favorite-list-item");
-      //FIXME: click even listener for the list items
+      // click event listener for the list items
       listItem.on("click", function () {
-        // console.log($(this).attr("parkCode"));
         $.ajax({
           url: specificParkUrl + $(this).attr("parkCode"),
           method: "GET",
         }).then(function (response) {
           //ClearScreen() didn't have below functionality
-          // distanceDiv.addClass("displayNone");
           distanceDiv.attr("style", "display:none");
           $("#directionsDiv").attr("style", "display:none");
           hideParkSearch();
@@ -249,6 +247,7 @@ $(document).ready(function () {
       var img = $(
         "<img class='card-img-top park-image' alt='park-image' style='height: 210px'/>"
       );
+
       if (listOfParksArray[i].images[0] != undefined) {
         img.attr("src", listOfParksArray[i].images[0].url);
       } else {
@@ -261,7 +260,7 @@ $(document).ready(function () {
         "data-value",
         `${listOfParksArray[i].addresses[0].line1},  ${listOfParksArray[i].addresses[0].city}, ${listOfParksArray[i].addresses[0].stateCode} ${listOfParksArray[i].addresses[0].postalCode}`
       );
-
+      // Adding these attributes so that we can we can populate the final results page with the info
       cardDiv.attr({
         name: listOfParksArray[i].fullName,
         operatingHours: listOfParksArray[i].operatingHours[0].description,
@@ -383,6 +382,7 @@ $(document).ready(function () {
   /**
    * FUNCTION CALLS
    */
+
   getFavoriteList();
   /**
    * EVENT HANDLERS
@@ -391,12 +391,11 @@ $(document).ready(function () {
   // Event Listener - User clicks Address Submit, Address is stored, Call AJAX
   addressSubmit.on("click", function (event) {
     event.preventDefault();
-
+    // Form validation in case the user doesn't enter a state on form
     if (inputState.val() == "none") {
       validationAlert.attr("style", "display:block");
     } else {
       validationAlert.attr("style", "display:none");
-      // distanceDiv.attr("class", "displayNone");
       distanceDiv.attr("style", "display:none");
       originalPage.attr("class", "display");
       originalPage.attr("style", "display:Block");
@@ -408,7 +407,7 @@ $(document).ready(function () {
     }
   });
 
-  // FIXME: not working from the final results page for some reason
+  // event listener for the search form on the navbar
   searchBtn.on("click", function (event) {
     event.preventDefault();
 
@@ -540,7 +539,7 @@ $(document).ready(function () {
     createListOfParks(userChoice);
   });
 
-  //FIXME: FIXME: effffffff
+  // created the function inside of the click event so that it had access to local variables
   function parkDetailsFunction(
     name,
     parkCode,
@@ -557,11 +556,8 @@ $(document).ready(function () {
     var parkNameText = name;
     //had to add park code so that localstorage could search by code it's hidden on page tho
     var parkCodeText = parkCode;
-    // var parkNameText = $(this).children("img").attr("name");
     var parkOperatingHours = operatingHours;
-    // var parkOperatingHours = $(this).children("img").attr("operatingHours");
     parkName.text(parkNameText);
-    // parkCode.text(parkCodeText);
     var newParaEl = $("<p>");
     newParaEl.text("Current Operating Details");
     newParaEl.attr("id", "opDetails");
@@ -599,8 +595,6 @@ $(document).ready(function () {
       parkDirectionsList.append(orderedDirectionsList);
 
       for (var i = 0; i < response.route.legs[0].maneuvers.length; i++) {
-        // console.log(response.route.legs[0].maneuvers[i].narrative);
-
         var newParaEl = $("<li>");
         newParaEl.text(response.route.legs[0].maneuvers[i].narrative);
 
@@ -655,8 +649,8 @@ $(document).ready(function () {
     var mapsQueryUrl = "";
     mapsQueryUrl =
       mapsUrl + `from=${userAddress}&to=${$(this).attr("data-value")}`;
-    //TODO: here's the favorite button for now
 
+    // here's the favorite button for now
     var favoriteBtn = $("<button>");
     favoriteBtn.append(
       "<svg width='1.6em' height='1.6em' viewBox='0 0 16 16' class='bi bi-star' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288l1.847-3.658 1.846 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.564.564 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z'/></svg>"
@@ -665,7 +659,7 @@ $(document).ready(function () {
     favoriteBtn.attr("class", "btn btn-primary btn-sm mr-3");
     parkName.prepend(favoriteBtn);
     addGobackBtn(parkDetails, "parkDetails");
-
+    //MAPQUEST API call
     $.ajax({
       url: mapsQueryUrl,
       method: "GET",
@@ -718,7 +712,6 @@ $(document).ready(function () {
       adventureDivWrapper
         .children(".goBackBtnRow")
         .attr("style", "display:block");
-      // parkDetails.attr("class", "displayNone");
       parkDetails.attr("style", "display:None");
       parkDetailInfo.empty();
       parkDirectionsList.empty();
